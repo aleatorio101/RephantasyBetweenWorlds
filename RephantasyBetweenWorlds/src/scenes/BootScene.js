@@ -5,19 +5,18 @@ export class BootScene extends Phaser.Scene {
 
     preload() {
         this.load.image('menu_bg', 'assets/sprites/menu_bg.jpeg');
-        this.load.image('tileset1', 'assets/maps/Lara/tileset_version1.1.png');
-        this.load.image('terrain', 'assets/maps/Lara/terrain_tiles_v2.png');
-        //this.load.image('graveyard', 'assets/maps/floresta/graveyard_tileset_32x32.png');
-        this.load.image('goldmine', 'assets/maps/Lara/GoldMine_Inactive.png');
-        this.load.image('dirtpath', 'assets/maps/Lara/dirtpath_tiles.png');
-        this.load.image('decorations1', 'assets/maps/Lara/decorations.png');
-        this.load.image('decorations2', 'assets/maps/Lara/Decorationspre.png');
-        this.load.image('aurora', 'assets/maps/Lara/Aurora Tileset.png');
-        this.load.image('tileset2', 'assets/maps/Lara/assets_spritesheet_v2_free.png');
-        this.load.image('tileset3', 'assets/maps/Lara/assets_version1.1.png');
-        this.load.image('tileset3', 'assets/maps/Lara/lara.png');
+        this.load.image('tileset1', 'assets/maps/floresta/tileset_version1.1.png');
+        this.load.image('terrain', 'assets/maps/floresta/terrain_tiles_v2.png');
+        this.load.image('graveyard', 'assets/maps/floresta/graveyard_tileset_32x32.png');
+        this.load.image('goldmine', 'assets/maps/floresta/GoldMine_Inactive.png');
+        this.load.image('dirtpath', 'assets/maps/floresta/dirtpath_tiles.png');
+        this.load.image('decorations1', 'assets/maps/floresta/decorations.png');
+        this.load.image('decorations2', 'assets/maps/floresta/Decorationspre.png');
+        this.load.image('aurora', 'assets/maps/floresta/Aurora Tileset.png');
+        this.load.image('tileset2', 'assets/maps/floresta/assets_spritesheet_v2_free.png');
+        this.load.image('tileset3', 'assets/maps/floresta/assets_version1.1.png');
     // Mapa
-        this.load.tilemapTiledJSON('lara', 'assets/maps/Lara/lara.json');
+        this.load.tilemapTiledJSON('floresta', 'assets/maps/floresta/floresta.json');
         this.load.spritesheet('hero', 'assets/sprites/hero.png', { frameWidth: 6, frameHeight: 6 });
     }
 

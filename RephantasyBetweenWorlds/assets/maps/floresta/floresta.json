@@ -825,7 +825,7 @@
         {
          "columns":16,
          "firstgid":1,
-         "image":"tileset_version1.1.png",
+         "image":"..\/..\/floresta_Front\/tileset_version1.1.png",
          "imageheight":352,
          "imagewidth":512,
          "margin":0,
@@ -838,7 +838,7 @@
         {
          "columns":10,
          "firstgid":177,
-         "image":"terrain_tiles_v2.png",
+         "image":"..\/..\/floresta_Front\/terrain_tiles_v2.png",
          "imageheight":512,
          "imagewidth":320,
          "margin":0,
@@ -851,7 +851,7 @@
         {
          "columns":8,
          "firstgid":337,
-         "image":"graveyard_tileset_32x32.png",
+         "image":"..\/..\/floresta_Front\/graveyard_tileset_32x32.png",
          "imageheight":384,
          "imagewidth":256,
          "margin":0,
@@ -864,7 +864,7 @@
         {
          "columns":6,
          "firstgid":433,
-         "image":"GoldMine_Inactive.png",
+         "image":"..\/..\/floresta_Front\/GoldMine_Inactive.png",
          "imageheight":128,
          "imagewidth":192,
          "margin":0,
@@ -877,7 +877,7 @@
         {
          "columns":4,
          "firstgid":457,
-         "image":"dirtpath_tiles.png",
+         "image":"..\/..\/floresta_Front\/dirtpath_tiles.png",
          "imageheight":128,
          "imagewidth":128,
          "margin":0,
@@ -890,7 +890,7 @@
         {
          "columns":2,
          "firstgid":473,
-         "image":"Decorationspre.png",
+         "image":"..\/..\/floresta_Front\/Decorationspre.png",
          "imageheight":128,
          "imagewidth":64,
          "margin":0,
@@ -903,9 +903,9 @@
         {
          "columns":1,
          "firstgid":481,
-         "image":"decorations.png",
+         "image":"..\/..\/floresta_Front\/decorations.png",
          "imageheight":96,
-         "imagewidth":32,
+         "imagewidth":36,
          "margin":0,
          "name":"decorations",
          "spacing":0,
@@ -916,11 +916,11 @@
         {
          "columns":35,
          "firstgid":484,
-         "image":"AuroraTileset.png",
+         "image":"..\/..\/floresta_Front\/Aurora Tileset.png",
          "imageheight":704,
          "imagewidth":1120,
          "margin":0,
-         "name":"AuroraTileset",
+         "name":"Aurora Tileset",
          "spacing":0,
          "tilecount":770,
          "tileheight":32,
@@ -929,7 +929,7 @@
         {
          "columns":6,
          "firstgid":1254,
-         "image":"assets_version1.1.png",
+         "image":"..\/..\/floresta_Front\/assets_version1.1.png",
          "imageheight":128,
          "imagewidth":192,
          "margin":0,
@@ -942,7 +942,7 @@
         {
          "columns":12,
          "firstgid":1278,
-         "image":"assets_spritesheet_v2_free.png",
+         "image":"..\/..\/floresta_Front\/assets_spritesheet_v2_free.png",
          "imageheight":384,
          "imagewidth":384,
          "margin":0,
