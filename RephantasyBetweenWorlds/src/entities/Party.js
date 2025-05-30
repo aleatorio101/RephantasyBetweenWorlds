@@ -26,7 +26,7 @@ const party = [
 }),
 
     new Unit({
-        name: 'Matthew',
+        name: 'Ethan',
         hp: 50,
         maxHP: 50,
         mana: 150,
