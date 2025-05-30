@@ -4,7 +4,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     create() {
-        const map = this.make.tilemap({ key: 'floresta' });
+        const map = this.make.tilemap({ key: 'Lara' });
 
         
         const tilesets = [
@@ -23,13 +23,16 @@ export class GameScene extends Phaser.Scene {
         
 
         const layers = [
-            map.createLayer('Camada de Blocos 1', tilesets),
-            map.createLayer('Camada de Blocos 2', tilesets),
-            map.createLayer('Camada de Blocos 3', tilesets),
-            map.createLayer('Camada de Blocos 4', tilesets),
+            map.createLayer('Tile Layer 2', tilesets),
+            map.createLayer('Tile Layer 3', tilesets),
+            map.createLayer('Tile Layer 1', tilesets),
+            map.createLayer('Tile Layer 4', tilesets),
         ];
+        
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-        // Configura colisão
+
+         //Configura colisão
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
         
@@ -44,9 +47,9 @@ export class GameScene extends Phaser.Scene {
             .setVisible(false);
         });
 
-        this.player = this.physics.add.sprite(200, 250, 'hero');
+        this.player = this.physics.add.sprite(1350, 250, 'hero');
         this.player.setCollideWorldBounds(true);
-
+        
         
         this.anims.create({
             key: 'walk',
@@ -61,8 +64,8 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.walls);
 
     
-        this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.startFollow(this.player);
 
        
         this.keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);

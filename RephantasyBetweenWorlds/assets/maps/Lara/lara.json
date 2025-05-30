@@ -589,36 +589,108 @@
  "tileheight":32,
  "tilesets":[
         {
+         "columns":35,
          "firstgid":1,
-         "source":"..\/..\/Aurora Tileset.tsx"
+         "image":"..\/..\/..\/..\/..\/Downloads\/tilesets_Gabriel\/Aurora Tileset.png",
+         "imageheight":704,
+         "imagewidth":1120,
+         "margin":0,
+         "name":"Aurora Tileset",
+         "spacing":0,
+         "tilecount":770,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":12,
          "firstgid":771,
-         "source":"..\/..\/assets_spritesheet_v2_free.tsx"
+         "image":"..\/..\/..\/..\/..\/Downloads\/tilesets_Gabriel\/assets_spritesheet_v2_free.png",
+         "imageheight":384,
+         "imagewidth":384,
+         "margin":0,
+         "name":"assets_spritesheet_v2_free",
+         "spacing":0,
+         "tilecount":144,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":10,
          "firstgid":915,
-         "source":"..\/..\/terrain_tiles_v2.tsx"
+         "image":"..\/..\/..\/..\/..\/OneDrive\/\u00c1rea de Trabalho\/Mapas\/floresta\/terrain_tiles_v2.png",
+         "imageheight":512,
+         "imagewidth":320,
+         "margin":0,
+         "name":"terrain_tiles_v2",
+         "spacing":0,
+         "tilecount":160,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":4,
          "firstgid":1075,
-         "source":"..\/..\/dirtpath_tiles.tsx"
+         "image":"..\/..\/..\/..\/..\/Downloads\/tilesets_Gabriel\/dirtpath_tiles.png",
+         "imageheight":128,
+         "imagewidth":128,
+         "margin":0,
+         "name":"dirtpath_tiles",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":6,
          "firstgid":1091,
-         "source":"..\/..\/assets_version1.1.tsx"
+         "image":"..\/..\/..\/..\/..\/OneDrive\/\u00c1rea de Trabalho\/Mapas\/floresta\/assets_version1.1.png",
+         "imageheight":128,
+         "imagewidth":192,
+         "margin":0,
+         "name":"assets_version1.1",
+         "spacing":0,
+         "tilecount":24,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":16,
          "firstgid":1115,
-         "source":"..\/..\/tileset_version1.1.tsx"
+         "image":"..\/..\/..\/..\/..\/Downloads\/tilesets_Gabriel\/tileset_version1.1.png",
+         "imageheight":352,
+         "imagewidth":512,
+         "margin":0,
+         "name":"tileset_version1.1",
+         "spacing":0,
+         "tilecount":176,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":6,
          "firstgid":1291,
-         "source":"..\/..\/GoldMine_Inactive.tsx"
+         "image":"..\/..\/..\/..\/..\/Downloads\/tilesets_Gabriel\/GoldMine_Inactive.png",
+         "imageheight":128,
+         "imagewidth":192,
+         "margin":0,
+         "name":"GoldMine_Inactive",
+         "spacing":0,
+         "tilecount":24,
+         "tileheight":32,
+         "tilewidth":32
         }, 
         {
+         "columns":2,
          "firstgid":1315,
-         "source":"..\/..\/Decorationspre.tsx"
+         "image":"..\/..\/..\/..\/..\/Downloads\/tilesets_Gabriel\/Decorationspre.png",
+         "imageheight":128,
+         "imagewidth":64,
+         "margin":0,
+         "name":"Decorationspre",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
