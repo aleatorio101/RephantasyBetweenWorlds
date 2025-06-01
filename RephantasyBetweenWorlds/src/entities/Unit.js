@@ -18,7 +18,7 @@ class Unit {
     }
 
     takeDamage(amount) { //amount é a quantidade de dano que o ataque irá causar
-        const reduced = Math.max(0, amount = this.defense); //precisa ser no minimo 0, caso contrário bug sinistro
+        const reduced = Math.max(0, amount - this.defense); //precisa ser no minimo 0, caso contrário bug sinistro
         this.hp = Math.max(0, this.hp - reduced); // dano maior que a vida maxima causa bug bizarro, isso aqui corrige
         return reduced;
     }
