@@ -17,7 +17,7 @@ export class BootScene extends Phaser.Scene {
         this.load.image('tileset3', 'assets/maps/Lara/assets_version1.1.png');
     // Mapa
         this.load.tilemapTiledJSON('Lara', 'assets/maps/Lara/lara.json');
-        this.load.spritesheet('hero', 'assets/sprites/hero.png', { frameWidth: 6, frameHeight: 6 });
+        this.load.spritesheet('hero', 'assets/sprites/hero.png', { frameWidth: 30, frameHeight: 30 });
     }
 
     create() {
