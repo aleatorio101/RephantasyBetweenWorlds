@@ -3,7 +3,7 @@ import { party } from '../entities/Party.js';
 import { enemyTypes } from '../entities/Enemy.js';
 import createAnimations from '../entities/animations.js';
 
-export default class BattleScene extends Phaser.Scene {
+export default class BattleScene_dg extends Phaser.Scene {
     constructor() {
         super('BattleScene');
     }
