@@ -2,29 +2,24 @@ import { attack } from '../Utils/combatUtils/combatUtils.js';
 import Unit from '../entities/Unit.js';
 
 export default class Character {
-    constructor(scene, unitConfig, x, y, texture) {
+    constructor(scene, unitConfig, x, y, texture, staticScale = 1, animScale = 1) {
         this.scene = scene;
         this.unit = new Unit(unitConfig);
+        this.staticScale = staticScale;
+        this.animScale = animScale;
 
         this.sprite = scene.add.sprite(x, y, texture)
-            .setInteractive();
+            .setInteractive()
+            .setScale(this.staticScale);
 
         this.isAlive = true;
 
-        this.hpText = scene.add.text(x, y - 50, `HP: ${this.unit.hp}/${this.unit.maxHp}`, { fontSize: '14px', fill: '#fff' });
+        this.hpText = null;
+        this.nameText = null;
 
-        // Aqui adicionamos o nome do personagem
-        this.nameText = scene.add.text(x, y - 70, this.unit.name, {
-            fontSize: '16px',
-            fill: '#ffff00', // amarelo
-            fontStyle: 'bold',
-            stroke: '#000000',
-            strokeThickness: 3
-        }).setOrigin(0.5);
     }
 
     updateHpBar() {
-        this.hpText.setText(`HP: ${this.unit.hp}/${this.unit.maxHp}`);
         if (!this.unit.isAlive()) {
             this.isAlive = false;
             this.sprite.destroy();
@@ -37,42 +32,61 @@ export default class Character {
     attackTarget(targetCharacter) {
         return new Promise((resolve) => {
             if (!targetCharacter.isAlive) {
-                console.log('Alvo já está morto.');
                 resolve();
                 return;
             }
 
-            // Aplica dano
-            const damage = this.unit.attack; // ou chame alguma função mais precisa
-            const result = attack(this.unit, targetCharacter.unit, damage);
+            const animKey = `${this.unit.name.toLowerCase()}_attack`;
+            console.log('Tentando tocar animação:', animKey);
 
-            // Mostra texto de dano ou "Desviou!"
-            const isMiss = result === 0; // ajuste se você tiver lógica de evasão
-            const text = isMiss ? 'Desviou!' : `-${result}`;
-            const dmgText = this.scene.add.text(
-                targetCharacter.sprite.x,
-                targetCharacter.sprite.y - 80,
-                text,
-                { fontSize: '20px', fill: isMiss ? '#0ff' : '#f00', stroke: '#000', strokeThickness: 2 }
-            ).setOrigin(0.5);
+            const animationKeys = Object.keys(this.scene.anims.anims);
+            console.log('Animações disponíveis:', animationKeys);
+            console.log('Animação existe?', this.scene.anims.exists(animKey));
 
-            // Destrói texto após um tempo
-            this.scene.tweens.add({
-                targets: dmgText,
-                y: dmgText.y - 30,
-                alpha: 0,
-                duration: 1000,
-                ease: 'Power2',
-                onComplete: () => {
-                    dmgText.destroy();
+            if (this.scene.anims.exists(animKey)) {
+                // Aplica a escala da animação
+                this.sprite.setScale(this.animScale);
+
+                this.sprite.play(animKey);
+
+                this.sprite.once('animationcomplete', () => {
+                    // Volta para a escala estática
+                    this.sprite.setFrame(1);
+
+                    if (this.scene.updateHud) {
+                        this.scene.updateHud();
+                    }
+
+
+                    const dodgeChance = targetCharacter.unit.calcularDodge ? targetCharacter.unit.calcularDodge() : 0;
+                    if (Math.random() < dodgeChance) {
+                        targetCharacter.showFloatingText('Esquivou!', '#ffff00');
+                        resolve();
+                        return;
+                    }
+
+                    const damage = targetCharacter.unit.takeDamage(this.unit.attack);
+                    targetCharacter.showFloatingText(`-${damage}`, '#ff4444');
                     targetCharacter.updateHpBar();
-                    resolve(); // só avança turno depois disso
+                    targetCharacter.playHitAnimation();
+                    resolve();
+                });
+            } else {
+                console.warn(`Animação ${animKey} não encontrada! Aplicando dano direto.`);
+                const dodgeChance = targetCharacter.unit.calcularDodge ? targetCharacter.unit.calcularDodge() : 0;
+                if (Math.random() < dodgeChance) {
+                    targetCharacter.showFloatingText('Esquivou!', '#ffff00');
+                    resolve();
+                    return;
                 }
-            });
+                const damage = targetCharacter.unit.takeDamage(this.unit.attack);
+                targetCharacter.showFloatingText(`-${damage}`, '#ff4444');
+                targetCharacter.updateHpBar();
+                targetCharacter.playHitAnimation();
+                resolve();
+            }
         });
     }
-
-
 
     showDamage(damage) {
         const dmgText = this.scene.add.text(this.sprite.x, this.sprite.y - 30, `-${damage}`, {
@@ -121,24 +135,4 @@ export default class Character {
             onComplete: () => floatText.destroy()
         });
     }
-
-    attackTarget(targetCharacter) {
-        if (!targetCharacter.isAlive) {
-            console.log('Alvo já está morto.');
-            return;
-        }
-
-        const dodgeChance = targetCharacter.unit.calcularDodge();
-        if (Math.random() < dodgeChance) {
-            //  this.scene.sound?.play('miss'); // se quiser som opcional
-            targetCharacter.showFloatingText('Esquivou!', '#ffff00');
-            return;
-        }
-
-        const damage = targetCharacter.unit.takeDamage(this.unit.attack);
-        targetCharacter.showFloatingText(`-${damage}`, '#ff4444');
-        targetCharacter.updateHpBar();
-    }
-
-
 }
