@@ -8,6 +8,8 @@ const party = [
         attack: 15,
         defence: 5,
         speed: 10,
+        XP: 0,
+        level: 1,
         isPlayer: true,
         abilities: []
     }),
@@ -21,6 +23,8 @@ const party = [
         attack: 20,
         defence: 2,
         speed: 5,
+        XP: 0,
+        level: 1,
         isPlayer: true,
         abilities: []
 }),
@@ -34,6 +38,8 @@ const party = [
         attack: 5,
         defence: 2,
         speed: 5,
+        XP: 0,
+        level: 1,
         isPlayer: true,
         abilities: []
 }),
@@ -47,6 +53,8 @@ const party = [
         attack: 10,
         defence: 10,
         speed: 5,
+        XP: 0,
+        level: 1,
         isPlayer: true,
         abilities: []
 }),
