@@ -10,6 +10,8 @@ class Unit {
         this.speed = config.speed;
         this.isPlayer = config.isPlayer;
         this.abilities = config.abilities ?? [];
+        this.XP = 0;
+        this.level = 1;
 
     }
 
@@ -36,6 +38,18 @@ class Unit {
         if(speed <= 0) return 0;
         const dodge = Math.log2(speed) * 0.08
         return Math.min(dodge, 0.6); // limita a 60% de chance máxima
+    }
+
+    ganharXP(){
+        this.XP += amount;
+        if(this.XP = 15){
+            this.levelUP();
+        }
+    }
+
+    levelUP(){
+        this.level += 1;
+        this.XP = 0;
     }
 
 }
