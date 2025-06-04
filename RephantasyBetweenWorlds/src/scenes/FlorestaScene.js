@@ -1,12 +1,11 @@
-export class GameScene extends Phaser.Scene {
+export class FlorestaScene extends Phaser.Scene {
     constructor() {
-        super('GameScene');
+        super('FlorestaScene');
     }
 
     create() {
-        const map = this.make.tilemap({ key: 'Lara' });
+        const map = this.make.tilemap({ key: 'Floresta' });
 
-        
         const tilesets = [
             map.addTilesetImage('assets_spritesheet_v2_free', 'tileset2'),
             map.addTilesetImage('tileset_version1.1', 'tileset1'),
@@ -20,55 +19,31 @@ export class GameScene extends Phaser.Scene {
             map.addTilesetImage('Aurora Tileset', 'aurora'),
         ];
 
-        
-
         const layers = [
-            map.createLayer('Tile Layer 2', tilesets),
-            map.createLayer('Tile Layer 3', tilesets),
-            map.createLayer('Tile Layer 1', tilesets),
-            map.createLayer('Tile Layer 4', tilesets),
+            map.createLayer('Camada de Blocos 1', tilesets),
+            map.createLayer('Camada de Blocos 2', tilesets),
+            map.createLayer('Camada de Blocos 3', tilesets),
+            map.createLayer('Camada de Blocos 4', tilesets),
         ];
-        
+
+
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-
-         //Configura colisÃ£o
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
-        
+
         collisionLayer.objects.forEach(obj => {
             this.walls.create(
-                obj.x + obj.width/2,
-                obj.y + obj.height/2,
+                obj.x + obj.width / 2,
+                obj.y + obj.height / 2,
                 null
             )
-            .setSize(obj.width, obj.height)
-            .setOrigin(0.5, 0.5)
-            .setVisible(false);
+                .setSize(obj.width, obj.height)
+                .setOrigin(0.5, 0.5)
+                .setVisible(false);
         });
 
-        this.player = this.physics.add.sprite(1350, 250, 'Siegel_down');
-        this.player.setCollideWorldBounds(true);
-
-        this.anims.create({
-            key: 'walk',
-            frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 3 }),
-            frameRate: 8,
-            repeat: -1
-        });
-
-        //transicao de mapa mapa floresta
-        const florestaZone = map.getObjectLayer('floresta').objects[0];
-
-        this.florestaTrigger = this.physics.add.staticSprite(
-        florestaZone.x + florestaZone.width / 2,
-        florestaZone.y + florestaZone.height / 2,
-        null
-        ).setSize(florestaZone.width, florestaZone.height).setVisible(false);
-
-        this.physics.add.overlap(this.player, this.florestaTrigger, () => {
-        this.scene.start('FlorestaScene');
-        });
+        this.player = this.physics.add.sprite(1870, 580, 'Siegel_esquerda');
 
         this.anims.create({
             key: 'walk_down',
@@ -117,7 +92,9 @@ export class GameScene extends Phaser.Scene {
             .setVisible(false)
             .on('pointerdown', () => this.scene.start('MenuScene'));
         this.isPaused = false;
+
     }
+
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.keyESC)) {
@@ -132,33 +109,37 @@ export class GameScene extends Phaser.Scene {
         const speed = 100;
         this.player.setVelocity(0);
 
-        const directions = [
-            { key: 'left',  isDown: this.cursors.left.isDown,  setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
-            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed),  anim: 'walk_right', texture: 'Siegel_direita' },
-            { key: 'up',    isDown: this.cursors.up.isDown,    setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up',    texture: 'Siegel_up' },
-            { key: 'down',  isDown: this.cursors.down.isDown,  setVelocity: () => this.player.setVelocityY(speed),  anim: 'walk_down',  texture: 'Siegel_down' }
-        ];
-
-        let moved = false;
-
-        for (const dir of directions) {
-            if (dir.isDown) {
-                dir.setVelocity();
-                this.player.anims.play(dir.anim, true);
-                this.lastDirection = dir.key;
-                moved = true;
-                if (Phaser.Math.Between(1, 700) <= 1) {
-                    this.scene.start('BattleScene');
-                }
-                break;
-            }
-        }
-
-        if (!moved) {
+        if (this.cursors.left.isDown) {
+            this.player.setVelocityX(-speed);
+            this.player.anims.play('walk_left', true);
+            this.lastDirection = 'left';
+        } else if (this.cursors.right.isDown) {
+            this.player.setVelocityX(speed);
+            this.player.anims.play('walk_right', true);
+            this.lastDirection = 'right';
+        } else if (this.cursors.up.isDown) {
+            this.player.setVelocityY(-speed);
+            this.player.anims.play('walk_up', true);
+            this.lastDirection = 'up';
+        } else if (this.cursors.down.isDown) {
+            this.player.setVelocityY(speed);
+            this.player.anims.play('walk_down', true);
+            this.lastDirection = 'down';
+        } else {
             this.player.anims.stop();
-            const lastDir = directions.find(d => d.key === this.lastDirection);
-            if (lastDir) {
-                this.player.setTexture(lastDir.texture);
+            switch (this.lastDirection) {
+                case 'left':
+                    this.player.setTexture('Siegel_esquerda');
+                    break;
+                case 'right':
+                    this.player.setTexture('Siegel_direita');
+                    break;
+                case 'up':
+                    this.player.setTexture('Siegel_up');
+                    break;
+                case 'down':
+                    this.player.setTexture('Siegel_down');
+                    break;
             }
         }
     }
