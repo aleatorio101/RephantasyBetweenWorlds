@@ -1,4 +1,6 @@
-const party = [
+import Unit from './Unit.js';
+
+export const party = [
     new Unit({
         name: 'Siegel',
         hp: 100,
@@ -27,7 +29,7 @@ const party = [
         level: 1,
         isPlayer: true,
         abilities: []
-}),
+    }),
 
     new Unit({
         name: 'Ethan',
@@ -42,7 +44,7 @@ const party = [
         level: 1,
         isPlayer: true,
         abilities: []
-}),
+    }),
 
     new Unit({
         name: 'Archibald',
@@ -57,7 +59,7 @@ const party = [
         level: 1,
         isPlayer: true,
         abilities: []
-}),
+    }),
 
 
 ];
