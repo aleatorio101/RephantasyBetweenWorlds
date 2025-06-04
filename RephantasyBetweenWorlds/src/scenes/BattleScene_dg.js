@@ -381,6 +381,8 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.hudNameText.setText(`Nome: ${this.currentCharacter.unit.name}`);
         this.hudHpText.setText(`HP: ${this.currentCharacter.unit.hp}/${this.currentCharacter.unit.maxHp}`);
         this.hudContainer.setVisible(true);
+
+        this.updateTopHud();
     }
 
 
@@ -412,6 +414,13 @@ export default class BattleScene_dg extends Phaser.Scene {
 
         // Inicialmente invisível (será exibido no turno do jogador ou inimigo)
         this.hudContainer.setVisible(false);
+    }
+
+    updateTopHud() {
+        this.topHudTexts.forEach(hud => {
+            const { character, hpText } = hud;
+            hpText.setText(`HP: ${character.unit.hp}/${character.unit.maxHp}`);
+        });
     }
 
 }
