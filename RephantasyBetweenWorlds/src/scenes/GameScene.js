@@ -95,7 +95,7 @@ export class GameScene extends Phaser.Scene {
             this.player.anims.play('walk', true);
             this.player.setFlipX(true);
 
-            if(Phaser.Math.Between(1, 1000) <= 1) {
+            if(Phaser.Math.Between(1, 700) <= 1) {
                 this.scene.start('BattleScene');
             }
         } else if (this.cursors.right.isDown) {
@@ -103,7 +103,7 @@ export class GameScene extends Phaser.Scene {
             this.player.anims.play('walk', true);
             this.player.setFlipX(false);
 
-            if(Phaser.Math.Between(1, 1000) <= 1) {
+            if(Phaser.Math.Between(1, 700) <= 1) {
                 this.scene.start('BattleScene');
             }
         }
@@ -112,14 +112,14 @@ export class GameScene extends Phaser.Scene {
             this.player.setVelocityY(-speed);
             this.player.anims.play('walk', true);
 
-            if(Phaser.Math.Between(1, 1000) <= 1) {
+            if(Phaser.Math.Between(1, 700) <= 7) {
                 this.scene.start('BattleScene');
             }
         } else if (this.cursors.down.isDown) {
             this.player.setVelocityY(speed);
             this.player.anims.play('walk', true);
 
-            if(Phaser.Math.Between(1, 1000) <= 1) {
+            if(Phaser.Math.Between(1, 700) <= 1) {
                 this.scene.start('BattleScene');
             }
         }
