@@ -23,8 +23,8 @@ export default class Character {
         if (!this.unit.isAlive()) {
             this.isAlive = false;
             this.sprite.destroy();
-            this.hpText.destroy();
-            this.nameText.destroy();
+            if (this.hpText) this.hpText.destroy();
+            if (this.nameText) this.nameText.destroy();
             console.log(`${this.unit.name} foi derrotado!`);
         }
     }
