@@ -32,7 +32,7 @@ export class GameScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
 
-         //Configura colisão
+         //Configura colisÃ£o
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
         
@@ -49,8 +49,7 @@ export class GameScene extends Phaser.Scene {
 
         this.player = this.physics.add.sprite(1350, 250, 'hero');
         this.player.setCollideWorldBounds(true);
-        
-        
+
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 3 }),
@@ -95,22 +94,39 @@ export class GameScene extends Phaser.Scene {
             this.player.setVelocityX(-speed);
             this.player.anims.play('walk', true);
             this.player.setFlipX(true);
+
+            if(Phaser.Math.Between(1, 700) <= 1) {
+                this.scene.start('BattleScene');
+            }
         } else if (this.cursors.right.isDown) {
             this.player.setVelocityX(speed);
             this.player.anims.play('walk', true);
             this.player.setFlipX(false);
+
+            if(Phaser.Math.Between(1, 700) <= 1) {
+                this.scene.start('BattleScene');
+            }
         }
 
         if (this.cursors.up.isDown) {
             this.player.setVelocityY(-speed);
             this.player.anims.play('walk', true);
+
+            if(Phaser.Math.Between(1, 700) <= 7) {
+                this.scene.start('BattleScene');
+            }
         } else if (this.cursors.down.isDown) {
             this.player.setVelocityY(speed);
             this.player.anims.play('walk', true);
+
+            if(Phaser.Math.Between(1, 700) <= 1) {
+                this.scene.start('BattleScene');
+            }
         }
 
         if (this.player.body.velocity.x === 0 && this.player.body.velocity.y === 0) {
             this.player.anims.stop();
         }
+    
     }
 }
