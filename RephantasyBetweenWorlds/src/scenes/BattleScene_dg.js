@@ -45,16 +45,21 @@ export default class BattleScene_dg extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
+        this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
+
+
         createAnimations(this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 
-        this.add.image(400, 300, 'battle_bg').setDepth(-10);
-        const bg = this.add.image(0, 0, 'battle_bg')
-            .setOrigin(0)  // canto superior esquerdo
-            .setDepth(-1); // envia para trás dos personagens
+        const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'battle_bg')
+            .setOrigin(0.5)
+            .setDepth(-1)
+            .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+
 
         bg.setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
 
@@ -257,6 +262,7 @@ export default class BattleScene_dg extends Phaser.Scene {
             this.highlightOption(this.selectedOption);
         });
 
+        this.enterKey.removeAllListeners();
         this.enterKey.once('down', () => {
             const option = this.menuOptions[this.selectedOption].text;
             this.onMenuSelect(option);
@@ -310,6 +316,7 @@ export default class BattleScene_dg extends Phaser.Scene {
             this.updateEnemySelector();
         });
 
+        this.enterKey.removeAllListeners();
         this.enterKey.once('down', () => {
             const target = this.enemyCharacters[this.selectedEnemyIndex];
             this.onTargetSelected(target);
