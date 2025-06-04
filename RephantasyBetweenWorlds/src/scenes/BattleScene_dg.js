@@ -185,10 +185,9 @@ export default class BattleScene_dg extends Phaser.Scene {
 
     startTurn() {
         // Filtra personagens vivos
-        this.playerCharacters = this.playerCharacters.filter(p => p.isAlive);
-        this.enemyCharacters = this.enemyCharacters.filter(e => e.isAlive);
-
-        this.turnQueue = this.turnQueue.filter(c => c.isAlive);
+        this.playerCharacters = this.playerCharacters.filter(p => p.unit.isAlive());
+        this.enemyCharacters = this.enemyCharacters.filter(e => e.unit.isAlive());
+        this.turnQueue = this.turnQueue.filter(c => c.unit.isAlive());
 
         // Verifica fim de batalha
         const playersAlive = this.playerCharacters.length > 0;
@@ -372,7 +371,7 @@ export default class BattleScene_dg extends Phaser.Scene {
         if (playerWon) {
             this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
         } else {
-            this.add.text(500/2, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
+            this.add.text(500 / 2, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
         }
     }
 
