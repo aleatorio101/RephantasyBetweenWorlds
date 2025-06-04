@@ -40,9 +40,9 @@ class Unit {
         return Math.min(dodge, 0.6); // limita a 60% de chance máxima
     }
 
-    ganharXP(){
+    ganharXP(amount){
         this.XP += amount;
-        if(this.XP = 15){
+        if(this.XP >= 15){
             this.levelUP();
         }
     }
