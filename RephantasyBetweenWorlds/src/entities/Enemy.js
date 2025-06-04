@@ -1,8 +1,12 @@
-const enemyTypes = [
+import Unit from './Unit.js';
+
+export const enemyTypes = [
     {name: 'Dog', hp: 10, atk: 4, speed: 5, defence: 3},
     {name: 'Bear', hp: 20, atk: 8, speed: 3, defence: 8},
     {name: 'Tiger', hp: 15, atk: 6, speed: 8, defence: 5}
 ];
+
+export const enemies = [];
 
 const enemyCount = Phaser.Math.Between(1, 4);
 for(let i=0; i < enemyCount; i++){
