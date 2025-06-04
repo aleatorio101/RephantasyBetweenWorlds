@@ -2,6 +2,7 @@ import { BootScene } from './scenes/BootScene.js';
 import { MenuScene } from './scenes/MenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
+import { BattleScene } from './encounter/BattleScene.js';
 
 const config = {
     type: Phaser.AUTO,
@@ -11,7 +12,7 @@ const config = {
     height: 720,
     backgroundColor: '#000000',
     pixelArt: true,
-    scene: [BootScene, MenuScene, GameScene, CreditsScene],
+    scene: [BootScene, MenuScene, GameScene, CreditsScene, BattleScene],
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
