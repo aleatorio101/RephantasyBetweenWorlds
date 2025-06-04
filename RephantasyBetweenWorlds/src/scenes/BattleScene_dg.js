@@ -242,6 +242,9 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.menuContainer.setVisible(true);
         this.selectedOption = 0;
         this.highlightOption(this.selectedOption);
+
+        this.input.keyboard.off('keydown-UP');
+        this.input.keyboard.off('keydown-DOWN');
         this.input.keyboard.on('keydown-UP', () => {
             if (!this.menuContainer.visible) return;
             this.selectedOption = (this.selectedOption + this.menuOptions.length - 1) % this.menuOptions.length;
@@ -268,7 +271,8 @@ export default class BattleScene_dg extends Phaser.Scene {
     }
 
     onMenuSelect(option) {
-        if (!this.currentCharacter || !this.currentCharacter.isAlive) return;
+        if (!this.currentCharacter || !this.currentCharacter.unit.isAlive()) return;
+
 
         if (option === 'Atacar') {
             this.menuContainer.setVisible(false);
@@ -358,10 +362,7 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.time.delayedCall(1000, () => {
             this.startTurn();
         });
-        this.currentCharacter = this.turnQueue[0];
         this.updateHUD();
-
-        ;
 
     }
 
