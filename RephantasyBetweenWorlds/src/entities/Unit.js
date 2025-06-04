@@ -1,4 +1,4 @@
-class Unit {
+export default class Unit {
     constructor(config) {
         this.name = config.name;
         this.hp = config.hp;
