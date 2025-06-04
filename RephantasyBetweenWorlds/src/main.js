@@ -2,7 +2,7 @@ import { BootScene } from './scenes/BootScene.js';
 import { MenuScene } from './scenes/MenuScene.js';
 import { GameScene } from './scenes/GameScene.js';
 import { CreditsScene } from './scenes/CreditsScene.js';
-import BattleScene_dg from './scenes/BattleScene_dg.js';
+import { BattleScene_dg } from './scenes/BattleScene_dg.js';
 
 const config = {
     type: Phaser.AUTO,
