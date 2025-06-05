@@ -114,6 +114,7 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.selector = this.add.image(0, 0, 'selector')
             .setScale(0.06)
             .setVisible(false);
+            this.selector.setDepth(1000);
 
         this.playerCharacters = [
             new Character(this, party[0], 340, 320, party[0].name.toLowerCase()),
