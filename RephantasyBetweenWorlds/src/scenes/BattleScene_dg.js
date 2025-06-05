@@ -7,6 +7,10 @@ export default class BattleScene_dg extends Phaser.Scene {
         super('BattleScene');
     }
 
+    init(data) {
+    this.previousScene = data.previousScene || 'GameScene';
+}
+
     preload() {
         //bgm
         this.load.audio('battle_1_bgm', 'assets/sounds/bgm/Battle 1.mp3')
@@ -561,16 +565,22 @@ endBattle(playerWon) {
     this.menuContainer.setVisible(false);
     if (playerWon) {
         this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-        this.ganharXP();
+        // Dar XP para cada personagem do jogador
+        this.playerCharacters.forEach(char => {
+            if (char.unit && typeof char.unit.ganharXP === 'function') {
+                char.unit.ganharXP(5); // Passe a quantidade de XP desejada
+                console.log(`XP atual de ${char.unit.name}: ${char.unit.xp}`); // Mostra o XP atual no console
+            }
+        });
         this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene); // Volta para a cena anterior
+            this.scene.start(this.previousScene);
         });
     } else {
         this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
         this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene); // Volta para a cena anterior
-        });
-    }
+            this.scene.start(this.previousScene);
+        });
+    }
 }
 
     updateHUD() {

@@ -160,7 +160,7 @@ export class GameScene extends Phaser.Scene {
                 this.lastDirection = dir.key;
                 moved = true;
                 if (Phaser.Math.Between(1, 700) <= 1) {
-                    this.scene.start('BattleScene');
+                    this.scene.start('BattleScene', { previousScene: this.scene.key });
                 }
                 break;
             }

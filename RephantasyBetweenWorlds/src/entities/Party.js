@@ -10,6 +10,8 @@ export const party = [
         attack: 15,
         defense: 5,
         speed: 10,
+        xp: 0,
+        level: 1,
         sfxKey: 'siegel_attack_sfx',
         isPlayer: true,
         abilities: [{
@@ -30,6 +32,8 @@ export const party = [
         attack: 20,
         defense: 2,
         speed: 5,
+        xp: 0,
+        level: 1,
         sfxKey: 'aiko_attack_sfx',
         isPlayer: true,
         abilities: [{
@@ -51,6 +55,8 @@ export const party = [
         attack: 5,
         defense: 2,
         speed: 5,
+        xp: 0,
+        level: 1,
         sfxKey: 'matthew_attack_sfx',
         isPlayer: true,
         abilities: [{
@@ -73,6 +79,8 @@ export const party = [
         attack: 10,
         defense: 10,
         speed: 5,
+        xp: 0,
+        level: 1,
         sfxKey: 'archibald_attack_sfx',
         isPlayer: true,
         abilities: [{

@@ -10,8 +10,8 @@ export default class Unit {
         this.speed = config.speed;
         this.isPlayer = config.isPlayer;
         this.abilities = config.abilities ?? [];
-        this.XP = 0;
-        this.level = 1;
+        this.xp = config.xp || 0;
+        this.level = 1;         
 
     }
 
@@ -41,15 +41,15 @@ export default class Unit {
     }
 
     ganharXP(amount){
-        this.XP += amount;
-        if(this.XP >= 15){
+        this.xp += amount;
+        if(this.xp >= 15){
             this.levelUP();
         }
     }
 
     levelUP(){
-        this.level += 1;
-        this.XP = 0;
+        this.level += 1;               // <-- minúsculo
+        this.xp = 0;                   // <-- minúsculo
     }
 
 }
