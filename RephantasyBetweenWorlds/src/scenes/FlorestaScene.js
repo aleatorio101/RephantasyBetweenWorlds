@@ -44,6 +44,22 @@ export class FlorestaScene extends Phaser.Scene {
         });
 
         this.player = this.physics.add.sprite(1870, 580, 'Siegel_esquerda');
+        this.player.setCollideWorldBounds(true);
+
+        const LaraZone = map.getObjectLayer('volta_lara').objects[0];
+
+        this.LaraZone = this.physics.add.staticSprite(
+            LaraZone.x + LaraZone.width / 2,
+            LaraZone.y + LaraZone.height / 2,
+            null
+        ).setSize(LaraZone.width, LaraZone.height).setVisible(false);
+
+        this.physics.add.overlap(this.player, this.LaraZone, () => {
+            this.registry.set('spawnOverride', true);
+            this.registry.set('spawnX', 90);
+            this.registry.set('spawnY', 650);
+            this.scene.start('GameScene');
+        });
 
         this.anims.create({
             key: 'walk_down',

@@ -28,9 +28,27 @@ this.load.image('menu_bg', 'assets/sprites/menu_bg.jpeg');
         this.load.image('aurora', 'assets/maps/floresta/Aurora Tileset.png');
         this.load.image('tileset2', 'assets/maps/floresta/assets_spritesheet_v2_free.png');
         this.load.image('tileset3', 'assets/maps/floresta/assets_version1.1.png');
+
+        //carrega tilesets de quarto
+        this.load.image('floor', 'assets/maps/quarto/6_floors.png');
+        this.load.image('interior', 'assets/maps/quarto/tileset_16x16_interior.png');
+        this.load.image('escada', 'assets/maps/quarto/wooden_stairs-ns_1.png');
+
+        //carrega tilesets de sala
+        this.load.image('floor', 'assets/maps/sala/6_floors.png');
+        this.load.image('interior', 'assets/maps/sala/tileset_16x16_interior.png');
+        this.load.image('escada', 'assets/maps/sala/wooden_stairs-ns_1.png');
+
+        //carrega tilesets de Caverna
+        this.load.image('dungAuto', 'assets/maps/dungeon/Dungeon_Autotiles.png');
+        this.load.image('dungWater', 'assets/maps/dungeon/Dungeon_WaterAnimation.png');
+        this.load.image('dungDec', 'assets/maps/dungeon/DungeonDecorations.png');
     // Mapa
         this.load.tilemapTiledJSON('Lara', 'assets/maps/Lara/lara.json');
+        this.load.tilemapTiledJSON('Quarto', 'assets/maps/quarto/quarto.json');
+        this.load.tilemapTiledJSON('Sala', 'assets/maps/sala/sala.json');
         this.load.tilemapTiledJSON('Floresta', 'assets/maps/floresta/floresta.json');
+        this.load.tilemapTiledJSON('Caverna', 'assets/maps/dungeon/caverna-front.json');
         this.load.image('Siegel_down', 'assets/sprites/Siegel_down_idle.png');
         this.load.image('Siegel_up', 'assets/sprites/Siegel_up_idle.png');
         this.load.image('Siegel_esquerda', 'assets/sprites/Siegel_esquerda_idle.png');

@@ -524,17 +524,6 @@
                  "y":800
                 }, 
                 {
-                 "height":18,
-                 "id":6,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":65.5,
-                 "x":598,
-                 "y":810
-                }, 
-                {
                  "height":21,
                  "id":7,
                  "name":"",
@@ -710,9 +699,31 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"lara",
+         "objects":[
+                {
+                 "height":20,
+                 "id":25,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":47,
+                 "x":608,
+                 "y":801.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":25,
+ "nextlayerid":10,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -721,7 +732,7 @@
         {
          "columns":18,
          "firstgid":1,
-         "image":"..\/..\/interior_casa (2)\/interior_casa\/6_floors.png",
+         "image":"6_floors.png",
          "imageheight":224,
          "imagewidth":288,
          "margin":0,
@@ -734,7 +745,7 @@
         {
          "columns":16,
          "firstgid":253,
-         "image":"..\/..\/interior_casa (2)\/interior_casa\/tileset_16x16_interior.png",
+         "image":"tileset_16x16_interior.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
@@ -747,7 +758,7 @@
         {
          "columns":14,
          "firstgid":509,
-         "image":"..\/..\/interior_casa (2)\/interior_casa\/wooden_stairs-ns_1.png",
+         "image":"wooden_stairs-ns_1.png",
          "imageheight":480,
          "imagewidth":224,
          "margin":0,

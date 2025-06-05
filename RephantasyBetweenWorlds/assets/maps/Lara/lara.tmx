@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="45">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="46">
  <tileset firstgid="1" source="Aurora Tileset.tsx"/>
  <tileset firstgid="771" source="assets_spritesheet_v2_free.tsx"/>
  <tileset firstgid="915" source="terrain_tiles_v2.tsx"/>
@@ -173,23 +173,22 @@
   </properties>
   <object id="6" x="840" y="198.667" width="85.3333" height="313.333"/>
   <object id="7" x="840" y="513.333" width="150.667" height="170.667"/>
-  <object id="8" x="990.667" y="640" width="314.667" height="82.6667"/>
-  <object id="9" x="1408.67" y="551.334" width="513.333" height="533.333"/>
+  <object id="8" x="990.667" y="640" width="289.334" height="82.6667"/>
+  <object id="9" x="1365" y="530.667" width="557" height="554"/>
   <object id="10" x="1757.33" y="265.333" width="137.333" height="276"/>
-  <object id="11" x="1422" y="518" width="332" height="24"/>
   <object id="12" x="1442.67" y="10.6667" width="449.333" height="269.333"/>
   <object id="13" x="946.667" y="13.3333" width="494.667" height="178.667"/>
   <object id="14" x="933.333" y="182.667" width="248" height="66.6667"/>
   <object id="15" x="1180" y="170.667" width="65.3333" height="44"/>
   <object id="16" x="968" y="245.333" width="141.333" height="157.333"/>
   <object id="17" x="1608" y="277.333" width="144" height="130.667"/>
-  <object id="18" x="838.667" y="716" width="439.333" height="178"/>
-  <object id="19" x="604" y="994.667" width="765.333" height="88"/>
+  <object id="18" x="798.667" y="716" width="479.333" height="178"/>
+  <object id="19" x="604" y="994.667" width="765.333" height="93"/>
   <object id="21" x="594.667" y="852" width="70.6667" height="68"/>
-  <object id="22" x="668" y="870.667" width="30.6667" height="77.3333"/>
-  <object id="23" x="701.333" y="898.667" width="29.3333" height="86.6667"/>
+  <object id="22" x="668" y="880" width="27.3334" height="68"/>
+  <object id="23" x="701.333" y="908.667" width="21.3333" height="86"/>
   <object id="24" x="574.667" y="773.333" width="58.6667" height="73.3333"/>
-  <object id="25" x="641.333" y="832" width="25.3333" height="17.3333"/>
+  <object id="25" x="632.666" y="832" width="25.3333" height="24"/>
   <object id="28" x="739" y="632" width="61" height="198"/>
   <object id="29" x="354" y="596" width="317" height="99"/>
   <object id="30" x="657" y="560" width="89" height="108"/>
@@ -204,5 +203,8 @@
  </objectgroup>
  <objectgroup id="9" name="floresta">
   <object id="41" x="-3" y="602.5" width="11" height="84.5"/>
+ </objectgroup>
+ <objectgroup id="10" name="level_5">
+  <object id="45" x="-0.666667" y="588.667" width="34" height="117.333"/>
  </objectgroup>
 </map>

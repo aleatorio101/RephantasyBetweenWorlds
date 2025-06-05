@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="120" height="67" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="30">
- <tileset firstgid="1" source="Dungeon_Autotiles.tsx"/>
- <tileset firstgid="301" source="DungeonDecorations.tsx"/>
- <tileset firstgid="1325" source="Dungeon_WaterAnimation.tsx"/>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="120" height="67" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="31">
+ <tileset firstgid="1" name="Dungeon_Autotiles" tilewidth="16" tileheight="16" tilecount="300" columns="20">
+  <image source="Dungeon_Autotiles.png" width="320" height="240"/>
+ </tileset>
+ <tileset firstgid="301" name="DungeonDecorations" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
+  <image source="DungeonDecorations.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="1325" name="Dungeon_WaterAnimation" tilewidth="16" tileheight="16" tilecount="54" columns="9">
+  <image source="Dungeon_WaterAnimation.png" width="144" height="96"/>
+ </tileset>
  <layer id="10" name="nao sei 2" width="120" height="67">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -743,5 +749,8 @@
   <object id="27" x="1303.33" y="250.667" width="24.6667" height="202.667"/>
   <object id="28" x="1361.33" y="246" width="28.6667" height="207.333"/>
   <object id="29" x="1" y="597" width="759" height="58"/>
+ </objectgroup>
+ <objectgroup id="15" name="lara">
+  <object id="30" x="1.75744" y="499.112" width="12.3021" height="93.1442"/>
  </objectgroup>
 </map>

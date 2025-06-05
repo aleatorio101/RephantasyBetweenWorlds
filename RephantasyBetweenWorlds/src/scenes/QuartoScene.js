@@ -1,41 +1,32 @@
-export class GameScene extends Phaser.Scene {
+export class QuartoScene extends Phaser.Scene {
     constructor() {
-        super('GameScene');
+        super('QuartoScene');
     }
 
     create() {
-        const map = this.make.tilemap({ key: 'Lara' });
-
+        const map = this.make.tilemap({ key: 'Quarto' });
 
         const tilesets = [
-            map.addTilesetImage('assets_spritesheet_v2_free', 'tileset2'),
-            map.addTilesetImage('tileset_version1.1', 'tileset1'),
-            map.addTilesetImage('assets_version1.1', 'tileset3'),
-            map.addTilesetImage('terrain_tiles_v2', 'terrain'),
-            map.addTilesetImage('graveyard_tileset_32x32', 'graveyard'),
-            map.addTilesetImage('GoldMine_Inactive', 'goldmine'),
-            map.addTilesetImage('dirtpath_tiles', 'dirtpath'),
-            map.addTilesetImage('decorations', 'decorations1'),
-            map.addTilesetImage('Decorationspre', 'decorations2'),
-            map.addTilesetImage('Aurora Tileset', 'aurora'),
+            map.addTilesetImage('6_floors', 'floor'),
+            map.addTilesetImage('tileset_16x16_interior', 'interior'),
+            map.addTilesetImage('wooden_stairs-ns_1', 'escada'),
         ];
 
-
-
         const layers = [
-            map.createLayer('Tile Layer 2', tilesets),
-            map.createLayer('Tile Layer 3', tilesets),
-            map.createLayer('Tile Layer 1', tilesets),
-            map.createLayer('Tile Layer 4', tilesets),
+            map.createLayer('roof (s.o.s)', tilesets),
+            map.createLayer('Camada de Blocos 1', tilesets),
+            map.createLayer('Camada de Blocos 2', tilesets),
+            map.createLayer('Camada de Blocos 3', tilesets),
+            map.createLayer('Camada de Blocos 4', tilesets),
         ];
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
 
-        //Configura colisÃ£o
+         //Configura colisÃ£o
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
-
+        
         collisionLayer.objects.forEach(obj => {
             this.walls.create(
                 obj.x + obj.width / 2,
@@ -47,39 +38,26 @@ export class GameScene extends Phaser.Scene {
                 .setVisible(false);
         });
 
-        this.player = this.physics.add.sprite(1350, 250, 'Siegel_down');
+        this.player = this.physics.add.sprite(770, 400, 'Siegel_down');
         this.player.setCollideWorldBounds(true);
 
-        //Configura para ele spawnar for da caverna quando sair de dentro da caverna
-        if (this.registry.get('spawnOverride')) {
-            this.player.setX(this.registry.get('spawnX'));
-            this.player.setY(this.registry.get('spawnY'));
-        }
+        const salaZone = map.getObjectLayer('sala').objects[0];
 
-        //transicao de mapa mapa floresta
-        const florestaZone = map.getObjectLayer('floresta').objects[0];
+        this.salaZone = this.physics.add.staticSprite(
+        salaZone.x + salaZone.width / 2,
+        salaZone.y + salaZone.height / 2,
+        null
+        ).setSize(salaZone.width, salaZone.height).setVisible(false);
 
-        this.florestaTrigger = this.physics.add.staticSprite(
-            florestaZone.x + florestaZone.width / 2,
-            florestaZone.y + florestaZone.height / 2,
-            null
-        ).setSize(florestaZone.width, florestaZone.height).setVisible(false);
-
-        this.physics.add.overlap(this.player, this.florestaTrigger, () => {
-            this.scene.start('FlorestaScene');
+        this.physics.add.overlap(this.player, this.salaZone, () => {
+        this.scene.start('SalaScene');
         });
 
-        //transicao de mapa caverna
-        const CavernaZone = map.getObjectLayer('dentro_caverna').objects[0];
-
-        this.CavernaZone = this.physics.add.staticSprite(
-            CavernaZone.x + CavernaZone.width / 2,
-            CavernaZone.y + CavernaZone.height / 2,
-            null
-        ).setSize(CavernaZone.width, CavernaZone.height).setVisible(false);
-
-        this.physics.add.overlap(this.player, this.CavernaZone, () => {
-            this.scene.start('CavernaScene');
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 3 }),
+            frameRate: 8,
+            repeat: -1
         });
 
         this.anims.create({
@@ -145,10 +123,10 @@ export class GameScene extends Phaser.Scene {
         this.player.setVelocity(0);
 
         const directions = [
-            { key: 'left', isDown: this.cursors.left.isDown, setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
-            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed), anim: 'walk_right', texture: 'Siegel_direita' },
-            { key: 'up', isDown: this.cursors.up.isDown, setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up', texture: 'Siegel_up' },
-            { key: 'down', isDown: this.cursors.down.isDown, setVelocity: () => this.player.setVelocityY(speed), anim: 'walk_down', texture: 'Siegel_down' }
+            { key: 'left',  isDown: this.cursors.left.isDown,  setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
+            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed),  anim: 'walk_right', texture: 'Siegel_direita' },
+            { key: 'up',    isDown: this.cursors.up.isDown,    setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up',    texture: 'Siegel_up' },
+            { key: 'down',  isDown: this.cursors.down.isDown,  setVelocity: () => this.player.setVelocityY(speed),  anim: 'walk_down',  texture: 'Siegel_down' }
         ];
 
         let moved = false;
@@ -159,9 +137,6 @@ export class GameScene extends Phaser.Scene {
                 this.player.anims.play(dir.anim, true);
                 this.lastDirection = dir.key;
                 moved = true;
-                if (Phaser.Math.Between(1, 700) <= 1) {
-                    this.scene.start('BattleScene');
-                }
                 break;
             }
         }
@@ -174,4 +149,5 @@ export class GameScene extends Phaser.Scene {
             }
         }
     }
+
 }
