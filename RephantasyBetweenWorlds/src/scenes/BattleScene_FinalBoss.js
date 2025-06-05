@@ -1,16 +1,15 @@
 import Character from '../classes/Character.js';
 import { party } from '../entities/Party.js';
-import { enemyTypes } from '../entities/Enemy.js';
 import createAnimations from '../entities/animations.js';
 
-export default class BattleScene_floresta extends Phaser.Scene {
+export default class BattleScene_FinalBoss extends Phaser.Scene {
     constructor() {
         super('BattleScene');
     }
 
     preload() {
         //bgm
-        this.load.audio('battle_2_bgm', 'assets/sounds/bgm/Battle 2.mp3')
+        this.load.audio('battle_bgm', 'assets/sounds/bgm/Final Battle.mp3')
 
         //sfx
         this.load.audio('siegel_attack_sfx', 'assets/sounds/sfx/Sword Impact Hit 1.wav');
@@ -21,19 +20,16 @@ export default class BattleScene_floresta extends Phaser.Scene {
         this.load.audio('archibald_attack_sfx', 'assets/sounds/sfx/Sword Attack 2.wav');
         this.load.audio('archibald_skill_sfx', 'assets/sounds/sfx/Sword Parry 2.wav');
 
-        this.load.audio('goblin_attack_sfx', 'assets/sounds/sfx/08_Bite_04.wav');
-        this.load.audio('skeleton_attack_sfx', 'assets/sounds/sfx/22_Slash_04.wav');
-
+        // this.load.audio('boss_attack_sfx', 'assets/sounds/sfx/08_Bite_04.wav');
 
 
         //Texturas UI
         this.load.image('selector', 'assets/ui/selector.png');
-        this.load.image('battle_forest', 'assets/backgrounds/battle_forest.png');
+        this.load.image('battle_bg', 'assets/backgrounds/battle_final.png');
 
         //Texturas base inimigos
-        this.load.image('wolf', 'assets/enemies/wolf/white wolf.gif');
-        this.load.image('bear', 'assets/enemies/bear/bear_atk.gif');
-
+        this.load.image('boss', 'assets/enemies/boss/boss_transformation.gif');
+        this.load.image('boss_ataque', 'assets/enemies/boss/boss_attack.gif');
 
         // Texturas base dos personagens (idle ou estática)
         this.load.image('siegel', 'assets/Party/Siegel/Siegel_atk.gif');
@@ -58,15 +54,14 @@ export default class BattleScene_floresta extends Phaser.Scene {
             frameWidth: 384,
             frameHeight: 390
         });
-        this.load.spritesheet('wolf_attack', 'assets/enemies/wolf/white_wolf.png', {
-            frameWidth: 336,
-            frameHeight: 239
+        this.load.spritesheet('boss_entrada', 'assets/enemies/boss/boss_transformation_packed.png', {
+            frameWidth: 640,
+            frameHeight: 448
         });
-        this.load.spritesheet('bear_attack', 'assets/enemies/bear/bear_atk.png', {
-            frameWidth: 432,
-            frameHeight: 354
+        this.load.spritesheet('boss_attack', 'assets/enemies/boss/boss_attack.png', {
+            frameWidth: 1080,
+            frameHeight: 448
         });
-
     }
 
     create() {
@@ -88,19 +83,19 @@ export default class BattleScene_floresta extends Phaser.Scene {
             archibald_attack_sfx: this.sound.add('archibald_attack_sfx'),
             archibald_skill_sfx: this.sound.add('archibald_skill_sfx'),
 
-            goblin_skill_sfx: this.sound.add('goblin_attack_sfx'),
-            skeleton_skill_sfx: this.sound.add('skeleton_attack_sfx')
+            // minotaur_skill_sfx: this.sound.add('minotaur_attack_sfx'),
+
         };
 
-        this.bgm = this.sound.add('battle_2_bgm', {
+        this.bgm = this.sound.add('battle_bgm', {
             loop: true,
-            volume: 0.2
+            volume: 0.25
         });
 
         this.bgm.play();
 
 
-        const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'battle_forest')
+        const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'battle_bg')
             .setOrigin(0.5)
             .setDepth(-1)
             .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
@@ -112,13 +107,13 @@ export default class BattleScene_floresta extends Phaser.Scene {
         const height = this.sys.game.config.height;
 
 
-        this.selector = this.add.image(0, 500, 'selector')
+        this.selector = this.add.image(0, 0, 'selector')
             .setScale(0.06)
-            .setVisible(false);
-        this.selector.setDepth(1000);
+            .setVisible(false)
+            .setDepth(50);
 
         this.playerCharacters = [
-            new Character(this, party[0], 340, 320, party[0].name.toLowerCase()),
+            new Character(this, party[0], 360, 350, party[0].name.toLowerCase()),
             new Character(this, party[1], 180, 350, party[1].name.toLowerCase()),
             new Character(this, party[3], 335, 490, party[3].name.toLowerCase()),
             new Character(this, party[2], 180, 570, party[2].name.toLowerCase())
@@ -159,53 +154,48 @@ export default class BattleScene_floresta extends Phaser.Scene {
 
         const enemyTypes = [
             {
-                name: 'bear',
-                hp: 50,
-                maxHp: 50,
+                name: 'boss',
+                hp: 350,
+                maxHp: 350,
                 mana: 0,
                 maxMana: 0,
-                attack: 10,
-                defense: 5,
-                speed: 2,
-                sfxKey: 'skeleton_attack_sfx',
+                attack: 100,
+                defense: 50,
+                speed: 10,
+                sfxKey: '',
                 isPlayer: false,
                 abilities: []
             },
-            {
-                name: 'wolf',
-                hp: 25,
-                maxHp: 25,
-                mana: 0,
-                maxMana: 0,
-                attack: 6,
-                defense: 3,
-                speed: 4,
-                sfxKey: 'wolf_attack_sfx',
-                isPlayer: false,
-                abilities: []
-            }
         ];
         this.enemyCharacters = [];
 
         const fixedPositions = [
-            { x: width * 0.75 - 220, y: height / 2.7 },
-            { x: width * 0.75 + 60, y: (height / 5) * 1.75 },
-            { x: width * 0.75 - 200, y: (height / 5) * 3.15 },
-            { x: width * 0.75 + 75, y: (height / 5) * 3 }
+            { x: width * 0.75 - 150, y: height / 2.5 },
+
         ];
 
-        const numEnemies = Phaser.Math.Between(4, 4);
+        const numEnemies = 1
 
         // Embaralha as posições pra pegar aleatoriamente sem repetir
         const shuffledPositions = Phaser.Utils.Array.Shuffle(fixedPositions);
 
         for (let i = 0; i < numEnemies; i++) {
+            const config = enemyTypes[0];
             const pos = shuffledPositions[i];
 
-            // Sorteia um tipo de inimigo aleatoriamente
-            const config = Phaser.Utils.Array.GetRandom(enemyTypes);
+            const boss = new Character(this, config, pos.x, pos.y, 'boss_entrada');
+            boss.sprite.setScale(1);
+            this.enemyCharacters.push(boss);
 
-            this.enemyCharacters.push(new Character(this, config, pos.x, pos.y, config.name));
+            boss.sprite.setFrame(0);
+
+            this.time.delayedCall(4000, () => {
+                boss.sprite.play('boss_entrada');
+            });
+
+            boss.sprite.on('animationcomplete-boss_entrada', () => {
+                boss.sprite.play('boss_attack');
+            });
         }
 
 
@@ -534,7 +524,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
         }
 
         if (target?.isAlive) {
-            this.selector.setPosition(target.sprite.x, target.sprite.y - 80);
+            this.selector.setPosition(target.sprite.x + 60, target.sprite.y - 150);
             this.selector.setVisible(true);
         } else {
             this.selector.setVisible(false);
@@ -563,17 +553,11 @@ export default class BattleScene_floresta extends Phaser.Scene {
 
     endBattle(playerWon) {
         this.menuContainer.setVisible(false);
+        // Aqui você pode adicionar tela de vitória/derrota ou retornar para menu principal
         if (playerWon) {
             this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-            this.ganharXP();
-            this.time.delayedCall(1500, () => {
-                this.scene.start(this.previousScene); // Volta para a cena anterior
-            });
         } else {
-            this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
-            this.time.delayedCall(1500, () => {
-                this.scene.start(this.previousScene); // Volta para a cena anterior
-            });
+            this.add.text(500 / 2, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
         }
     }
 

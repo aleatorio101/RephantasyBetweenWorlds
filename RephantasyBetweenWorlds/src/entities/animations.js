@@ -60,9 +60,23 @@ export default function createAnimations(scene) {
         repeat: 0
     });
     // minotaur
-        scene.anims.create({
+    scene.anims.create({
         key: 'minotaur_attack',
         frames: scene.anims.generateFrameNumbers('minotaur_attack', { start: 0, end: 4 }),
+        frameRate: 10,
+        repeat: 0
+    });
+    // boss-velho
+    scene.anims.create({
+        key: 'boss_entrada',
+        frames: scene.anims.generateFrameNumbers('boss_entrada', { start: 0, end: 35 }),
+        frameRate: 10,
+        repeat: 0
+    });
+    // boss_demonio
+    scene.anims.create({
+        key: 'boss_attack',
+        frames: scene.anims.generateFrameNumbers('boss_attack', { start: 0, end: 14 }),
         frameRate: 10,
         repeat: 0
     });
