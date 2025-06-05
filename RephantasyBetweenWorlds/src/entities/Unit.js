@@ -35,8 +35,8 @@ export default class Unit {
     }
 
     calcularDodge(){
-        if(speed <= 0) return 0;
-        const dodge = Math.log2(speed) * 0.08
+        if(this.speed <= 0) return 0;
+        const dodge = Math.log2(this.speed) * 0.08
         return Math.min(dodge, 0.6); // limita a 60% de chance máxima
     }
 
