@@ -9,7 +9,7 @@ export default class BattleScene_dg extends Phaser.Scene {
 
     preload() {
         //bgm
-        this.load.audio('battle_1_bgm', 'assets/sounds/bgm/05 - Battle 1.wav')
+        this.load.audio('battle_1_bgm', 'assets/sounds/bgm/Battle 1.mp3')
 
         //sfx
         this.load.audio('siegel_attack_sfx', 'assets/sounds/sfx/Sword Impact Hit 1.wav');
@@ -75,7 +75,7 @@ export default class BattleScene_dg extends Phaser.Scene {
         createAnimations(this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); // Adiciona tecla ESPAÇO
         this.shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT); // Adiciona tecla SHIFT
 
         this.sfx = {
