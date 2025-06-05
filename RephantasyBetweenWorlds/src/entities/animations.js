@@ -31,10 +31,38 @@ export default function createAnimations(scene) {
         repeat: 0
     });
 
-    // Enemy
+    // Goblin
     scene.anims.create({
-        key: 'enemy_attack',
-        frames: scene.anims.generateFrameNumbers('enemy_attack', { start: 0, end: 6 }),
+        key: 'goblin_attack',
+        frames: scene.anims.generateFrameNumbers('goblin_attack', { start: 0, end: 6 }),
+        frameRate: 10,
+        repeat: 0
+    });
+    // Skeleton
+    scene.anims.create({
+        key: 'skeleton_attack',
+        frames: scene.anims.generateFrameNumbers('skeleton_attack', { start: 0, end: 8 }),
+        frameRate: 10,
+        repeat: 0
+    });
+    // wolf
+    scene.anims.create({
+        key: 'wolf_attack',
+        frames: scene.anims.generateFrameNumbers('wolf_attack', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: 0
+    });
+    // bear
+    scene.anims.create({
+        key: 'bear_attack',
+        frames: scene.anims.generateFrameNumbers('bear_attack', { start: 0, end: 7 }),
+        frameRate: 10,
+        repeat: 0
+    });
+    // minotaur
+        scene.anims.create({
+        key: 'minotaur_attack',
+        frames: scene.anims.generateFrameNumbers('minotaur_attack', { start: 0, end: 4 }),
         frameRate: 10,
         repeat: 0
     });
