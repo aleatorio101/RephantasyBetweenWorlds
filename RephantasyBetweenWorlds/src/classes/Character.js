@@ -13,10 +13,8 @@ export default class Character {
             .setScale(this.staticScale);
 
         this.isAlive = true;
-
         this.hpText = null;
         this.nameText = null;
-
     }
 
     updateHpBar() {
@@ -36,74 +34,212 @@ export default class Character {
                 return;
             }
 
-            const animKey = `${this.unit.name.toLowerCase()}_attack`;
+            // Brute force para goblin e skeleton
+            let sfxKey = '';
+            if (this.unit?.name === 'goblin') {
+                sfxKey = 'goblin_attack_sfx';
+            } else if (this.unit?.name === 'skeleton') {
+                sfxKey = 'skeleton_attack_sfx';
+            } else {
+                const keyBase = this.unit.spriteKey || (this.unit.name || '').toLowerCase();
+                sfxKey = this.unit.sfxKey || `${keyBase}_attack_sfx`;
+            }
+
+            const keyBase = this.unit.spriteKey || (this.unit.name || '').toLowerCase();
+            const animKey = `${keyBase}_attack`;
+
             console.log('Tentando tocar animação:', animKey);
 
-            const animationKeys = Object.keys(this.scene.anims.anims);
-            console.log('Animações disponíveis:', animationKeys);
-            console.log('Animação existe?', this.scene.anims.exists(animKey));
-
-            if (this.scene.anims.exists(animKey)) {
-                // Aplica a escala da animação
-                this.sprite.setScale(this.animScale);
-
-                this.sprite.play(animKey);
-
-                this.sprite.once('animationcomplete', () => {
-                    // Volta para a escala estática
-                    this.sprite.setFrame(1);
-
-                    if (this.scene.updateHud) {
-                        this.scene.updateHud();
-                    }
-
-
-                    const dodgeChance = targetCharacter.unit.calcularDodge ? targetCharacter.unit.calcularDodge() : 0;
-                    if (Math.random() < dodgeChance) {
-                        targetCharacter.showFloatingText('Esquivou!', '#ffff00');
-                        resolve();
-                        return;
-                    }
-
-                    const damage = targetCharacter.unit.takeDamage(this.unit.attack);
-                    targetCharacter.showFloatingText(`-${damage}`, '#ff4444');
-                    targetCharacter.updateHpBar();
-                    targetCharacter.playHitAnimation();
-                    resolve();
-                });
-            } else {
-                console.warn(`Animação ${animKey} não encontrada! Aplicando dano direto.`);
+            const applyDamage = () => {
                 const dodgeChance = targetCharacter.unit.calcularDodge ? targetCharacter.unit.calcularDodge() : 0;
                 if (Math.random() < dodgeChance) {
                     targetCharacter.showFloatingText('Esquivou!', '#ffff00');
                     resolve();
                     return;
                 }
+
                 const damage = targetCharacter.unit.takeDamage(this.unit.attack);
                 targetCharacter.showFloatingText(`-${damage}`, '#ff4444');
                 targetCharacter.updateHpBar();
                 targetCharacter.playHitAnimation();
                 resolve();
+            };
+
+            if (this.scene.anims.exists(animKey)) {
+                this.sprite.once('animationstart', () => {
+                    const unitName = (this.unit.name || '').toLowerCase();
+                    if (unitName === 'goblin' && this.scene.sfx['goblin_attack_sfx']) {
+                        this.scene.sfx['goblin_attack_sfx'].play();
+                    } else if (unitName === 'skeleton' && this.scene.sfx['skeleton_attack_sfx']) {
+                        this.scene.sfx['skeleton_attack_sfx'].play();
+                    } else if (this.scene.sfx && this.scene.sfx[sfxKey]) {
+                        this.scene.sfx[sfxKey].play();
+                    }
+                });
+
+                this.sprite.setScale(this.animScale);
+                this.sprite.play(animKey);
+
+                this.sprite.once('animationcomplete', () => {
+                    this.sprite.setFrame(0);
+                    this.sprite.setScale(this.staticScale);
+
+                    if (this.scene.updateHUD) {
+                        this.scene.updateHUD();
+                    }
+
+                    applyDamage();
+                });
+            } else {
+                console.warn(`Animação ${animKey} não encontrada! Aplicando dano direto.`);
+                applyDamage();
             }
         });
     }
 
-    showDamage(damage) {
-        const dmgText = this.scene.add.text(this.sprite.x, this.sprite.y - 30, `-${damage}`, {
+
+
+    useAbility(ability, targetCharacter) {
+        const sfxKey = ability.sfxKey || `${this.unit.name.toLowerCase()}_attack_sfx`;
+        return new Promise((resolve) => {
+            if (!targetCharacter.isAlive) {
+                resolve();
+                return;
+            }
+
+            if (this.unit.mana < ability.manaCost) {
+                this.showFloatingText('Mana insuficiente!', '#0000ff');
+                resolve();
+                return;
+            }
+
+            this.unit.mana -= ability.manaCost;
+
+            const keyBase = this.unit.spriteKey || this.unit.name.toLowerCase();
+            const animKey = ability.animationKey || `${keyBase}_attack`;
+
+            const applyEffect = () => {
+                if (ability.type === 'debuff') {
+                    this.applyDebuff(targetCharacter, ability);
+                } else if (ability.type === 'heal') {
+                    const healed = Math.min(ability.power, targetCharacter.unit.maxHp - targetCharacter.unit.hp);
+                    targetCharacter.unit.hp += healed;
+
+                    targetCharacter.showFloatingText(`+${healed}`, '#00ff88');
+                    targetCharacter.updateHpBar();
+                } else {
+                    let damage = ability.power - targetCharacter.unit.defense;
+                    if (damage < 0) damage = 0;
+
+                    targetCharacter.unit.hp -= damage;
+                    if (targetCharacter.unit.hp < 0) targetCharacter.unit.hp = 0;
+
+                    targetCharacter.showFloatingText(`-${damage}`, '#ff4444');
+                    targetCharacter.updateHpBar();
+                    targetCharacter.playHitAnimation();
+                }
+
+                if (this.scene.updateHUD) this.scene.updateHUD();
+                resolve();
+            };
+
+
+            if (this.scene.anims.exists(animKey)) {
+                this.sprite.setScale(this.animScale);
+                this.sprite.play(animKey);
+                if (this.scene.sfx && this.scene.sfx[sfxKey]) {
+                    this.scene.sfx[sfxKey].play();
+                }
+
+                this.sprite.once('animationcomplete', () => {
+                    this.sprite.setFrame(0);
+                    this.sprite.setScale(this.staticScale);
+                    applyEffect();
+                });
+            } else {
+                applyEffect();
+            }
+        });
+    }
+
+    applyDebuff(targetCharacter, ability) {
+        const attr = ability.attribute;
+        const power = ability.power;
+        const duration = ability.duration;
+
+        if (!targetCharacter.unit) return;
+        if (!targetCharacter.debuffs) targetCharacter.debuffs = [];
+
+        // Armazena valor original uma única vez
+        if (targetCharacter.unit[`original_${attr}`] === undefined) {
+            targetCharacter.unit[`original_${attr}`] = targetCharacter.unit[attr];
+        }
+
+        // Aplica o debuff
+        targetCharacter.unit[attr] = Math.max(0, targetCharacter.unit[attr] - power);
+
+        // Adiciona à lista de debuffs
+        targetCharacter.debuffs.push({
+            attribute: attr,
+            power: power,
+            remainingTurns: duration
+        });
+
+        targetCharacter.showFloatingText(`${attr} -${power}`, '#ff8800');
+        targetCharacter.updateHpBar();
+    }
+
+    updateDebuffs() {
+        if (!this.unit.debuffs) return;
+
+        const attrMap = {};
+
+        for (let i = this.unit.debuffs.length - 1; i >= 0; i--) {
+            const debuff = this.unit.debuffs[i];
+            debuff.remainingTurns--;
+
+            if (debuff.remainingTurns <= 0) {
+                this.unit.debuffs.splice(i, 1);
+            } else {
+                if (!attrMap[debuff.attribute]) attrMap[debuff.attribute] = 0;
+                attrMap[debuff.attribute] += debuff.power;
+            }
+        }
+
+        const originalAttrs = Object.keys(this.unit).filter(k => k.startsWith('original_'));
+        originalAttrs.forEach(key => {
+            const attr = key.replace('original_', '');
+            const stillDebuffed = this.unit.debuffs.some(d => d.attribute === attr);
+
+            if (!stillDebuffed) {
+                this.unit[attr] = this.unit[key];
+                delete this.unit[key];
+                this.showFloatingText(`${attr} restaurado`, '#00ffff');
+            } else {
+                this.unit[attr] = Math.max(0, this.unit[`original_${attr}`] - attrMap[attr]);
+            }
+        });
+
+        this.updateHpBar();
+    }
+
+
+    showFloatingText(text, color = '#ffffff') {
+        const floatText = this.scene.add.text(this.sprite.x, this.sprite.y - 30, text, {
             fontSize: '20px',
-            fill: '#ff4444',
+            fill: color,
             stroke: '#000',
             strokeThickness: 2,
             fontStyle: 'bold'
-        });
+        }).setOrigin(0.5);
 
         this.scene.tweens.add({
-            targets: dmgText,
-            y: dmgText.y - 50,
+            targets: floatText,
+            y: floatText.y - 40,
             alpha: 0,
             duration: 1500,
             ease: 'Cubic.easeOut',
-            onComplete: () => dmgText.destroy()
+            onComplete: () => floatText.destroy()
         });
     }
 
@@ -114,25 +250,6 @@ export default class Character {
             yoyo: true,
             duration: 100,
             repeat: 1
-        });
-    }
-
-    showFloatingText(text, color = '#ffffff') {
-        const floatText = this.scene.add.text(this.sprite.x, this.sprite.y - 30, text, {
-            fontSize: '20px',
-            fill: color,
-            stroke: '#000',
-            strokeThickness: 2,
-            fontStyle: 'bold'
-        });
-
-        this.scene.tweens.add({
-            targets: floatText,
-            y: floatText.y - 40,
-            alpha: 0,
-            duration: 1500,
-            ease: 'Cubic.easeOut',
-            onComplete: () => floatText.destroy()
         });
     }
 }
