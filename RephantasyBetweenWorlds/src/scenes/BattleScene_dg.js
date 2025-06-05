@@ -1,6 +1,5 @@
 import Character from '../classes/Character.js';
 import { party } from '../entities/Party.js';
-import { enemyTypes } from '../entities/Enemy.js';
 import createAnimations from '../entities/animations.js';
 
 export default class BattleScene_dg extends Phaser.Scene {
@@ -9,9 +8,31 @@ export default class BattleScene_dg extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('enemy', 'assets/enemies/Idle.gif');
+        //bgm
+        this.load.audio('battle_1_bgm', 'assets/sounds/bgm/05 - Battle 1.wav')
+
+        //sfx
+        this.load.audio('siegel_attack_sfx', 'assets/sounds/sfx/Sword Impact Hit 1.wav');
+        this.load.audio('siegel_skill_sfx', 'assets/sounds/sfx/Sword Impact Hit 3.wav');
+        this.load.audio('aiko_attack_sfx', 'assets/sounds/sfx/Firebuff 1.wav');
+        this.load.audio('aiko_skill_sfx', 'assets/sounds/sfx/Fireball 3.wav');
+        this.load.audio('matthew_attack_sfx', 'assets/sounds/sfx/Guitar riff sound effect.mp3');
+        this.load.audio('archibald_attack_sfx', 'assets/sounds/sfx/Sword Attack 2.wav');
+        this.load.audio('archibald_skill_sfx', 'assets/sounds/sfx/Sword Parry 2.wav');
+
+        this.load.audio('goblin_attack_sfx', 'assets/sounds/sfx/08_Bite_04.wav');
+        this.load.audio('skeleton_attack_sfx', 'assets/sounds/sfx/22_Slash_04.wav');
+
+
+
+        //Texturas UI
         this.load.image('selector', 'assets/ui/selector.png');
         this.load.image('battle_bg', 'assets/backgrounds/battle_bg.png');
+
+        //Texturas base inimigos
+        this.load.image('goblin', 'assets/enemies/goblin/Idle.gif');
+        this.load.image('skeleton', 'assets/enemies/skeleton/skeleton_atk_spritesheet.gif');
+
 
         // Texturas base dos personagens (idle ou estática)
         this.load.image('siegel', 'assets/Party/Siegel/Siegel_atk.gif');
@@ -36,11 +57,14 @@ export default class BattleScene_dg extends Phaser.Scene {
             frameWidth: 384,
             frameHeight: 390
         });
-        this.load.spritesheet('enemy_attack', 'assets/enemies/goblin_atk_spritesheet.png', {
+        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin/goblin_atk_spritesheet.png', {
             frameWidth: 600,
             frameHeight: 600
         });
-
+        this.load.spritesheet('skeleton_attack', 'assets/enemies/skeleton/skeleton_atk_spritesheet.png', {
+            frameWidth: 547,
+            frameHeight: 240
+        });
 
     }
 
@@ -48,11 +72,31 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
 
-
         createAnimations(this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT); // Adiciona tecla SHIFT
+
+        this.sfx = {
+            siegel_attack_sfx: this.sound.add('siegel_attack_sfx'),
+            siegel_skill_sfx: this.sound.add('siegel_skill_sfx'),
+            aiko_attack_sfx: this.sound.add('aiko_attack_sfx'),
+            aiko_skill_sfx: this.sound.add('aiko_skill_sfx'),
+            matthew_attack_sfx: this.sound.add('matthew_attack_sfx'),
+            archibald_attack_sfx: this.sound.add('archibald_attack_sfx'),
+            archibald_skill_sfx: this.sound.add('archibald_skill_sfx'),
+
+            goblin_skill_sfx: this.sound.add('goblin_attack_sfx'),
+            skeleton_skill_sfx: this.sound.add('skeleton_attack_sfx')
+        };
+
+        this.bgm = this.sound.add('battle_1_bgm', {
+            loop: true,
+            volume: 0.25
+        });
+
+        this.bgm.play();
 
 
         const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'battle_bg')
@@ -111,19 +155,34 @@ export default class BattleScene_dg extends Phaser.Scene {
         });
 
 
-        const enemyConfig = {
-            name: 'Enemy',
-            hp: 5,
-            maxHp: 100,
-            mana: 0,
-            maxMana: 0,
-            attack: 20,
-            defense: 3,
-            speed: 1,
-            isPlayer: false,
-            abilities: []
-        };
-
+        const enemyTypes = [
+            {
+                name: 'skeleton',
+                hp: 100,
+                maxHp: 100,
+                mana: 0,
+                maxMana: 0,
+                attack: 20,
+                defense: 3,
+                speed: 1,
+                sfxKey: 'skeleton_attack_sfx',
+                isPlayer: false,
+                abilities: []
+            },
+            {
+                name: 'goblin',
+                hp: 70,
+                maxHp: 70,
+                mana: 0,
+                maxMana: 0,
+                attack: 15,
+                defense: 2,
+                speed: 2,
+                sfxKey: 'goblin_attack_sfx',
+                isPlayer: false,
+                abilities: []
+            }
+        ];
         this.enemyCharacters = [];
 
         const fixedPositions = [
@@ -133,14 +192,18 @@ export default class BattleScene_dg extends Phaser.Scene {
             { x: width * 0.75 + 150, y: (height / 5) * 3.25 }
         ];
 
-        const numEnemies = Phaser.Math.Between(2, 2);
+        const numEnemies = Phaser.Math.Between(1, 4);
 
         // Embaralha as posições pra pegar aleatoriamente sem repetir
         const shuffledPositions = Phaser.Utils.Array.Shuffle(fixedPositions);
 
         for (let i = 0; i < numEnemies; i++) {
             const pos = shuffledPositions[i];
-            this.enemyCharacters.push(new Character(this, enemyConfig, pos.x, pos.y, 'enemy'));
+
+            // Sorteia um tipo de inimigo aleatoriamente
+            const config = Phaser.Utils.Array.GetRandom(enemyTypes);
+
+            this.enemyCharacters.push(new Character(this, config, pos.x, pos.y, config.name));
         }
 
 
@@ -187,6 +250,16 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.isChoosingTarget = false;
         this.currentAbility = null;
     }
+
+
+
+    highlightAbility(index) {
+        this.abilityOptions.forEach((txt, i) => {
+            txt.setStyle({ backgroundColor: i === index ? '#5555ff' : null });
+        });
+    }
+
+
 
     startTurn() {
         // Filtra personagens vivos
@@ -279,117 +352,241 @@ export default class BattleScene_dg extends Phaser.Scene {
     onMenuSelect(option) {
         if (!this.currentCharacter || !this.currentCharacter.unit.isAlive()) return;
 
-
         if (option === 'Atacar') {
             this.menuContainer.setVisible(false);
             this.isChoosingTarget = true;
             this.awaitTargetSelection('attack');
         } else if (option === 'Usar Habilidade') {
             this.menuContainer.setVisible(false);
-            console.log('Menu de habilidades ainda não implementado.');
-            this.nextTurn();
+            this.createAbilitiesMenu();
         } else if (option === 'Passar Turno') {
             this.menuContainer.setVisible(false);
             this.nextTurn();
         }
     }
 
-    awaitTargetSelection(action) {
-        this.targetAction = action;
-        this.isChoosingTarget = true;
-        this.selectedEnemyIndex = 0;
-        this.updateEnemySelector();
+    selectAbility(index) {
+        if (index < 0 || index >= this.abilityOptions.length) return;
 
-        // Remover listeners para não duplicar (opcional, mas recomendável)
-        this.input.keyboard.removeAllListeners('keydown-RIGHT');
-        this.input.keyboard.removeAllListeners('keydown-LEFT');
+        const selectedAbility = this.currentCharacter.unit.abilities[index];
+
+        if (this.currentCharacter.unit.mana < selectedAbility.manaCost) {
+            const warningText = this.add.text(
+                this.sys.game.config.width / 2,
+                this.sys.game.config.height / 2,
+                'Mana Insuficiente!',
+                { fontSize: '24px', color: '#ff0000', stroke: '#000', strokeThickness: 3 }
+            ).setOrigin(0.5);
+
+            this.time.delayedCall(2000, () => warningText.destroy());
+            return;
+        }
+
+        this.currentAbility = selectedAbility;
+        this.abilitiesContainer.setVisible(false);
+        this.abilitiesContainer.destroy(true);
+
+        if (selectedAbility.target === 'all_allies') {
+            const aliveAllies = this.playerCharacters.filter(p => p.isAlive);
+            this.currentCharacter.useHealingAbility(selectedAbility, aliveAllies).then(() => {
+                this.isChoosingTarget = false;
+                this.clearTargetSelection();
+                this.nextTurn();
+            });
+        } else {
+            this.isChoosingTarget = true;
+
+            const targetType = (selectedAbility.target === 'single_ally') ? 'player' : 'enemy';
+
+            this.awaitTargetSelection('ability', selectedAbility.target === 'single_ally' ? 'ally' : 'enemy');
+
+        }
+    }
+
+    awaitTargetSelection(action, targetType = 'enemy') {
+        this.targetAction = action;
+        this.targetType = targetType;
+        this.isChoosingTarget = true;
+
+        let targets = [];
+        if (this.targetType === 'enemy') {
+            targets = this.enemyCharacters;
+        } else if (this.targetType === 'ally') {
+            targets = this.playerCharacters;
+        } else {
+            console.warn(`TargetType inválido: ${this.targetType}`);
+            this.isChoosingTarget = false;
+            this.showMenu();
+            return;
+        }
+
+        this.selectedTargetIndex = 0;
+        while (!targets[this.selectedTargetIndex]?.isAlive && this.selectedTargetIndex < targets.length) {
+            this.selectedTargetIndex++;
+        }
+
+        this.updateTargetSelector();
+
+        this.input.keyboard.off('keydown-RIGHT');
+        this.input.keyboard.off('keydown-LEFT');
+        this.input.keyboard.off('keydown-SHIFT');
+        this.enterKey.removeAllListeners();
+        this.shiftKey.removeAllListeners();
 
         this.input.keyboard.on('keydown-RIGHT', () => {
             if (!this.isChoosingTarget) return;
-            this.selectedEnemyIndex = (this.selectedEnemyIndex + this.enemyCharacters.length - 1) % this.enemyCharacters.length;
-            this.updateEnemySelector();
+            let attempts = 0;
+            do {
+                this.selectedTargetIndex = (this.selectedTargetIndex + 1) % targets.length;
+                attempts++;
+            } while (!targets[this.selectedTargetIndex].isAlive && attempts < targets.length);
+            this.updateTargetSelector();
         });
 
         this.input.keyboard.on('keydown-LEFT', () => {
             if (!this.isChoosingTarget) return;
-            this.selectedEnemyIndex = (this.selectedEnemyIndex + 1) % this.enemyCharacters.length;
-            this.updateEnemySelector();
+            let attempts = 0;
+            do {
+                this.selectedTargetIndex = (this.selectedTargetIndex - 1 + targets.length) % targets.length;
+                attempts++;
+            } while (!targets[this.selectedTargetIndex].isAlive && attempts < targets.length);
+            this.updateTargetSelector();
         });
 
-        this.enterKey.removeAllListeners();
         this.enterKey.once('down', () => {
-            const target = this.enemyCharacters[this.selectedEnemyIndex];
-            this.onTargetSelected(target);
+            const target = targets[this.selectedTargetIndex];
+            if (target?.isAlive) {
+                this.onTargetSelected(target);
+            }
+        });
+
+        this.shiftKey.once('down', () => {
+            this.isChoosingTarget = false;
+            this.clearTargetSelection();
+            this.showMenu();
         });
     }
-
-
 
 
     async onTargetSelected(targetCharacter) {
         if (this.targetAction === 'attack') {
             await this.currentCharacter.attackTarget(targetCharacter);
         } else if (this.targetAction === 'ability' && this.currentAbility) {
-            console.log('Uso de habilidade ainda não implementado.');
+            if (this.currentAbility.target === 'single_ally') {
+                // Garante que o alvo é aliado (playerCharacters)
+                if (this.playerCharacters.includes(targetCharacter)) {
+                    await this.currentCharacter.useHealingAbility(this.currentAbility, targetCharacter);
+                } else {
+                    // Tentou curar inimigo, cancela e volta para menu
+                    console.warn('Tentativa de curar inimigo bloqueada');
+                    this.showMenu();
+                    return;
+                }
+            } else if (this.currentAbility.target === 'all_allies') {
+                const aliveAllies = this.playerCharacters.filter(p => p.isAlive);
+                await this.currentCharacter.useHealingAbility(this.currentAbility, aliveAllies);
+            } else {
+                await this.currentCharacter.useAbility(this.currentAbility, targetCharacter);
+            }
         }
 
         this.isChoosingTarget = false;
         this.clearTargetSelection();
         this.nextTurn();
-
-        this.input.keyboard.removeAllListeners();
-
     }
 
 
     clearTargetSelection() {
         this.selector.setVisible(false);
-        this.enemyCharacters.forEach(enemy => {
-            if (enemy.sprite && enemy.sprite.active && enemy.sprite.removeAllListeners && enemy.sprite.disableInteractive) {
-                enemy.sprite.removeAllListeners();
-                enemy.sprite.disableInteractive();
+        const targets = this.targetType === 'enemy' ? this.enemyCharacters : this.playerCharacters;
+        targets.forEach(target => {
+            if (target.sprite && target.sprite.active && target.sprite.removeAllListeners && target.sprite.disableInteractive) {
+                target.sprite.removeAllListeners();
+                target.sprite.disableInteractive();
             }
         });
     }
 
+    updateTargetSelector() {
+        let targets = [];
+        if (this.targetType === 'enemy') {
+            targets = this.enemyCharacters;
+        } else if (this.targetType === 'ally') {
+            targets = this.playerCharacters;
+        } else {
+            console.warn(`TargetType inválido: ${this.targetType}`);
+            this.selector.setVisible(false);
+            return;
+        }
 
-    updateEnemySelector() {
-        const target = this.enemyCharacters[this.selectedEnemyIndex];
+        let target = targets[this.selectedTargetIndex];
+
+        let attempts = 0;
+        while (target && !target.isAlive && attempts < targets.length) {
+            this.selectedTargetIndex = (this.selectedTargetIndex + 1) % targets.length;
+            target = targets[this.selectedTargetIndex];
+            attempts++;
+        }
+
         if (target?.isAlive) {
             this.selector.setPosition(target.sprite.x, target.sprite.y - 50);
             this.selector.setVisible(true);
         } else {
             this.selector.setVisible(false);
+            this.endBattle(this.targetType === 'enemy');
         }
     }
+
 
 
     nextTurn() {
+        const currentCharacter = this.turnQueue[0];
+
+        // Atualiza os debuffs do personagem atual, se ele tiver esse método
+        if (currentCharacter.updateDebuffs) {
+            currentCharacter.updateDebuffs();
+        }
+
         this.turnQueue.push(this.turnQueue.shift());
+
         this.time.delayedCall(1000, () => {
             this.startTurn();
         });
+
         this.updateHUD();
-
     }
 
-    endBattle(playerWon) {
-        this.menuContainer.setVisible(false);
-        // Aqui você pode adicionar tela de vitória/derrota ou retornar para menu principal
-        if (playerWon) {
-            this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-        } else {
-            this.add.text(500 / 2, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
-        }
-    }
+endBattle(playerWon) {
+    this.menuContainer.setVisible(false);
+    if (playerWon) {
+        this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
+        this.ganharXP();
+        this.time.delayedCall(1500, () => {
+            this.scene.start(this.previousScene); // Volta para a cena anterior
+        });
+    } else {
+        this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
+        this.time.delayedCall(1500, () => {
+            this.scene.start(this.previousScene); // Volta para a cena anterior
+        });
+    }
+}
 
     updateHUD() {
         if (!this.currentCharacter || !this.currentCharacter.unit) return;
 
         this.hudNameText.setText(`Nome: ${this.currentCharacter.unit.name}`);
         this.hudHpText.setText(`HP: ${this.currentCharacter.unit.hp}/${this.currentCharacter.unit.maxHp}`);
-        this.hudContainer.setVisible(true);
 
+        // Só mostra mana se o personagem tiver mana (aliado)
+        if (this.currentCharacter.unit.maxMana && this.currentCharacter.unit.maxMana > 0) {
+            this.hudManaText.setText(`Mana: ${this.currentCharacter.unit.mana}/${this.currentCharacter.unit.maxMana}`);
+            this.hudManaText.setVisible(true);
+        } else {
+            this.hudManaText.setVisible(false);
+        }
+
+        this.hudContainer.setVisible(true);
         this.updateTopHud();
     }
 
@@ -397,15 +594,12 @@ export default class BattleScene_dg extends Phaser.Scene {
     createHUD() {
         const { width, height } = this.sys.game.config;
 
-        // Container do HUD
-        this.hudContainer = this.add.container(width - 260, height - 100); // posição canto inferior direito
+        this.hudContainer = this.add.container(width - 260, height - 100);
 
-        // Fundo do HUD
         const hudBg = this.add.graphics();
         hudBg.fillStyle(0x000000, 0.6);
-        hudBg.fillRoundedRect(0, 0, 250, 80, 10); // largura: 250, altura: 80
+        hudBg.fillRoundedRect(0, 0, 250, 110, 10); // aumentei altura para caber mana
 
-        // Texto de nome e HP
         this.hudNameText = this.add.text(20, 10, '', {
             fontSize: '18px',
             fill: '#ffffff',
@@ -417,10 +611,13 @@ export default class BattleScene_dg extends Phaser.Scene {
             fill: '#ff4444'
         });
 
-        // Adiciona tudo no container
-        this.hudContainer.add([hudBg, this.hudNameText, this.hudHpText]);
+        this.hudManaText = this.add.text(20, 70, '', {  // novo texto para mana
+            fontSize: '16px',
+            fill: '#4444ff'
+        });
 
-        // Inicialmente invisível (será exibido no turno do jogador ou inimigo)
+        this.hudContainer.add([hudBg, this.hudNameText, this.hudHpText, this.hudManaText]);
+
         this.hudContainer.setVisible(false);
     }
 
@@ -428,6 +625,99 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.topHudTexts.forEach(hud => {
             const { character, hpText } = hud;
             hpText.setText(`HP: ${character.unit.hp}/${character.unit.maxHp}`);
+        });
+    }
+
+    createAbilitiesMenu() {
+        const { width, height } = this.sys.game.config;
+
+        if (this.abilitiesContainer) {
+            this.abilitiesContainer.destroy(true);
+        }
+
+        this.abilitiesContainer = this.add.container(width / 2 - 150, height - 160);
+        this.abilitiesContainer.setDepth(30);
+
+        const bg = this.add.graphics();
+        bg.fillStyle(0x333366, 0.8);
+        bg.fillRoundedRect(0, 0, 300, 150, 10);
+        this.abilitiesContainer.add(bg);
+
+        this.abilityOptions = [];
+        const abilities = this.currentCharacter.unit.abilities || [];
+
+        if (abilities.length === 0) {
+            const noAbilityText = this.add.text(150, 75, 'Sem habilidades', {
+                fontSize: '20px',
+                color: '#ffffff'
+            }).setOrigin(0.5);
+            this.abilitiesContainer.add(noAbilityText);
+            this.selectedAbilityIndex = -1;
+            this.abilitiesContainer.setVisible(true);
+
+            // Adicionar tecla SHIFT para voltar ao menu principal
+            this.input.keyboard.off('keydown-SHIFT');
+            this.input.keyboard.once('keydown-SHIFT', () => {
+                this.abilitiesContainer.setVisible(false);
+                this.abilitiesContainer.destroy(true);
+                this.showMenu();
+            });
+
+            return;
+        }
+
+        abilities.forEach((ability, index) => {
+            const txt = this.add.text(150, 30 + index * 40, `${ability.name} (Mana: ${ability.manaCost})`, {
+                fontSize: '18px',
+                color: '#ffffff',
+                align: 'center'
+            }).setOrigin(0.5).setInteractive();
+
+            txt.on('pointerdown', () => {
+                this.selectAbility(index);
+            });
+
+            this.abilitiesContainer.add(txt);
+            this.abilityOptions.push(txt);
+        });
+
+        this.selectedAbilityIndex = 0;
+        this.highlightAbility(this.selectedAbilityIndex);
+        this.abilitiesContainer.setVisible(true);
+
+        this.input.keyboard.off('keydown-UP');
+        this.input.keyboard.off('keydown-DOWN');
+        this.input.keyboard.off('keydown-ESC');
+
+        this.input.keyboard.on('keydown-UP', () => {
+            if (!this.abilitiesContainer.visible) return;
+            this.selectedAbilityIndex = (this.selectedAbilityIndex + this.abilityOptions.length - 1) % this.abilityOptions.length;
+            this.highlightAbility(this.selectedAbilityIndex);
+        });
+
+        this.input.keyboard.on('keydown-DOWN', () => {
+            if (!this.abilitiesContainer.visible) return;
+            this.selectedAbilityIndex = (this.selectedAbilityIndex + 1) % this.abilityOptions.length;
+            this.highlightAbility(this.selectedAbilityIndex);
+        });
+
+        this.enterKey.removeAllListeners();
+        this.enterKey.once('down', () => {
+            this.selectAbility(this.selectedAbilityIndex);
+        });
+
+        // Adicionar tecla ESC para voltar ao menu principal
+        this.input.keyboard.once('keydown-SHIFT', () => {
+            this.abilitiesContainer.setVisible(false);
+            this.abilitiesContainer.destroy(true);
+            this.currentAbility = null;
+            this.showMenu();
+        });
+    }
+
+    highlightAbility(index) {
+        this.abilityOptions.forEach((opt, i) => {
+            opt.setStyle({ backgroundColor: i === index ? '#5555ff' : '#000000' });
         });
     }
 
