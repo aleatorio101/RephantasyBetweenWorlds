@@ -189,7 +189,7 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
 
             boss.sprite.setFrame(0);
 
-            this.time.delayedCall(4000, () => {
+            this.time.delayedCall(2500, () => {
                 boss.sprite.play('boss_entrada');
             });
 
