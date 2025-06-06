@@ -4,7 +4,7 @@ import createAnimations from '../entities/animations.js';
 
 export default class BattleScene_dg_boss extends Phaser.Scene {
     constructor() {
-        super('BattleScene');
+        super('BattleScene_dg_boss');
     }
 
     preload() {

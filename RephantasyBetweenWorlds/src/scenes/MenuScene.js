@@ -13,5 +13,9 @@ export class MenuScene extends Phaser.Scene {
         const creditsButton = this.add.text(540, 300, 'Créditos', { fontSize: '24px', fill: '#0ff' })
             .setInteractive()
             .on('pointerdown', () => this.scene.start('CreditsScene'));
+
+        const ficharioButton = this.add.text(540, 350, 'Fichario', { fontSize: '24px', fill: '#0ff' })
+            .setInteractive()
+            .on('pointerdown', () => this.scene.start('FicharioScene'));
     }
 }

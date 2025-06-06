@@ -139,7 +139,7 @@ export class CavernaScene extends Phaser.Scene {
                 this.lastDirection = dir.key;
                 moved = true;
                 if (Phaser.Math.Between(1, 700) <= 1) {
-                    this.scene.start('BattleScene');
+                    this.scene.start('BattleScene_dg');
                 }
                 break;
             }

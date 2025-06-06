@@ -125,37 +125,33 @@ export class FlorestaScene extends Phaser.Scene {
         const speed = 100;
         this.player.setVelocity(0);
 
-        if (this.cursors.left.isDown) {
-            this.player.setVelocityX(-speed);
-            this.player.anims.play('walk_left', true);
-            this.lastDirection = 'left';
-        } else if (this.cursors.right.isDown) {
-            this.player.setVelocityX(speed);
-            this.player.anims.play('walk_right', true);
-            this.lastDirection = 'right';
-        } else if (this.cursors.up.isDown) {
-            this.player.setVelocityY(-speed);
-            this.player.anims.play('walk_up', true);
-            this.lastDirection = 'up';
-        } else if (this.cursors.down.isDown) {
-            this.player.setVelocityY(speed);
-            this.player.anims.play('walk_down', true);
-            this.lastDirection = 'down';
-        } else {
+        const directions = [
+            { key: 'left', isDown: this.cursors.left.isDown, setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
+            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed), anim: 'walk_right', texture: 'Siegel_direita' },
+            { key: 'up', isDown: this.cursors.up.isDown, setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up', texture: 'Siegel_up' },
+            { key: 'down', isDown: this.cursors.down.isDown, setVelocity: () => this.player.setVelocityY(speed), anim: 'walk_down', texture: 'Siegel_down' }
+        ];
+
+        let moved = false;
+
+        for (const dir of directions) {
+            if (dir.isDown) {
+                dir.setVelocity();
+                this.player.anims.play(dir.anim, true);
+                this.lastDirection = dir.key;
+                moved = true;
+                if (Phaser.Math.Between(1, 700) <= 1) {
+                    this.scene.start('BattleScene_floresta', { previousScene: this.scene.key });
+                }
+                break;
+            }
+        }
+
+        if (!moved) {
             this.player.anims.stop();
-            switch (this.lastDirection) {
-                case 'left':
-                    this.player.setTexture('Siegel_esquerda');
-                    break;
-                case 'right':
-                    this.player.setTexture('Siegel_direita');
-                    break;
-                case 'up':
-                    this.player.setTexture('Siegel_up');
-                    break;
-                case 'down':
-                    this.player.setTexture('Siegel_down');
-                    break;
+            const lastDir = directions.find(d => d.key === this.lastDirection);
+            if (lastDir) {
+                this.player.setTexture(lastDir.texture);
             }
         }
     }

@@ -1,11 +1,10 @@
 import Character from '../classes/Character.js';
 import { party } from '../entities/Party.js';
-import { enemyTypes } from '../entities/Enemy.js';
 import createAnimations from '../entities/animations.js';
 
 export default class BattleScene_floresta extends Phaser.Scene {
     constructor() {
-        super('BattleScene');
+        super('BattleScene_floresta');
     }
 
     preload() {
