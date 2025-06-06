@@ -1,3 +1,5 @@
+import PauseOverlay from '../ui/PauseOverlay.js';
+
 export class QuartoScene extends Phaser.Scene {
     constructor() {
         super('QuartoScene');
@@ -92,25 +94,15 @@ export class QuartoScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player);
 
 
+        this.pauseOverlay = new PauseOverlay(this);
         this.keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        this.pauseOverlay = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.5).setVisible(false);
-        this.pauseText = this.add.text(480, 300, 'PAUSE', { fontSize: '64px', fill: '#fff' }).setVisible(false);
-        this.menuButton = this.add.text(520, 400, 'Voltar ao Menu', { fontSize: '32px', fill: '#0f0' })
-            .setInteractive()
-            .setVisible(false)
-            .on('pointerdown', () => this.scene.start('MenuScene'));
-        this.isPaused = false;
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.keyESC)) {
-            this.isPaused = !this.isPaused;
-            this.pauseOverlay.setVisible(this.isPaused);
-            this.pauseText.setVisible(this.isPaused);
-            this.menuButton.setVisible(this.isPaused);
+            this.pauseOverlay.toggle();
         }
-
-        if (this.isPaused) return;
+        if (this.pauseOverlay.isPaused) return;
 
         const speed = 100;
         this.player.setVelocity(0);
