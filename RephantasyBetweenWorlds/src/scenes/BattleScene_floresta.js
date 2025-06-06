@@ -68,6 +68,12 @@ export default class BattleScene_floresta extends Phaser.Scene {
 
     }
 
+    init(data) {
+        this.previousScene = data.previousScene || 'FlorestaScene';
+        this.playerX = data.playerX;
+        this.playerY = data.playerY;
+    }
+
     create() {
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
@@ -560,21 +566,31 @@ export default class BattleScene_floresta extends Phaser.Scene {
         this.updateHUD();
     }
 
-    endBattle(playerWon) {
-        this.menuContainer.setVisible(false);
-        if (playerWon) {
-            this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-            this.ganharXP();
-            this.time.delayedCall(1500, () => {
-                this.scene.start(this.previousScene); // Volta para a cena anterior
+endBattle(playerWon) {
+    this.menuContainer.setVisible(false);
+    if (playerWon) {
+        this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
+        this.playerCharacters.forEach(char => {
+            if (char.unit && typeof char.unit.ganharXP === 'function') {
+                char.unit.ganharXP(5);
+            }
+        });
+        this.time.delayedCall(1500, () => {
+            this.scene.start(this.previousScene, {
+                playerX: this.playerX,
+                playerY: this.playerY
             });
-        } else {
-            this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
-            this.time.delayedCall(1500, () => {
-                this.scene.start(this.previousScene); // Volta para a cena anterior
+        });
+    } else {
+        this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
+        this.time.delayedCall(1500, () => {
+            this.scene.start(this.previousScene, {
+                playerX: this.playerX,
+                playerY: this.playerY
             });
-        }
+        });
     }
+}
 
     updateHUD() {
         if (!this.currentCharacter || !this.currentCharacter.unit) return;

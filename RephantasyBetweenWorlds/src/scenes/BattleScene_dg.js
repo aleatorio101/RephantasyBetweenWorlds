@@ -9,6 +9,8 @@ export default class BattleScene_dg extends Phaser.Scene {
 
     init(data) {
     this.previousScene = data.previousScene || 'GameScene';
+    this.playerX = data.playerX;
+    this.playerY = data.playerY;
 }
 
     preload() {
@@ -565,20 +567,24 @@ endBattle(playerWon) {
     this.menuContainer.setVisible(false);
     if (playerWon) {
         this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-        // Dar XP para cada personagem do jogador
         this.playerCharacters.forEach(char => {
             if (char.unit && typeof char.unit.ganharXP === 'function') {
-                char.unit.ganharXP(5); // Passe a quantidade de XP desejada
-                console.log(`XP atual de ${char.unit.name}: ${char.unit.xp}`); // Mostra o XP atual no console
+                char.unit.ganharXP(5);
             }
         });
         this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene);
+            this.scene.start(this.previousScene, {
+                playerX: this.playerX,
+                playerY: this.playerY
+            });
         });
     } else {
         this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
         this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene);
+            this.scene.start(this.previousScene, {
+                playerX: this.playerX,
+                playerY: this.playerY
+            });
         });
     }
 }

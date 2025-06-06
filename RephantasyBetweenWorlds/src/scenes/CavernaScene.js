@@ -3,6 +3,15 @@ export class CavernaScene extends Phaser.Scene {
         super('CavernaScene');
     }
 
+    init(data) {
+        this.spawnOverride = false;
+        if (data && data.playerX !== undefined && data.playerY !== undefined) {
+            this.spawnOverride = true;
+            this.spawnX = data.playerX;
+            this.spawnY = data.playerY;
+        }
+    }
+
     create() {
         const map = this.make.tilemap({ key: 'Caverna' });
 
@@ -27,7 +36,7 @@ export class CavernaScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
 
-        //Configura colisÃ£o
+        //Configura colisão
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
 
@@ -42,7 +51,12 @@ export class CavernaScene extends Phaser.Scene {
                 .setVisible(false);
         });
 
-        this.player = this.physics.add.sprite(50, 550, 'Siegel_direita');
+        // Use a posição recebida ou a padrão
+        this.player = this.physics.add.sprite(
+            this.spawnOverride ? this.spawnX : 50,
+            this.spawnOverride ? this.spawnY : 550,
+            'Siegel_direita'
+        );
         this.player.setCollideWorldBounds(true);
 
         const LaraZone = map.getObjectLayer('lara').objects[0];
@@ -61,38 +75,7 @@ export class CavernaScene extends Phaser.Scene {
         });
 
 
-        this.anims.create({
-            key: 'walk_down',
-            frames: this.anims.generateFrameNumbers('Siegel_down_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_up',
-            frames: this.anims.generateFrameNumbers('Siegel_up_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_left',
-            frames: this.anims.generateFrameNumbers('Siegel_esquerda_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_right',
-            frames: this.anims.generateFrameNumbers('Siegel_direita_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-
         this.cursors = this.input.keyboard.createCursorKeys();
-
-
         this.physics.add.collider(this.player, this.walls);
 
 
@@ -139,7 +122,11 @@ export class CavernaScene extends Phaser.Scene {
                 this.lastDirection = dir.key;
                 moved = true;
                 if (Phaser.Math.Between(1, 700) <= 1) {
-                    this.scene.start('BattleScene_dg');
+                    this.scene.start('BattleScene_dg', {
+                        previousScene: this.scene.key,
+                        playerX: this.player.x,
+                        playerY: this.player.y
+                    });
                 }
                 break;
             }

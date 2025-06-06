@@ -3,6 +3,15 @@ export class FlorestaScene extends Phaser.Scene {
         super('FlorestaScene');
     }
 
+    init(data) {
+        this.spawnOverride = false;
+        if (data && data.playerX !== undefined && data.playerY !== undefined) {
+            this.spawnOverride = true;
+            this.spawnX = data.playerX;
+            this.spawnY = data.playerY;
+        }
+    }
+
     create() {
         const map = this.make.tilemap({ key: 'Floresta' });
 
@@ -43,7 +52,11 @@ export class FlorestaScene extends Phaser.Scene {
                 .setVisible(false);
         });
 
-        this.player = this.physics.add.sprite(1870, 580, 'Siegel_esquerda');
+        this.player = this.physics.add.sprite(
+            this.spawnOverride ? this.spawnX : 1870,
+            this.spawnOverride ? this.spawnY : 580,
+            'Siegel_esquerda'
+        );
         this.player.setCollideWorldBounds(true);
 
         const LaraZone = map.getObjectLayer('volta_lara').objects[0];
@@ -141,7 +154,11 @@ export class FlorestaScene extends Phaser.Scene {
                 this.lastDirection = dir.key;
                 moved = true;
                 if (Phaser.Math.Between(1, 700) <= 1) {
-                    this.scene.start('BattleScene_floresta', { previousScene: this.scene.key });
+                    this.scene.start('BattleScene_floresta', {
+                        previousScene: this.scene.key,
+                        playerX: this.player.x,
+                        playerY: this.player.y
+                    });
                 }
                 break;
             }

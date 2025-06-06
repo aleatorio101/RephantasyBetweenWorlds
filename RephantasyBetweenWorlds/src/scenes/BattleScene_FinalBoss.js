@@ -7,6 +7,12 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         super('BattleScene_FinalBoss');
     }
 
+    init(data) {
+    this.previousScene = data.previousScene || 'GameScene';
+    this.playerX = data.playerX;
+    this.playerY = data.playerY;
+}
+
     preload() {
         //bgm
         this.load.audio('battle_bgm', 'assets/sounds/bgm/Final Battle.mp3')
@@ -551,15 +557,31 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         this.updateHUD();
     }
 
-    endBattle(playerWon) {
-        this.menuContainer.setVisible(false);
-        // Aqui você pode adicionar tela de vitória/derrota ou retornar para menu principal
-        if (playerWon) {
-            this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-        } else {
-            this.add.text(500 / 2, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
-        }
+endBattle(playerWon) {
+    this.menuContainer.setVisible(false);
+    if (playerWon) {
+        this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
+        this.playerCharacters.forEach(char => {
+            if (char.unit && typeof char.unit.ganharXP === 'function') {
+                char.unit.ganharXP(5);
+            }
+        });
+        this.time.delayedCall(1500, () => {
+            this.scene.start(this.previousScene, {
+                playerX: this.playerX,
+                playerY: this.playerY
+            });
+        });
+    } else {
+        this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
+        this.time.delayedCall(1500, () => {
+            this.scene.start(this.previousScene, {
+                playerX: this.playerX,
+                playerY: this.playerY
+            });
+        });
     }
+}
 
     updateHUD() {
         if (!this.currentCharacter || !this.currentCharacter.unit) return;

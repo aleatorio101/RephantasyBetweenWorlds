@@ -3,6 +3,15 @@ export class GameScene extends Phaser.Scene {
         super('GameScene');
     }
 
+    init(data) {
+        this.spawnOverride = false;
+        if (data && data.playerX !== undefined && data.playerY !== undefined) {
+            this.spawnOverride = true;
+            this.spawnX = data.playerX;
+            this.spawnY = data.playerY;
+        }
+    }
+
     create() {
         const map = this.make.tilemap({ key: 'Lara' });
 
@@ -47,7 +56,11 @@ export class GameScene extends Phaser.Scene {
                 .setVisible(false);
         });
 
-        this.player = this.physics.add.sprite(1350, 250, 'Siegel_down');
+        this.player = this.physics.add.sprite(
+            this.spawnOverride ? this.spawnX : 1350,
+            this.spawnOverride ? this.spawnY : 250,
+            'Siegel_esquerda'
+        );
         this.player.setCollideWorldBounds(true);
 
         //Configura para ele spawnar for da caverna quando sair de dentro da caverna
@@ -160,7 +173,12 @@ export class GameScene extends Phaser.Scene {
                 this.lastDirection = dir.key;
                 moved = true;
                 if (Phaser.Math.Between(1, 700) <= 1) {
-                    this.scene.start('BattleScene_floresta', { previousScene: this.scene.key });
+                    // Quando for iniciar a batalha, passe a posição do player:
+                    this.scene.start('BattleScene_floresta', {
+                        previousScene: this.scene.key,
+                        playerX: this.player.x,
+                        playerY: this.player.y
+                    });
                 }
                 break;
             }
