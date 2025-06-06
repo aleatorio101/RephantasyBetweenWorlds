@@ -1,10 +1,12 @@
+import createAnimations from '../mov/mov.js';
+
 export class BootScene extends Phaser.Scene {
     constructor() {
         super('BootScene');
     }
 
     preload() {
-this.load.image('menu_bg', 'assets/sprites/menu_bg.jpeg');
+        this.load.image('menu_bg', 'assets/sprites/menu_bg.jpeg');
         //carrega tilesets de lara
         this.load.image('tileset1', 'assets/maps/Lara/tileset_version1.1.png');
         this.load.image('terrain', 'assets/maps/Lara/terrain_tiles_v2.png');
@@ -60,6 +62,7 @@ this.load.image('menu_bg', 'assets/sprites/menu_bg.jpeg');
     }
 
     create() {
+        createAnimations(this); 
         this.scene.start('MenuScene');
     }
 }

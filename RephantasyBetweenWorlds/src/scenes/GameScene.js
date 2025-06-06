@@ -96,35 +96,6 @@ export class GameScene extends Phaser.Scene {
             this.scene.start('CavernaScene');
         });
 
-        this.anims.create({
-            key: 'walk_down',
-            frames: this.anims.generateFrameNumbers('Siegel_down_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_up',
-            frames: this.anims.generateFrameNumbers('Siegel_up_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_left',
-            frames: this.anims.generateFrameNumbers('Siegel_esquerda_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_right',
-            frames: this.anims.generateFrameNumbers('Siegel_direita_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-
         this.cursors = this.input.keyboard.createCursorKeys();
 
 

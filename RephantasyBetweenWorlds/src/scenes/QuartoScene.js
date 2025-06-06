@@ -25,7 +25,7 @@ export class QuartoScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
 
-         //Configura colisÃ£o
+         //Configura colisão
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
         
@@ -46,47 +46,17 @@ export class QuartoScene extends Phaser.Scene {
         const salaZone = map.getObjectLayer('sala').objects[0];
 
         this.salaZone = this.physics.add.staticSprite(
-        salaZone.x + salaZone.width / 2,
-        salaZone.y + salaZone.height / 2,
-        null
+            salaZone.x + salaZone.width / 2,
+            salaZone.y + salaZone.height / 2,
+            null
         ).setSize(salaZone.width, salaZone.height).setVisible(false);
 
         this.physics.add.overlap(this.player, this.salaZone, () => {
-        this.scene.start('SalaScene');
-        });
-
-        this.anims.create({
-            key: 'walk_down',
-            frames: this.anims.generateFrameNumbers('Siegel_down_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_up',
-            frames: this.anims.generateFrameNumbers('Siegel_up_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_left',
-            frames: this.anims.generateFrameNumbers('Siegel_esquerda_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'walk_right',
-            frames: this.anims.generateFrameNumbers('Siegel_direita_walk', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1
+            this.scene.start('SalaScene');
         });
 
 
         this.cursors = this.input.keyboard.createCursorKeys();
-
-
         this.physics.add.collider(this.player, this.walls);
 
 
