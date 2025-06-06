@@ -54,13 +54,6 @@ export class QuartoScene extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'walk',
-            frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 3 }),
-            frameRate: 8,
-            repeat: -1
-        });
-
-        this.anims.create({
             key: 'walk_down',
             frames: this.anims.generateFrameNumbers('Siegel_down_walk', { start: 0, end: 1 }),
             frameRate: 3,

@@ -63,13 +63,12 @@ export class GameScene extends Phaser.Scene {
         );
         this.player.setCollideWorldBounds(true);
 
-        //Configura para ele spawnar for da caverna quando sair de dentro da caverna
+        
         if (this.registry.get('spawnOverride')) {
             this.player.setX(this.registry.get('spawnX'));
             this.player.setY(this.registry.get('spawnY'));
         }
 
-        //transicao de mapa mapa floresta
         const florestaZone = map.getObjectLayer('floresta').objects[0];
 
         this.florestaTrigger = this.physics.add.staticSprite(

@@ -91,6 +91,24 @@ export class CavernaScene extends Phaser.Scene {
             .setVisible(false)
             .on('pointerdown', () => this.scene.start('MenuScene'));
         this.isPaused = false;
+
+        
+        this.bossZone = this.physics.add.staticSprite(100 + 220, 800 + 50, null)
+            .setSize(100, 100)
+            .setVisible(false);
+
+        this.bossTriggered = false;
+
+        this.physics.add.overlap(this.player, this.bossZone, () => {
+            if (!this.bossTriggered) {
+                this.bossTriggered = true;
+                this.scene.start('BattleScene_dg_boss', {
+                    previousScene: this.scene.key,
+                    playerX: this.player.x,
+                    playerY: this.player.y
+                });
+            }
+        }, null, this);
     }
 
     update() {
