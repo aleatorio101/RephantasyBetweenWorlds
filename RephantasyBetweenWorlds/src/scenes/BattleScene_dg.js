@@ -75,10 +75,14 @@ export default class BattleScene_dg extends Phaser.Scene {
     }
 
     create() {
+        this.load.once('complete', () => {
+            this.time.delayedCall(10, () => {
+                createAnimations(this);
+            });
+        });
+
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
-
-        createAnimations(this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); // Adiciona tecla ESPAÇO
