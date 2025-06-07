@@ -1,5 +1,4 @@
 export default function createAnimations(scene) {
-
     // Siegel
     scene.anims.create({
         key: 'siegel_attack',
