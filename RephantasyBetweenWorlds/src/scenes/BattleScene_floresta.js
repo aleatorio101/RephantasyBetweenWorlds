@@ -32,7 +32,11 @@ export default class BattleScene_floresta extends Phaser.Scene {
         //Texturas base inimigos
         this.load.image('wolf', 'assets/enemies/wolf/white wolf.gif');
         this.load.image('bear', 'assets/enemies/bear/bear_atk.gif');
-
+        this.load.image('goblin', 'assets/enemies/goblin/Idle.gif');
+        this.load.image('skeleton', 'assets/enemies/skeleton/skeleton_atk_spritesheet.gif');
+        this.load.image('minotaur', 'assets/enemies/minotaur/minotaur_atk.gif');
+        this.load.image('boss', 'assets/enemies/boss/boss_transformation.gif');
+        this.load.image('boss_ataque', 'assets/enemies/boss/boss_attack.gif');
 
         // Texturas base dos personagens (idle ou estática)
         this.load.image('siegel', 'assets/Party/Siegel/Siegel_atk.gif');
@@ -65,6 +69,26 @@ export default class BattleScene_floresta extends Phaser.Scene {
             frameWidth: 432,
             frameHeight: 354
         });
+        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin_atk_spritesheet-sheet.png', {
+            frameWidth: 450,
+            frameHeight: 450
+        });
+        this.load.spritesheet('skeleton_attack', 'assets/enemies/skeleton/skeleton_atk_spritesheet.png', {
+            frameWidth: 547,
+            frameHeight: 240
+        });
+        this.load.spritesheet('minotaur_attack', 'assets/enemies/minotaur/minotaur_atk.png', {
+            frameWidth: 512,
+            frameHeight: 512
+        });
+        this.load.spritesheet('boss_entrada', 'assets/enemies/boss/boss_transformation_packed.png', {
+            frameWidth: 640,
+            frameHeight: 448
+        });
+        this.load.spritesheet('boss_attack', 'assets/enemies/boss/boss_attack.png', {
+            frameWidth: 1080,
+            frameHeight: 448
+        });
 
     }
 
@@ -78,10 +102,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
 
-        if (!this.registry.get('animations_created')) {
-            Animations(this);
-            this.registry.set('animations_created', true);
-        }
+        Animations(this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
