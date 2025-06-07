@@ -63,7 +63,7 @@ export default class BattleScene_dg extends Phaser.Scene {
             frameWidth: 384,
             frameHeight: 390
         });
-        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin/goblin_atk_spritesheet-sheet.png?v=2', {
+        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin/goblin_atk_spritesheet-sheet.png', {
             frameWidth: 600,
             frameHeight: 600
         });
