@@ -76,6 +76,15 @@ export default class BattleScene_dg extends Phaser.Scene {
             createAnimations(this);
         });
 
+        const texture = this.textures.get('goblin_attack');
+        if (!texture) {
+            console.error('❌ Textura goblin_attack não registrada!');
+        } else if (texture.frameTotal <= 1) {
+            console.warn('⚠️ goblin_attack registrada mas sem múltiplos frames. Spritesheet falhou?');
+        } else {
+            console.log('✅ goblin_attack pronta com', texture.frameTotal, 'frames');
+        }
+
     }
 
     create() {
