@@ -64,8 +64,8 @@ export default class BattleScene_dg extends Phaser.Scene {
             frameHeight: 390
         });
         this.load.spritesheet('goblin_attack', 'assets/enemies/goblin_atk_spritesheet-sheet.png', {
-            frameWidth: 600,
-            frameHeight: 600
+            frameWidth: 450,
+            frameHeight: 450
         });
         this.load.spritesheet('skeleton_attack', 'assets/enemies/skeleton/skeleton_atk_spritesheet.png', {
             frameWidth: 547,
@@ -75,34 +75,7 @@ export default class BattleScene_dg extends Phaser.Scene {
 
     create() {
 
-        this.load.once('complete', () => {
-            if (!this.registry.get('animations_created')) {
-                Animations(this);
-                this.registry.set('animations_created', true);
-            }
-        });
-
-        if (!this.load.isLoading()) {
-            this.load.emit('complete'); // força evento caso nada esteja carregando
-        }
-
-        if (this.textures.exists('goblin_attack')) {
-            console.log('🟢 goblin_attack carregada com sucesso');
-
-            const frames = this.anims.generateFrameNumbers('goblin_attack', { start: 0, end: 6 });
-            if (frames.length === 0) {
-                console.warn('⚠️ goblin_attack está carregada mas com 0 frames – verifique frameWidth/frameHeight ou dimensões reais da imagem');
-            }
-
-            this.anims.create({
-                key: 'goblin_attack',
-                frames,
-                frameRate: 10,
-                repeat: 0
-            });
-        } else {
-            console.error('❌ goblin_attack NÃO foi carregada. Verifique o caminho da imagem ou se ela está no preload().');
-        }
+        Animations(this);
 
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
@@ -130,7 +103,6 @@ export default class BattleScene_dg extends Phaser.Scene {
         });
 
         this.bgm.play();
-
 
         const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'battle_bg')
             .setOrigin(0.5)

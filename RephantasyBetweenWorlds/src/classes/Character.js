@@ -34,7 +34,6 @@ export default class Character {
                 return;
             }
 
-            // Brute force para goblin e skeleton
             let sfxKey = '';
             if (this.unit?.name === 'goblin') {
                 sfxKey = 'goblin_attack_sfx';
@@ -65,14 +64,26 @@ export default class Character {
                 resolve();
             };
 
-            if (this.scene.anims.exists(animKey)) {
+            if (!this.scene.anims.exists(animKey)) {
                 console.warn(`Animação ${animKey} não encontrada! Aplicando dano direto.`);
                 applyDamage();
+                return;
             }
+
+            // ✅ Tocar o som
+            if (sfxKey) this.scene.sound.play(sfxKey);
+
+            // ✅ Tocar a animação e aplicar o dano ao final
+            this.sprite.setScale(this.animScale);
+            this.sprite.play(animKey);
+
+            this.sprite.once('animationcomplete', () => {
+                this.sprite.setScale(this.staticScale);
+                this.sprite.setFrame(0);                // Volta pro scale original
+                applyDamage();
+            });
         });
     }
-
-
 
     useAbility(ability, targetCharacter) {
         const sfxKey = ability.sfxKey || `${this.unit.name.toLowerCase()}_attack_sfx`;

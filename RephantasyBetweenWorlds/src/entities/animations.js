@@ -35,13 +35,9 @@ export default function Animations(scene) {
     });
 
     // Goblin
-    const goblinframes = scene.anims.generateFrameNumbers('goblin_attack', { start: 0, end: 6 });
-    if (goblinframes.length === 0) {
-        console.warn('⚠️ Spritesheet goblin_attack ainda não está pronto ao tentar criar animação!');
-    }
     scene.anims.create({
         key: 'goblin_attack',
-        frames: goblinframes,
+        frames: scene.anims.generateFrameNumbers('goblin_attack', { start: 0, end: 7 }),
         frameRate: 10,
         repeat: 0
     });
