@@ -32,7 +32,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
         //Texturas base inimigos
         this.load.image('wolf', 'assets/enemies/wolf/white wolf.gif');
         this.load.image('bear', 'assets/enemies/bear/bear_atk.gif');
-        this.load.image('goblin', 'assets/enemies/goblin/Idle.gif');
+        this.load.image('goblin', 'assets/enemies/goblin/goblin_atk.gif');
         this.load.image('skeleton', 'assets/enemies/skeleton/skeleton_atk_spritesheet.gif');
         this.load.image('minotaur', 'assets/enemies/minotaur/minotaur_atk.gif');
         this.load.image('boss', 'assets/enemies/boss/boss_transformation.gif');
