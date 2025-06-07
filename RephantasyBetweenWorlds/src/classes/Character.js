@@ -78,10 +78,10 @@ export default class Character {
                 });
 
                 this.sprite.setScale(this.animScale);
-                console.log('ANTES DE TOCAR ANIMAÇÃO:');
-                const texture = this.scene.textures.get(animKey);
-                console.log('FrameTotal:', texture?.frameTotal);
-                console.log('Tem animação?', this.scene.anims.exists(animKey));
+                
+                const anim = this.scene.anims.get(animKey);
+                console.log('Animação:', anim);
+                console.log('Frame count:', anim.frames?.length);
 
                 this.sprite.play(animKey);
 
