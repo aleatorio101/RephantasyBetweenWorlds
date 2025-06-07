@@ -199,7 +199,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
             { x: width * 0.75 + 75, y: (height / 5) * 3 }
         ];
 
-        const numEnemies = Phaser.Math.Between(4, 4);
+        const numEnemies = Phaser.Math.Between(1, 1);
 
         // Embaralha as posições pra pegar aleatoriamente sem repetir
         const shuffledPositions = Phaser.Utils.Array.Shuffle(fixedPositions);
