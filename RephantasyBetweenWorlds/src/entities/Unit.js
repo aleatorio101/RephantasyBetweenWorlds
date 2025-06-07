@@ -1,3 +1,14 @@
+let partyRef = null;
+export function setPartyReference(ref) {
+    partyRef = ref;
+}
+
+export function levelUpParty() {
+    if (partyRef) {
+        partyRef.forEach(unit => unit.levelUp());
+    }
+}
+
 export default class Unit {
     constructor(config) {
         this.name = config.name;
@@ -42,14 +53,29 @@ export default class Unit {
 
     ganharXP(amount){
         this.xp += amount;
-        if(this.xp >= 15){
-            this.levelUP();
+        if (this.xp >= 15 && !this._partyLeveledUp) {
+            this.xp -= 15;
+            levelUpParty();
+            if (partyRef) {
+                partyRef.forEach(unit => unit._partyLeveledUp = true);
+            }
         }
+        setTimeout(() => {
+            if (partyRef) {
+                partyRef.forEach(unit => unit._partyLeveledUp = false);
+            }
+        }, 0);
     }
 
-    levelUP(){
-        this.level += 1;               // <-- minúsculo
-        this.xp = 0;                   // <-- minúsculo
+    levelUp(){
+        this.level += 1;    
+        this.hp += 1;
+        this.maxHp += 1;
+        this.mana += 1;
+        this.maxMana += 1;
+        this.attack += 1;
+        this.defense += 1;
+        this.speed += 1;
     }
 
 }

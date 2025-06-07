@@ -1,4 +1,4 @@
-import Unit from './Unit.js';
+import Unit, { setPartyReference } from './Unit.js';
 
 export const party = [
     new Unit({
@@ -93,3 +93,5 @@ export const party = [
         }]
     }),
 ];
+
+setPartyReference(party);

@@ -599,7 +599,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
             this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
             this.playerCharacters.forEach(char => {
                 if (char.unit && typeof char.unit.ganharXP === 'function') {
-                    char.unit.ganharXP(5);
+                    char.unit.ganharXP(15);
                 }
             });
             this.time.delayedCall(1500, () => {
