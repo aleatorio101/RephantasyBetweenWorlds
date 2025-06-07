@@ -196,7 +196,6 @@ export default class BattleScene_floresta extends Phaser.Scene {
                 attack: 10,
                 defense: 5,
                 speed: 2,
-                sfxKey: 'skeleton_attack_sfx',
                 isPlayer: false,
                 abilities: []
             },
@@ -209,7 +208,6 @@ export default class BattleScene_floresta extends Phaser.Scene {
                 attack: 6,
                 defense: 3,
                 speed: 4,
-                sfxKey: 'goblin_attack_sfx',
                 isPlayer: false,
                 abilities: []
             }
