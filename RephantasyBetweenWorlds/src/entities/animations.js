@@ -1,6 +1,6 @@
 let animationsCreated = false;
 
-export default function createAnimations(scene) {
+export default function Animations(scene) {
     if (animationsCreated) return;
 
     console.log('✅ Criando animações globais');

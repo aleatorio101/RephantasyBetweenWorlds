@@ -1,6 +1,6 @@
 import Character from '../classes/Character.js';
 import { party } from '../entities/Party.js';
-import createAnimations from '../entities/animations.js';
+import Animations from '../entities/animations.js';
 
 export default class BattleScene_dg extends Phaser.Scene {
     constructor() {
@@ -77,7 +77,7 @@ export default class BattleScene_dg extends Phaser.Scene {
 
         this.load.once('complete', () => {
             if (!this.registry.get('animations_created')) {
-                createAnimations(this);
+                Animations(this);
                 this.registry.set('animations_created', true);
             }
         });
