@@ -1,8 +1,4 @@
 export default function createAnimations(scene) {
-    if (!scene.textures.exists('goblin_attack')) {
-        console.warn('Textura goblin_attack não carregada!');
-        return;
-    }
 
     // Siegel
     scene.anims.create({
