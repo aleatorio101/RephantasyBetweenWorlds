@@ -38,6 +38,8 @@ export default function createAnimations(scene) {
         frameRate: 10,
         repeat: 0
     });
+    console.log('Criando animação goblin_attack:', scene.textures.get('goblin_attack').frameTotal);
+
     // Skeleton
     scene.anims.create({
         key: 'skeleton_attack',

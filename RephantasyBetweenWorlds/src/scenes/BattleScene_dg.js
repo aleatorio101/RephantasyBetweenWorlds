@@ -72,12 +72,13 @@ export default class BattleScene_dg extends Phaser.Scene {
             frameHeight: 240
         });
 
+        this.load.on('complete', () => {
+            createAnimations(this);
+        });
+
     }
 
     create() {
-        this.time.delayedCall(100, () => {
-            createAnimations(this);
-        });
 
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
