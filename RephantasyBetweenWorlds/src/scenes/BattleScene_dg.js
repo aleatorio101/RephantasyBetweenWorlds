@@ -71,16 +71,14 @@ export default class BattleScene_dg extends Phaser.Scene {
             frameWidth: 547,
             frameHeight: 240
         });
-
-        this.load.on('complete', () => {
-            const texture = this.textures.get('goblin_attack');
-            console.log('⚠️ frameTotal no load.on complete:', texture?.frameTotal);
-            createAnimations(this);
-        });
-
     }
 
     create() {
+
+        if (!this.registry.get('animations_created')) {
+            createAnimations(this);
+            this.registry.set('animations_created', true);
+        }
 
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);

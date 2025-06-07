@@ -8,10 +8,10 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
     }
 
     init(data) {
-    this.previousScene = data.previousScene || 'GameScene';
-    this.playerX = data.playerX;
-    this.playerY = data.playerY;
-}
+        this.previousScene = data.previousScene || 'GameScene';
+        this.playerX = data.playerX;
+        this.playerY = data.playerY;
+    }
 
     preload() {
         //bgm
@@ -74,7 +74,10 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
 
-        createAnimations(this);
+        if (!this.registry.get('animations_created')) {
+            createAnimations(this);
+            this.registry.set('animations_created', true);
+        }
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -557,32 +560,32 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         this.updateHUD();
     }
 
-endBattle(playerWon) {
-    this.bgm.stop();
-    this.menuContainer.setVisible(false);
-    if (playerWon) {
-        this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-        this.playerCharacters.forEach(char => {
-            if (char.unit && typeof char.unit.ganharXP === 'function') {
-                char.unit.ganharXP(5);
-            }
-        });
-        this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene, {
-                playerX: this.playerX,
-                playerY: this.playerY
+    endBattle(playerWon) {
+        this.bgm.stop();
+        this.menuContainer.setVisible(false);
+        if (playerWon) {
+            this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
+            this.playerCharacters.forEach(char => {
+                if (char.unit && typeof char.unit.ganharXP === 'function') {
+                    char.unit.ganharXP(5);
+                }
             });
-        });
-    } else {
-        this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
-        this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene, {
-                playerX: this.playerX,
-                playerY: this.playerY
+            this.time.delayedCall(1500, () => {
+                this.scene.start(this.previousScene, {
+                    playerX: this.playerX,
+                    playerY: this.playerY
+                });
             });
-        });
+        } else {
+            this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
+            this.time.delayedCall(1500, () => {
+                this.scene.start(this.previousScene, {
+                    playerX: this.playerX,
+                    playerY: this.playerY
+                });
+            });
+        }
     }
-}
 
     updateHUD() {
         if (!this.currentCharacter || !this.currentCharacter.unit) return;

@@ -1,4 +1,10 @@
+let animationsCreated = false;
+
 export default function createAnimations(scene) {
+    if (animationsCreated) return;
+
+    console.log('✅ Criando animações globais');
+
     // Siegel
     scene.anims.create({
         key: 'siegel_attack',
@@ -81,4 +87,6 @@ export default function createAnimations(scene) {
         frameRate: 10,
         repeat: 0
     });
+
+    animationsCreated = true;
 } 
