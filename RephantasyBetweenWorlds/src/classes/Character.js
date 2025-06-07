@@ -66,36 +66,6 @@ export default class Character {
             };
 
             if (this.scene.anims.exists(animKey)) {
-                this.sprite.once('animationstart', () => {
-                    const unitName = (this.unit.name || '').toLowerCase();
-                    if (unitName === 'goblin' && this.scene.sfx['goblin_attack_sfx']) {
-                        this.scene.sfx['goblin_attack_sfx'].play();
-                    } else if (unitName === 'skeleton' && this.scene.sfx['skeleton_attack_sfx']) {
-                        this.scene.sfx['skeleton_attack_sfx'].play();
-                    } else if (this.scene.sfx && this.scene.sfx[sfxKey]) {
-                        this.scene.sfx[sfxKey].play();
-                    }
-                });
-
-                this.sprite.setScale(this.animScale);
-                
-                const anim = this.scene.anims.get(animKey);
-                console.log('Animação:', anim);
-                console.log('Frame count:', anim.frames?.length);
-
-                this.sprite.play(animKey);
-
-                this.sprite.once('animationcomplete', () => {
-                    this.sprite.setFrame(0);
-                    this.sprite.setScale(this.staticScale);
-
-                    if (this.scene.updateHUD) {
-                        this.scene.updateHUD();
-                    }
-
-                    applyDamage();
-                });
-            } else {
                 console.warn(`Animação ${animKey} não encontrada! Aplicando dano direto.`);
                 applyDamage();
             }
