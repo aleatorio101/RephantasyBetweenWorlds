@@ -21,6 +21,8 @@ export default class BattleScene_floresta extends Phaser.Scene {
         this.load.audio('archibald_skill_sfx', 'assets/sounds/sfx/Sword Parry 2.wav');
 
         this.load.audio('goblin_attack_sfx', 'assets/sounds/sfx/08_Bite_04.wav');
+        this.load.audio('wolf_attack_sfx', 'assets/sounds/sfx/08_Bite_04.wav');
+        this.load.audio('bear_attack_sfx', 'assets/sounds/sfx/08_Bite_04.wav');
         this.load.audio('skeleton_attack_sfx', 'assets/sounds/sfx/22_Slash_04.wav');
 
 
@@ -196,6 +198,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
                 attack: 10,
                 defense: 5,
                 speed: 2,
+                sfxKey: 'bear_attack_sfx',
                 isPlayer: false,
                 abilities: []
             },
@@ -208,6 +211,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
                 attack: 6,
                 defense: 3,
                 speed: 4,
+                sfxKey: 'wolf_attack_sfx',
                 isPlayer: false,
                 abilities: []
             }
