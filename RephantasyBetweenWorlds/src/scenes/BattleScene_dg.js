@@ -63,7 +63,7 @@ export default class BattleScene_dg extends Phaser.Scene {
             frameWidth: 384,
             frameHeight: 390
         });
-        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin/goblin_atk_spritesheet-sheet.png', {
+        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin/goblin_atk_spritesheet-sheet.png?v=2', {
             frameWidth: 600,
             frameHeight: 600
         });
@@ -73,17 +73,10 @@ export default class BattleScene_dg extends Phaser.Scene {
         });
 
         this.load.on('complete', () => {
+            const texture = this.textures.get('goblin_attack');
+            console.log('⚠️ frameTotal no load.on complete:', texture?.frameTotal);
             createAnimations(this);
         });
-
-        const texture = this.textures.get('goblin_attack');
-        if (!texture) {
-            console.error('❌ Textura goblin_attack não registrada!');
-        } else if (texture.frameTotal <= 1) {
-            console.warn('⚠️ goblin_attack registrada mas sem múltiplos frames. Spritesheet falhou?');
-        } else {
-            console.log('✅ goblin_attack pronta com', texture.frameTotal, 'frames');
-        }
 
     }
 
