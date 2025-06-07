@@ -34,7 +34,7 @@ export default function createAnimations(scene) {
     // Goblin
     scene.anims.create({
         key: 'goblin_attack',
-        frames: scene.anims.generateFrameNumbers('goblin_ataque', { start: 0, end: 6 }),
+        frames: scene.anims.generateFrameNumbers('goblin_attack', { start: 0, end: 6 }),
         frameRate: 10,
         repeat: 0
     });
@@ -43,7 +43,7 @@ export default function createAnimations(scene) {
     // Skeleton
     scene.anims.create({
         key: 'skeleton_attack',
-        frames: scene.anims.generateFrameNumbers('skeleton_ataque', { start: 0, end: 8 }),
+        frames: scene.anims.generateFrameNumbers('skeleton_attack', { start: 0, end: 8 }),
         frameRate: 10,
         repeat: 0
     });
