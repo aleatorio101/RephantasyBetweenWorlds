@@ -69,7 +69,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
             frameWidth: 432,
             frameHeight: 354
         });
-        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin_atk_spritesheet-sheet.png', {
+        this.load.spritesheet('goblin_attack', 'assets/enemies/goblin/goblin_atk_spritesheet.png', {
             frameWidth: 450,
             frameHeight: 450
         });
