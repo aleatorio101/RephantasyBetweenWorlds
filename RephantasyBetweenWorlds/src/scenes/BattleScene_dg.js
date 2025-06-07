@@ -75,7 +75,7 @@ export default class BattleScene_dg extends Phaser.Scene {
     }
 
     create() {
-        waitForTexture(this, 'goblin_attack', () => {
+        this.time.delayedCall(100, () => {
             createAnimations(this);
         });
 
