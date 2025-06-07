@@ -86,6 +86,24 @@ export default class BattleScene_dg extends Phaser.Scene {
             this.load.emit('complete'); // força evento caso nada esteja carregando
         }
 
+        if (this.textures.exists('goblin_attack')) {
+            console.log('🟢 goblin_attack carregada com sucesso');
+
+            const frames = this.anims.generateFrameNumbers('goblin_attack', { start: 0, end: 6 });
+            if (frames.length === 0) {
+                console.warn('⚠️ goblin_attack está carregada mas com 0 frames – verifique frameWidth/frameHeight ou dimensões reais da imagem');
+            }
+
+            this.anims.create({
+                key: 'goblin_attack',
+                frames,
+                frameRate: 10,
+                repeat: 0
+            });
+        } else {
+            console.error('❌ goblin_attack NÃO foi carregada. Verifique o caminho da imagem ou se ela está no preload().');
+        }
+
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
 
