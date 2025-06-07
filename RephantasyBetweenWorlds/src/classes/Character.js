@@ -67,10 +67,6 @@ export default class Character {
                 });
 
                 this.sprite.setScale(this.animScale);
-                setTimeout(() => {
-                    this.sprite.play(animKey);
-                }, 100);
-
                 this.sprite.play(animKey);
 
                 this.sprite.once('animationcomplete', () => {

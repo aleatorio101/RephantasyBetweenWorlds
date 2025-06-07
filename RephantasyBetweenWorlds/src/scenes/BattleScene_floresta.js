@@ -2,6 +2,17 @@ import Character from '../classes/Character.js';
 import { party } from '../entities/Party.js';
 import createAnimations from '../entities/animations.js';
 
+
+function waitForTexture(scene, key, callback) {
+    if (scene.textures.exists(key)) {
+        callback();
+    } else {
+        scene.time.delayedCall(50, () => {
+            waitForTexture(scene, key, callback);
+        });
+    }
+}
+
 export default class BattleScene_floresta extends Phaser.Scene {
     constructor() {
         super('BattleScene_floresta');
@@ -78,7 +89,9 @@ export default class BattleScene_floresta extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
 
-        createAnimations(this);
+        waitForTexture(this, 'goblin_attack', () => {
+            createAnimations(this);
+        });
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -199,7 +212,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
             { x: width * 0.75 + 75, y: (height / 5) * 3 }
         ];
 
-        const numEnemies = Phaser.Math.Between(4, 4);
+        const numEnemies = Phaser.Math.Between(1, 1);
 
         // Embaralha as posições pra pegar aleatoriamente sem repetir
         const shuffledPositions = Phaser.Utils.Array.Shuffle(fixedPositions);
@@ -566,32 +579,32 @@ export default class BattleScene_floresta extends Phaser.Scene {
         this.updateHUD();
     }
 
-endBattle(playerWon) {
-    this.bgm.stop();
-    this.menuContainer.setVisible(false);
-    if (playerWon) {
-        this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-        this.playerCharacters.forEach(char => {
-            if (char.unit && typeof char.unit.ganharXP === 'function') {
-                char.unit.ganharXP(5);
-            }
-        });
-        this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene, {
-                playerX: this.playerX,
-                playerY: this.playerY
+    endBattle(playerWon) {
+        this.bgm.stop();
+        this.menuContainer.setVisible(false);
+        if (playerWon) {
+            this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
+            this.playerCharacters.forEach(char => {
+                if (char.unit && typeof char.unit.ganharXP === 'function') {
+                    char.unit.ganharXP(5);
+                }
             });
-        });
-    } else {
-        this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
-        this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene, {
-                playerX: this.playerX,
-                playerY: this.playerY
+            this.time.delayedCall(1500, () => {
+                this.scene.start(this.previousScene, {
+                    playerX: this.playerX,
+                    playerY: this.playerY
+                });
             });
-        });
+        } else {
+            this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
+            this.time.delayedCall(1500, () => {
+                this.scene.start(this.previousScene, {
+                    playerX: this.playerX,
+                    playerY: this.playerY
+                });
+            });
+        }
     }
-}
 
     updateHUD() {
         if (!this.currentCharacter || !this.currentCharacter.unit) return;
