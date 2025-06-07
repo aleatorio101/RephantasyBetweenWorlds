@@ -9,8 +9,8 @@ export default class BattleScene_dg_boss extends Phaser.Scene {
 
     init(data) {
         this.previousScene = data.previousScene || 'GameScene';
-        this.playerX = data.playerX;
-        this.playerY = data.playerY;
+        this.playerX = 50;
+        this.playerY = 550;
     }
 
     preload() {

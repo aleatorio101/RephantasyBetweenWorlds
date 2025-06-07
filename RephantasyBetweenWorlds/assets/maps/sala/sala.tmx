@@ -439,20 +439,19 @@
   <properties>
    <property name="collision" type="bool" value="true"/>
   </properties>
-  <object id="1" x="476" y="535.5" width="356" height="71.5"/>
+  <object id="1" x="476" y="535.5" width="394" height="64.1667"/>
   <object id="2" x="796.5" y="451.5" width="34.5" height="87.5"/>
   <object id="3" x="475.5" y="605" width="4.5" height="204.5"/>
-  <object id="4" x="475.5" y="800" width="132.5" height="9.5"/>
-  <object id="7" x="655.5" y="800" width="231" height="21"/>
-  <object id="8" x="878.5" y="718.5" width="14" height="105"/>
-  <object id="9" x="887.5" y="718.5" width="107.5" height="27"/>
+  <object id="4" x="475.5" y="801.667" width="132.5" height="7.83333"/>
+  <object id="7" x="655.5" y="802.667" width="231" height="18.3333"/>
+  <object id="8" x="882.167" y="722.5" width="10.3333" height="101"/>
+  <object id="9" x="887.5" y="722.167" width="107.5" height="23.3333"/>
   <object id="10" x="974" y="548.5" width="15.5" height="223"/>
-  <object id="13" x="958.5" y="534.5" width="2.5" height="153"/>
-  <object id="14" x="908.5" y="539" width="4.5" height="148.5"/>
-  <object id="15" x="862.5" y="461.5" width="17.5" height="143.5"/>
-  <object id="16" x="880" y="549.5" width="29.5" height="73.5"/>
+  <object id="14" x="908.5" y="539" width="55.8333" height="126.167"/>
+  <object id="15" x="862.5" y="461.5" width="24.1667" height="137.5"/>
+  <object id="16" x="883" y="549.167" width="26.1667" height="63.5"/>
   <object id="17" x="962" y="547" width="13" height="77.5"/>
-  <object id="19" x="528" y="690" width="48" height="45"/>
+  <object id="19" x="531" y="690.667" width="41.3333" height="41"/>
   <object id="20" x="724" y="773" width="23.5" height="22"/>
   <object id="21" x="707" y="785" width="9.5" height="13.5"/>
   <object id="22" x="627" y="609" width="44" height="17"/>
