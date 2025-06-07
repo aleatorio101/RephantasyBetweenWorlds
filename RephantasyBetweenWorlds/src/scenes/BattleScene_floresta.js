@@ -567,6 +567,7 @@ export default class BattleScene_floresta extends Phaser.Scene {
     }
 
 endBattle(playerWon) {
+    this.bgm.stop();
     this.menuContainer.setVisible(false);
     if (playerWon) {
         this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
