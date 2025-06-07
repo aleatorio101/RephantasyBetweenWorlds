@@ -21,7 +21,7 @@ const config = {
     backgroundColor: '#000000',
     pixelArt: true,
    // scene: [BootScene, MenuScene, GameScene, CreditsScene, BattleScene_dg,FlorestaScene, QuartoScene, SalaScene, CavernaScene, BattleScene_floresta, BattleScene_dg_boss, BattleScene_FinalBoss, FicharioScene],
-    scene: [BBattleScene_dg],
+    scene: [BattleScene_dg],
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
