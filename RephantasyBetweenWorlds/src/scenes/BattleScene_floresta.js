@@ -2,17 +2,6 @@ import Character from '../classes/Character.js';
 import { party } from '../entities/Party.js';
 import createAnimations from '../entities/animations.js';
 
-
-function waitForTexture(scene, key, callback) {
-    if (scene.textures.exists(key)) {
-        callback();
-    } else {
-        scene.time.delayedCall(50, () => {
-            waitForTexture(scene, key, callback);
-        });
-    }
-}
-
 export default class BattleScene_floresta extends Phaser.Scene {
     constructor() {
         super('BattleScene_floresta');
