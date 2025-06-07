@@ -74,10 +74,7 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
 
-        if (!this.registry.get('animations_created')) {
-            Animations(this);
-            this.registry.set('animations_created', true);
-        }
+        //  Animations(this);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);

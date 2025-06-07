@@ -75,7 +75,7 @@ export default class BattleScene_dg extends Phaser.Scene {
 
     create() {
 
-        Animations(this);
+      //  Animations(this);
 
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);
         this.cameras.main.centerOn(this.sys.game.config.width / 2, this.sys.game.config.height / 2);
