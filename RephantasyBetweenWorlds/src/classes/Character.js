@@ -34,17 +34,6 @@ export default class Character {
                 return;
             }
 
-            // Brute force para goblin e skeleton
-            let sfxKey = '';
-            if (this.unit?.name === 'goblin') {
-                sfxKey = 'goblin_attack_sfx';
-            } else if (this.unit?.name === 'skeleton') {
-                sfxKey = 'skeleton_attack_sfx';
-            } else {
-                const keyBase = this.unit.spriteKey || (this.unit.name || '').toLowerCase();
-                sfxKey = this.unit.sfxKey || `${keyBase}_attack_sfx`;
-            }
-
             const keyBase = this.unit.spriteKey || (this.unit.name || '').toLowerCase();
             const animKey = `${keyBase}_attack`;
 
@@ -78,6 +67,10 @@ export default class Character {
                 });
 
                 this.sprite.setScale(this.animScale);
+                setTimeout(() => {
+                    this.sprite.play(animKey);
+                }, 100);
+
                 this.sprite.play(animKey);
 
                 this.sprite.once('animationcomplete', () => {

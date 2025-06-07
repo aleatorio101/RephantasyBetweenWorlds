@@ -8,10 +8,10 @@ export default class BattleScene_dg extends Phaser.Scene {
     }
 
     init(data) {
-    this.previousScene = data.previousScene || 'GameScene';
-    this.playerX = data.playerX;
-    this.playerY = data.playerY;
-}
+        this.previousScene = data.previousScene || 'GameScene';
+        this.playerX = data.playerX;
+        this.playerY = data.playerY;
+    }
 
     preload() {
         //bgm
@@ -120,7 +120,7 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.selector = this.add.image(0, 0, 'selector')
             .setScale(0.06)
             .setVisible(false);
-            this.selector.setDepth(1000);
+        this.selector.setDepth(1000);
 
         this.playerCharacters = [
             new Character(this, party[0], 340, 320, party[0].name.toLowerCase()),
@@ -191,6 +191,9 @@ export default class BattleScene_dg extends Phaser.Scene {
             }
         ];
         this.enemyCharacters = [];
+        if (!this.textures.exists('goblin_attack')) {
+            console.warn('Spritesheet goblin_attack ainda não carregada!');
+        }
 
         const fixedPositions = [
             { x: width * 0.75 - 150, y: height / 2.5 },
@@ -563,32 +566,32 @@ export default class BattleScene_dg extends Phaser.Scene {
         this.updateHUD();
     }
 
-endBattle(playerWon) {
-    this.bgm.stop();
-    this.menuContainer.setVisible(false);
-    if (playerWon) {
-        this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
-        this.playerCharacters.forEach(char => {
-            if (char.unit && typeof char.unit.ganharXP === 'function') {
-                char.unit.ganharXP(5);
-            }
-        });
-        this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene, {
-                playerX: this.playerX,
-                playerY: this.playerY
+    endBattle(playerWon) {
+        this.bgm.stop();
+        this.menuContainer.setVisible(false);
+        if (playerWon) {
+            this.add.text(500, 300, 'Vitória!', { fontSize: '48px', fill: '#0f0' });
+            this.playerCharacters.forEach(char => {
+                if (char.unit && typeof char.unit.ganharXP === 'function') {
+                    char.unit.ganharXP(5);
+                }
             });
-        });
-    } else {
-        this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
-        this.time.delayedCall(1500, () => {
-            this.scene.start(this.previousScene, {
-                playerX: this.playerX,
-                playerY: this.playerY
+            this.time.delayedCall(1500, () => {
+                this.scene.start(this.previousScene, {
+                    playerX: this.playerX,
+                    playerY: this.playerY
+                });
             });
-        });
+        } else {
+            this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
+            this.time.delayedCall(1500, () => {
+                this.scene.start(this.previousScene, {
+                    playerX: this.playerX,
+                    playerY: this.playerY
+                });
+            });
+        }
     }
-}
 
     updateHUD() {
         if (!this.currentCharacter || !this.currentCharacter.unit) return;
