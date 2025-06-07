@@ -20,7 +20,7 @@ export const party = [
             type: 'physical',
             power: 60,
             target: 'enemy',
-            sfxKey: 'sielgel_skill_sfx'
+            sfxKey: 'siegel_attack_sfx',
         }]
     }),
     new Unit({
