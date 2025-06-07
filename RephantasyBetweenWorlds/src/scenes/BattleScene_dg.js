@@ -75,9 +75,15 @@ export default class BattleScene_dg extends Phaser.Scene {
 
     create() {
 
-        if (!this.registry.get('animations_created')) {
-            createAnimations(this);
-            this.registry.set('animations_created', true);
+        this.load.once('complete', () => {
+            if (!this.registry.get('animations_created')) {
+                createAnimations(this);
+                this.registry.set('animations_created', true);
+            }
+        });
+
+        if (!this.load.isLoading()) {
+            this.load.emit('complete'); // força evento caso nada esteja carregando
         }
 
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.game.config.height);

@@ -20,7 +20,7 @@ const config = {
     height: 720,
     backgroundColor: '#000000',
     pixelArt: true,
-    scene: [BootScene, MenuScene, GameScene, CreditsScene, BattleScene_dg, FlorestaScene, QuartoScene, SalaScene, CavernaScene, BattleScene_floresta, BattleScene_dg_boss, BattleScene_FinalBoss, FicharioScene],
+    scene: [BootScene, MenuScene, GameScene, CreditsScene, BattleScene_floresta, FlorestaScene, QuartoScene, SalaScene, CavernaScene, BattleScene_dg, BattleScene_dg_boss, BattleScene_FinalBoss, FicharioScene],
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
