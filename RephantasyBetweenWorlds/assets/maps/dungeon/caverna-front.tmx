@@ -724,30 +724,30 @@
    <property name="collission" type="bool" value="true"/>
   </properties>
   <object id="1" x="0" y="80" width="756" height="415"/>
-  <object id="2" x="827" y="193" width="21.5" height="49.5"/>
+  <object id="2" x="831" y="199.667" width="17.5" height="42.8333"/>
   <object id="3" x="757.5" y="192" width="18" height="46.5"/>
   <object id="4" x="753.5" y="165.5" width="22.5" height="24"/>
   <object id="5" x="758" y="81" width="1015" height="67"/>
   <object id="6" x="1757.33" y="78.6667" width="16" height="885.333"/>
-  <object id="8" x="1367.67" y="580.667" width="391.667" height="381.333"/>
-  <object id="9" x="840.667" y="580.667" width="481" height="294"/>
+  <object id="8" x="1380.51" y="580.667" width="378.333" height="381.333"/>
+  <object id="9" x="840.667" y="580.667" width="466.334" height="288.667"/>
   <object id="10" x="827.417" y="606" width="11.9167" height="50"/>
   <object id="11" x="757.583" y="608.667" width="15.75" height="44.6667"/>
   <object id="12" x="726" y="654" width="39.3333" height="222.667"/>
   <object id="13" x="365.333" y="665.333" width="360" height="214"/>
   <object id="14" x="381.333" y="956.667" width="469.333" height="5.3333"/>
-  <object id="15" x="849" y="908.333" width="514" height="53.6667"/>
+  <object id="15" x="849" y="920.333" width="548" height="41.6667"/>
   <object id="17" x="368" y="957" width="14.5" height="109.5"/>
   <object id="18" x="-0.5" y="1055" width="386" height="14"/>
   <object id="19" x="-0.5" y="660" width="388" height="59"/>
   <object id="20" x="-0.5" y="667.5" width="12.5" height="392.5"/>
   <object id="21" x="845.333" y="241.333" width="6.66667" height="263.333"/>
-  <object id="23" x="850" y="451.333" width="472.667" height="58"/>
-  <object id="24" x="1364.67" y="454.667" width="396.666" height="59.3333"/>
-  <object id="25" x="1366" y="236" width="390" height="13.3333"/>
-  <object id="26" x="853.333" y="238" width="468" height="12.6667"/>
-  <object id="27" x="1303.33" y="250.667" width="19.3334" height="202.667"/>
-  <object id="28" x="1365.33" y="246" width="24.6667" height="207.333"/>
+  <object id="23" x="850" y="451.333" width="461.667" height="58"/>
+  <object id="24" x="1381.34" y="454.667" width="379.999" height="59.3333"/>
+  <object id="25" x="1379.75" y="236" width="376.25" height="13.3333"/>
+  <object id="26" x="853.333" y="238" width="457.917" height="12.6667"/>
+  <object id="27" x="1296.66" y="251.334" width="15.0001" height="202.667"/>
+  <object id="28" x="1380" y="244.667" width="20" height="207.333"/>
   <object id="29" x="1" y="597" width="759" height="58"/>
  </objectgroup>
  <objectgroup id="16" name="battle_minot">
