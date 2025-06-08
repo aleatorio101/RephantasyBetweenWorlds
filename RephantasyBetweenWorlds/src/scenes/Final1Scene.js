@@ -5,9 +5,9 @@ export default class Final1Scene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('Final_2_aiko', 'assets/backgrounds/final2_aiko.png');
-        this.load.image('Final_2_archibald', 'assets/backgrounds/final2_archibald.png');
-        this.load.image('final_2_mathhew', 'assets/backgrounds/final2_mathhew.png');
+        this.load.image('Final_2_aiko', 'assets/backgrounds/ending2_aiko.png');
+        this.load.image('Final_2_archibald', 'assets/backgrounds/ending2_archibald.png');
+        this.load.image('final_2_mathhew', 'assets/backgrounds/ending2_mathhew.png');
         this.load.image('fim_batalha', 'assets/backgrounds/fim_batalha.png');
     }
 
