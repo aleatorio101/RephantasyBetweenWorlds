@@ -81,7 +81,6 @@ export default class LoreSalaScene extends Phaser.Scene {
     }
 
     finalizarCena() {
-        // this.musica.stop(); // Para a música se estiver tocando
         this.cameras.main.fadeOut(1000, 0, 0, 0);
         this.cameras.main.once('camerafadeoutcomplete', () => {
             this.scene.start("SalaScene");

@@ -68,7 +68,7 @@ export class GameScene extends Phaser.Scene {
         );
         this.player.setCollideWorldBounds(true);
 
-        
+
         if (this.registry.get('spawnOverride')) {
             this.player.setX(this.registry.get('spawnX'));
             this.player.setY(this.registry.get('spawnY'));
@@ -86,7 +86,6 @@ export class GameScene extends Phaser.Scene {
             this.scene.start('FlorestaScene');
         });
 
-        //transicao de mapa caverna
         const CavernaZone = map.getObjectLayer('dentro_caverna').objects[0];
 
         this.CavernaZone = this.physics.add.staticSprite(
@@ -138,7 +137,6 @@ export class GameScene extends Phaser.Scene {
                 this.lastDirection = dir.key;
                 moved = true;
                 if (Phaser.Math.Between(1, 700) <= 1) {
-                    // Quando for iniciar a batalha, passe a posição do player:
                     this.scene.start('BattleScene_floresta', {
                         previousScene: this.scene.key,
                         playerX: this.player.x,

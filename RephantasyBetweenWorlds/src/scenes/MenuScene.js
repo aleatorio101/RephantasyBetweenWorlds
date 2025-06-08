@@ -5,7 +5,7 @@ export class MenuScene extends Phaser.Scene {
 
     create() {
         this.menuMusic = this.sound.add('menu_music', { loop: true, volume: 0.5 });
-         this.menuMusic.play();
+        this.menuMusic.play();
         this.add.image(0, 0, 'menu_bg').setOrigin(0).setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
 
         const startButton = this.add.text(540, 250, 'Iniciar Jogo', { fontSize: '24px', fill: '#0f0' })

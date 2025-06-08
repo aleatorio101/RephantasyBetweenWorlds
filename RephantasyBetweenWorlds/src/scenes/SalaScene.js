@@ -28,10 +28,10 @@ export class SalaScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
 
-         //Configura colisÃ£o
+        //Configura colisÃ£o
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
-        
+
         collisionLayer.objects.forEach(obj => {
             this.walls.create(
                 obj.x + obj.width / 2,

@@ -13,7 +13,7 @@ export class CavernaScene extends Phaser.Scene {
             this.spawnY = data.playerY;
         }
         this.events.on('shutdown', this.shutdown, this);
-    } 
+    }
 
     create() {
         this.map_dung_Music = this.sound.add('map_dung_music', { loop: true, volume: 0.5 });
@@ -56,7 +56,6 @@ export class CavernaScene extends Phaser.Scene {
                 .setVisible(false);
         });
 
-        // Use a posição recebida ou a padrão
         this.player = this.physics.add.sprite(
             this.spawnOverride ? this.spawnX : 50,
             this.spawnOverride ? this.spawnY : 550,
@@ -91,7 +90,7 @@ export class CavernaScene extends Phaser.Scene {
         this.pauseOverlay = new PauseOverlay(this);
         this.keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
-        
+
         this.bossZone = this.physics.add.staticSprite(100 + 220, 800 + 50, null)
             .setSize(100, 100)
             .setVisible(false);

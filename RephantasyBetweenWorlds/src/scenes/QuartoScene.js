@@ -48,10 +48,10 @@ export class QuartoScene extends Phaser.Scene {
         });
 
 
-         //Configura colisão
+        //Configura colisão
         const collisionLayer = map.getObjectLayer('colisao');
         this.walls = this.physics.add.staticGroup();
-        
+
         collisionLayer.objects.forEach(obj => {
             this.walls.create(
                 obj.x + obj.width / 2,

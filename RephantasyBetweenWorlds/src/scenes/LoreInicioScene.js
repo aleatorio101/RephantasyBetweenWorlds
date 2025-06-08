@@ -6,15 +6,10 @@ export default class LoreInicioScene extends Phaser.Scene {
 
     create() {
         this.cenas_music = this.sound.add('cenas_music', { loop: true, volume: 0.5 });
-         this.cenas_music.play();
+        this.cenas_music.play();
 
         this.cameras.main.setBackgroundColor('#000000');
 
-        // Música de fundo
-        // this.musica = this.sound.add('musicaIntro', { loop: true, volume: 0.5 });
-        // this.musica.play();
-
-        // Diálogos: [{nome, fala}]
         this.dialogos = [
             { fala: 'Em um estranho mundo.' },
             { fala: 'Onde a magia encanta os ares.' },
@@ -72,7 +67,6 @@ export default class LoreInicioScene extends Phaser.Scene {
     }
 
     finalizarCena() {
-        // this.musica.stop(); // Para a música se estiver tocando
         this.cameras.main.fadeOut(1000, 0, 0, 0);
         this.cameras.main.once('camerafadeoutcomplete', () => {
             this.scene.start("QuartoScene");

@@ -54,7 +54,7 @@ export class BootScene extends Phaser.Scene {
         this.load.image('dungAuto', 'assets/maps/dungeon/Dungeon_Autotiles.png');
         this.load.image('dungWater', 'assets/maps/dungeon/Dungeon_WaterAnimation.png');
         this.load.image('dungDec', 'assets/maps/dungeon/DungeonDecorations.png');
-    // Mapa
+
         this.load.tilemapTiledJSON('Lara', 'assets/maps/Lara/lara.json');
         this.load.tilemapTiledJSON('Quarto', 'assets/maps/quarto/quarto.json');
         this.load.tilemapTiledJSON('Sala', 'assets/maps/sala/sala.json');
@@ -71,7 +71,7 @@ export class BootScene extends Phaser.Scene {
     }
 
     create() {
-        createAnimations(this); 
+        createAnimations(this);
         this.scene.start('MenuScene');
     }
 }

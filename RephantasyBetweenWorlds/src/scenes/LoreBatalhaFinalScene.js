@@ -141,7 +141,6 @@ export default class LoreBatalhaFinalScene extends Phaser.Scene {
         this.nomefala.setText(dialogo.nome);
         this.falafala.setText(dialogo.fala);
 
-        // Se for o índice 7, troca o fundo com fade
         if (this.indexDialogo === 23) {
             this.trocarFundoParasala();
         }
@@ -284,7 +283,6 @@ export default class LoreBatalhaFinalScene extends Phaser.Scene {
     }
 
     finalizarCena() {
-        // this.musica.stop(); // Para a música se estiver tocando
         this.cameras.main.fadeOut(1000, 0, 0, 0);
         this.cameras.main.once('camerafadeoutcomplete', () => {
             this.scene.start("BattleScene_FinalBoss");

@@ -15,12 +15,6 @@ export default class LoreLaraScene extends Phaser.Scene {
         this.cenas_music.play();
         this.fundoAtual = this.add.image(0, 0, 'cena_lara').setOrigin(0, 0).setDepth(-1);
 
-
-        // Música de fundo
-        // this.musica = this.sound.add('musicaIntro', { loop: true, volume: 0.5 });
-        // this.musica.play();
-
-        // Diálogos: [{nome, fala}]
         this.dialogos = [
             { nome: '', fala: 'Ao sair para verificar o que foi o barulho que eles ouviram, Siegel se depara com criaturas que nunca tinha visto antes.' },
             { nome: 'Siegel', fala: 'Mas o que?' },
@@ -124,7 +118,6 @@ export default class LoreLaraScene extends Phaser.Scene {
         this.nomefala.setText(dialogo.nome);
         this.falafala.setText(dialogo.fala);
 
-        // Se for o índice 7, troca o fundo com fade
         if (this.indexDialogo === 7) {
             this.trocarFundoParaApresentPern();
         }
@@ -178,7 +171,6 @@ export default class LoreLaraScene extends Phaser.Scene {
     }
 
     finalizarCena() {
-        // this.musica.stop(); // Para a música se estiver tocando
         this.cameras.main.fadeOut(1000, 0, 0, 0);
         this.cameras.main.once('camerafadeoutcomplete', () => {
             this.scene.start("GameScene");

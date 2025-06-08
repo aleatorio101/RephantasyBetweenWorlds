@@ -4,17 +4,11 @@ export default class Final1Scene extends Phaser.Scene {
         super({ key: 'Final1Scene' });
     }
 
-    init(data) {
-        // Aqui você pode passar dados se quiser futuramente
-    }
-
     preload() {
         this.load.image('Final_2_aiko', 'assets/backgrounds/Final_2_aiko.png');
         this.load.image('Final_2_archibald', 'assets/backgrounds/Final_2_archibald.png');
         this.load.image('final_2_mathhew', 'assets/backgrounds/final_2_mathhew.png');
         this.load.image('fim_batalha', 'assets/backgrounds/fim_batalha.png');
-        // Pré-carregue sua música aqui se quiser
-        // this.load.audio('musicaIntro', 'caminho/para/musica.mp3');
     }
 
 
@@ -23,23 +17,18 @@ export default class Final1Scene extends Phaser.Scene {
         this.guudending.play();
         this.fundoAtual = this.add.image(0, 0, 'fim_batalha').setOrigin(0, 0).setDepth(-1);
 
-        // Música de fundo
-        // this.musica = this.sound.add('musicaIntro', { loop: true, volume: 0.5 });
-        // this.musica.play();
-
-        // Diálogos: [{nome, fala}]
         this.dialogos = [
             { nome: 'Aiko', fala: 'E-eu… acho que deveriamos destruir o orbe.' },
-            { nome: 'Aiko', fala: 'Sim nossas vidas sao mais chatas do que pode ser aqui.. porem é injusto com esse mundo sofrer deste mal por egoísmo nosso.' },
-            { nome: 'Aiko', fala: 'Nao pertencemos a este lugar, devemos aprender a conviver com as armaguras da vida e seguir em frente.' },
+            { nome: 'Aiko', fala: 'Sim nossas vidas são mais chatas do que pode ser aqui.. porem é injusto com esse mundo sofrer deste mal por egoísmo nosso.' },
+            { nome: 'Aiko', fala: 'Não pertencemos a este lugar, devemos aprender a conviver com as armaguras da vida e seguir em frente.' },
             { nome: 'Matthew', fala: '…' },
             { nome: 'Archibald', fala: 'V-voce… voce está certa, me desculpe Aiko por ter pensado nisso.' },
             { nome: 'Matthew', fala: 'É, desculpa Aiko por ter concordado.' },
-            { nome: '', fala: 'O grupo entao junta suas forças e juntos destroem o orbe. O portal no ceu desaparece.' },
+            { nome: '', fala: 'O grupo então junta suas forças e juntos destroem o orbe. O portal no ceu desaparece.' },
             { nome: 'Archibald', fala: 'HAHA CONSEGUIMOS!!!' },
             { nome: 'Siegel', fala: 'Acabou.. finalmente..' },
-            { nome: 'Aiko', fala: 'Forca Siegel, voce também precisa seguir em frente.' },
-            { nome: '', fala: 'Os 3 habitantes do outro mundo notam que estao desaparecendo aos poucos, suas maos e pés se tornam transparentes aos poucos e assim acontece com seus corpos por inteiro, até que todos sumiram sobrando apenas Siegel.' },
+            { nome: 'Aiko', fala: 'Força Siegel, voce também precisa seguir em frente.' },
+            { nome: '', fala: 'Os 3 habitantes do outro mundo notam que estão desaparecendo aos poucos, suas mãos e pés se tornam transparentes aos poucos e assim acontece com seus corpos por inteiro, até que todos sumiram sobrando apenas Siegel.' },
             { nome: '', fala: 'Por serem de eras diferentes, trabalhar com questoes de tempo é confuso, mas Archibald, ao voltar para seu mundo, retorna ao campo de batalha da ultima vez, vê vários corpos mortos mas.' },
             { nome: '', fala: 'Ao inves de se entregar para o desespero, ele ergue a cabeca e tenta superar seus traumas, e sua vida seguiu assim, conseguiu formar outra familia nos proximos anos, e tempos de paz vieram para o reino.' },
             { nome: '', fala: 'Matthew, volta para seu quarto, que era onde estava quando vou teletransportado. Ele se belisca para averiguar se tudo aquilo era real, e ao confirmar que era, ficou com as licoes que aprendeu na aventura do outro mundo em sua cabeca, e aprendeu que sucesso na vida nao se baseia em grandes ideais, mas sim nas pequenas conquistas.' },
@@ -160,7 +149,6 @@ export default class Final1Scene extends Phaser.Scene {
     }
 
     finalizarCena() {
-        // this.musica.stop(); // Para a música se estiver tocando
         this.cameras.main.fadeOut(1000, 0, 0, 0);
         this.cameras.main.once('camerafadeoutcomplete', () => {
             this.scene.start("CreditsScene");

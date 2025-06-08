@@ -14,11 +14,6 @@ export default class PosFinalBossScene extends Phaser.Scene {
 
         this.canChooseEnding = false;
 
-        // Música de fundo
-        // this.musica = this.sound.add('musicaIntro', { loop: true, volume: 0.5 });
-        // this.musica.play();
-
-        // Diálogos: [{nome, fala}]
         this.dialogos = [
             { fala: 'O grupo consegue, com muito suor, derrotar Gerwald. Mas o mesmo não resiste ao esforço que fez para se transformar naquele monstro, e acaba morrendo ali mesmo.' },
             { nome: 'Siegel', fala: '*choro* Por que…' },
@@ -59,7 +54,6 @@ export default class PosFinalBossScene extends Phaser.Scene {
         // Listener para avançar dialogo ou confirmar escolha
         this.input.keyboard.on('keydown-SPACE', () => {
             if (this.canChooseEnding) {
-                // Se pode escolher final, seleciona final com espaço
                 this.selecionarFinal();
             } else {
                 // Avança diálogo
@@ -111,9 +105,9 @@ export default class PosFinalBossScene extends Phaser.Scene {
 
     selecionarFinal() {
         if (this.selectedOption === 0) {
-            this.scene.start('Final1Scene'); // vai para final 1
+            this.scene.start('Final1Scene');
         } else {
-            this.scene.start('Final2Scene'); // vai para final 2
+            this.scene.start('Final2Scene');
         }
     }
 
