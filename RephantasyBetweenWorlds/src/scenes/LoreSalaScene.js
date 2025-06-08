@@ -13,23 +13,23 @@ export default class LoreSalaScene extends Phaser.Scene {
         this.add.image(0, 0, 'cena_sala').setOrigin(0, 0).setDepth(-1);
 
         this.dialogos = [
-            { nome: 'Gerwald', fala: 'Olha só, então ele não estava morto, confesso que fiquei um pouco preocupado.' },
-            { nome: 'Siegel', fala: 'Bom dia pra você também.' },
+            { nome: 'Gerwald', fala: 'Olha só, então ele não estava morto. Confesso que fiquei um pouco preocupado.' },
+            { nome: 'Siegel', fala: 'Bom dia para você também.' },
             { nome: 'Siegel', fala: 'Acordou comediante hoje.' },
             { nome: 'Gerwald', fala: 'O que um bom café não faz.' },
-            { fala: 'Silencio momentaio...' },
+            { fala: 'Silêncio momentâneo...' },
             { nome: 'Gerwald', fala: '...' },
             { nome: 'Gerwald', fala: 'Hoje fazem exatos 3 anos…' },
             { nome: 'Siegel', fala: '...' },
             { nome: 'Siegel', fala: 'Vai visitá-la hoje?' },
             { nome: 'Gerwald', fala: 'Talvez, ainda quero continuar produzindo meus projetos, então não sei…' },
             { nome: 'Siegel', fala: 'Até quando vai ficar enfurnado dentro daquele porão?' },
-            { nome: 'Siegel', fala: 'Você precisa viver, vai acabar ficando ainda pior se continuar assim' },
-            { nome: 'Gerwald', fala: '*risada cansada* não se preocupe, logo as coisas vão melhorar…' },
+            { nome: 'Siegel', fala: 'Você precisa viver, vai acabar ficando ainda pior se continuar assim.' },
+            { nome: 'Gerwald', fala: '*Risada cansada* Não se preocupe, logo as coisas vão melhorar…' },
             { nome: 'Siegel', fala: '…' },
             { fala: '“GRITOS” “RUGIDOS”' },
             { nome: 'Siegel', fala: 'O que foi isso?' },
-            { nome: 'Gerwald', fala: 'Eu não faço ideia mas foi bem aqui do lado.' }
+            { nome: 'Gerwald', fala: 'Eu não faço ideia, mas foi bem aqui do lado.' }
         ];
         this.indexDialogo = 0;
 

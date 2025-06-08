@@ -17,12 +17,11 @@ export default class Final2Scene extends Phaser.Scene {
         this.fundoAtual = this.add.image(0, 0, 'fim_batalha').setOrigin(0, 0).setDepth(-1);
 
         this.dialogos = [
-            { nome: 'Aiko', fala: 'E-eu… acho que não deveríamos destruir o orbe… tambem acho esse mundo mais legal…' },
-            { nome: 'Matthew', fala: 'Então é isso.. Vamos ficar então..' },
-            { nome: 'Archibald', fala: 'Que bom.. eu acho…' },
-            { nome: '', fala: 'O grupo então toma a decisão de não destruir a orbe. Meses e Anos se passam, eles vão ficando mais fortes, tão fortes que agora fazem parte do exercito de elite do país de Almandia combatendo as criaturas que continuam saindo do portal, mas a curta paz entre Almandina e Auror se desfaz por causa da calamidade do portal e entao os mais novos guerreiros tambem enfrentam o império.' },
-            { nome: '', fala: 'A vila de Lara foi totalmente abandonada, e pessoas tanto de Almandia e Auror estao sendo atacadas e mortas com a cada vez maior infestação das criaturas do outro mundo.. FIM.' }
-
+            { nome: 'Aiko', fala: 'E-eu… acho que não deveríamos destruir o orbe… Também acho esse mundo mais legal…' },
+            { nome: 'Matthew', fala: 'Então é isso… Vamos ficar, então…' },
+            { nome: 'Archibald', fala: 'Que bom… eu acho…' },
+            { nome: '', fala: 'O grupo então toma a decisão de não destruir o orbe. Meses e anos se passam, eles vão ficando mais fortes, tão fortes que agora fazem parte do exército de elite do país de Almandia, combatendo as criaturas que continuam saindo do portal. No entanto, a curta paz entre Almandia e Auror se desfaz por causa da calamidade do portal, e então os mais novos guerreiros também enfrentam o império.' },
+            { nome: '', fala: 'A vila de Lara foi totalmente abandonada, e pessoas tanto de Almandia quanto de Auror estão sendo atacadas e mortas com a cada vez maior infestação das criaturas do outro mundo… FIM.' }
         ];
         this.indexDialogo = 0;
 

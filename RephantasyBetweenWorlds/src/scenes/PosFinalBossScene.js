@@ -15,17 +15,17 @@ export default class PosFinalBossScene extends Phaser.Scene {
         this.canChooseEnding = false;
 
         this.dialogos = [
-            { fala: 'O grupo consegue, com muito suor, derrotar Gerwald. Mas o mesmo não resiste ao esforço que fez para se transformar naquele monstro, e acaba morrendo ali mesmo.' },
-            { nome: 'Siegel', fala: '*choro* Por que…' },
+            { fala: 'O grupo consegue, com muito suor, derrotar Gerwald. Mas ele não resiste ao esforço que fez para se transformar naquele monstro, e acaba morrendo ali mesmo.' },
+            { nome: 'Siegel', fala: '*Choro* Por quê…' },
             { fala: 'O grupo então tenta consolar Siegel. Após alguns minutos conversando com ele e esclarecendo tudo que havia ocorrido, eles notam o orbe mudar de cor para uma radiante luz branca.' },
-            { fala: 'Aiko segura a orbe e diz:' },
+            { fala: 'Aiko segura o orbe e diz:' },
             { nome: 'Aiko', fala: 'Então… foi isso que causou tudo?' },
             { nome: 'Siegel', fala: 'Sim…' },
-            { nome: 'Matthew', fala: 'Então… vamos destruí-la agora?' },
+            { nome: 'Matthew', fala: 'Então… vamos destruí-lo agora?' },
             { fala: 'Eis que então, Siegel, desolado, desiste completamente de tudo e fala:' },
             { nome: 'Siegel', fala: 'Honestamente, eu… eu não me importo mais com o que vai acontecer daqui em diante… façam o que quiserem.' },
             { nome: 'Aiko', fala: '…' },
-            { nome: 'Archibald', fala: 'Aiko, espere… olha, não é querendo ser maluco, mas… devemos realmente destruí-la?' },
+            { nome: 'Archibald', fala: 'Aiko, espere… olha, não é querendo ser maluco, mas… devemos realmente destruí-lo?' },
             { nome: 'Matthew', fala: 'Como assim? Você está maluco!' },
             { nome: 'Archibald', fala: 'Espera, me escuta. A minha vida normal… ela não está nada boa… eu perdi minha família para uma doença, e meu reino está numa guerra infernal… e eu… eu não aguento mais aquela vida. Aqui eu tenho mais força que o normal, o mundo aqui é mais vibrante. Eu sinto que… aqui posso começar uma vida nova…' },
             { nome: 'Matthew', fala: 'Pensando assim… realmente, aqui é bem mais interessante do que… sabe… o mundo normal…' },

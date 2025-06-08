@@ -11,10 +11,10 @@ export default class LoreInicioScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#000000');
 
         this.dialogos = [
-            { fala: 'Em um estranho mundo.' },
-            { fala: 'Onde a magia encanta os ares.' },
-            { fala: 'Havia um jovem guerrilheiro, seu nome era Siegel. Residente de Almandia, na vila de Lara' },
-            { fala: 'Siegel, melhorando de seu trauma de ter perdido seu braco na guerra de Almandia e Auror a 7 anos, vivia com seu pai Gerwald ao qual os dois passavam por um luto. A perda da mae de Siegel, Videl.' },
+            { fala: 'Em um estranho mundo,' },
+            { fala: 'Onde a magia encanta os ares,' },
+            { fala: 'Havia um jovem guerrilheiro, seu nome era **Siegel**. Residente de Almandia, na vila de Lara.' },
+            { fala: 'Siegel, melhorando de seu trauma de ter perdido seu braço na guerra entre Almandia e Auror há 7 anos, vivia com seu pai, Gerwald, ao qual os dois passavam por um luto: a perda da mãe de Siegel, Videl.' },
             { fala: 'Em um dia aparentemente como qualquer outro… algo aconteceu…' }
         ];
         this.indexDialogo = 0;
