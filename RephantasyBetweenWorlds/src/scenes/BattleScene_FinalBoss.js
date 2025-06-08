@@ -32,7 +32,7 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
 
         //Texturas UI
         this.load.image('selector', 'assets/ui/selector.png');
-        this.load.image('battle_bg', 'assets/backgrounds/battle_final.png');
+        this.load.image('battle_final_boss', 'assets/backgrounds/battle_final.png');
 
         //Texturas base inimigos
         this.load.image('boss', 'assets/enemies/boss/boss_transformation.gif');
@@ -102,7 +102,7 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         this.bgm.play();
 
 
-        const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'battle_bg')
+        const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'battle_final_boss')
             .setOrigin(0.5)
             .setDepth(-1)
             .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
