@@ -38,6 +38,11 @@ export default class PosFinalBossScene extends Phaser.Scene {
         ];
 
         this.indexDialogo = 0;
+        
+        this.dialogoBox = this.add.graphics();
+        this.dialogoBox.fillStyle(0x000000, 0.7); // Cor preta, 70% de opacidade
+        this.dialogoBox.fillRect(30, 430, 740, 150); // Posição (x, y) e tamanho (largura, altura)
+
         this.canChooseEnding = false;
 
         // Criar textos para nome e fala
