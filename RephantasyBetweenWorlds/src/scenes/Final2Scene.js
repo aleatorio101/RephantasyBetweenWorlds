@@ -20,8 +20,8 @@ export default class Final2Scene extends Phaser.Scene {
             { nome: 'Aiko', fala: 'E-eu… acho que não deveríamos destruir a orbe… tambem acho esse mundo mais legal…' },
             { nome: 'Matthew', fala: 'Entao é isso.. Vamos ficar entao..' },
             { nome: 'Archibald', fala: 'Que bom.. eu acho…' },
-            { nome: '', fala: 'O grupo entao toma a decisao de nao destruir a orbe. Meses e Anos se passam, eles vao ficando mais fortes, tao fortes que agora fazem parte do exercito de elite do país de Almandia combatendo as criaturas que continuam saindo do portal, mas a curta paz entre Almandina e Auror se desfaz por causa da calamidade do portal e entao os mais novos guerreiros tambem enfrentam o império.' },
-            { nome: '', fala: 'A vila de Lara foi totalmente abandonada, e pessoas tanto de Almandia e Auror estao sendo atacadas e mortas com a cada vez mai maior infestacao de criaturas de outro mundo.. FIM.' }
+            { nome: '', fala: 'O grupo então toma a decisão de não destruir a orbe. Meses e Anos se passam, eles vão ficando mais fortes, tão fortes que agora fazem parte do exercito de elite do país de Almandia combatendo as criaturas que continuam saindo do portal, mas a curta paz entre Almandina e Auror se desfaz por causa da calamidade do portal e entao os mais novos guerreiros tambem enfrentam o império.' },
+            { nome: '', fala: 'A vila de Lara foi totalmente abandonada, e pessoas tanto de Almandia e Auror estao sendo atacadas e mortas com a cada vez maior infestação das criaturas do outro mundo.. FIM.' }
 
         ];
         this.indexDialogo = 0;
