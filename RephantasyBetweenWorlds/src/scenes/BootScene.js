@@ -54,6 +54,8 @@ export class BootScene extends Phaser.Scene {
         this.load.image('dungAuto', 'assets/maps/dungeon/Dungeon_Autotiles.png');
         this.load.image('dungWater', 'assets/maps/dungeon/Dungeon_WaterAnimation.png');
         this.load.image('dungDec', 'assets/maps/dungeon/DungeonDecorations.png');
+        this.load.image('button_pixel', 'assets/sprites/botao_menu.png');
+        this.load.image('seta_menu', 'assets/sprites/seta_menu.png');
 
         this.load.tilemapTiledJSON('Lara', 'assets/maps/Lara/lara.json');
         this.load.tilemapTiledJSON('Quarto', 'assets/maps/quarto/quarto.json');
