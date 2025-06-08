@@ -442,8 +442,8 @@
   <object id="1" x="476" y="535.5" width="394" height="64.1667"/>
   <object id="2" x="796.5" y="451.5" width="34.5" height="87.5"/>
   <object id="3" x="475.5" y="605" width="4.5" height="204.5"/>
-  <object id="4" x="475.5" y="801.667" width="132.5" height="7.83333"/>
-  <object id="7" x="655.5" y="802.667" width="231" height="18.3333"/>
+  <object id="4" x="475.5" y="801.667" width="127.75" height="7.83333"/>
+  <object id="7" x="660" y="802.667" width="226.5" height="18.3333"/>
   <object id="8" x="882.167" y="722.5" width="10.3333" height="101"/>
   <object id="9" x="887.5" y="722.167" width="107.5" height="23.3333"/>
   <object id="10" x="974" y="548.5" width="15.5" height="223"/>
@@ -459,6 +459,6 @@
   <object id="24" x="495.5" y="604" width="15" height="13"/>
  </objectgroup>
  <objectgroup id="9" name="lore_lara">
-  <object id="25" x="608" y="801.5" width="47" height="20"/>
+  <object id="25" x="603" y="801.5" width="58" height="20"/>
  </objectgroup>
 </map>

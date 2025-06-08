@@ -369,10 +369,10 @@
    <property name="collision" type="bool" value="true"/>
   </properties>
   <object id="1" x="633.5" y="296" width="7" height="241"/>
-  <object id="2" x="639.5" y="527.5" width="209" height="10"/>
-  <object id="3" x="897.75" y="529.5" width="3.25" height="18.5"/>
-  <object id="4" x="839.5" y="532" width="9" height="17.5"/>
-  <object id="5" x="897.5" y="528.5" width="19" height="8.5"/>
+  <object id="2" x="639.5" y="527.5" width="205.091" height="10"/>
+  <object id="3" x="899.023" y="529.5" width="1.97727" height="18.5"/>
+  <object id="4" x="839.5" y="532" width="5.18182" height="17.5"/>
+  <object id="5" x="899.045" y="528.5" width="17.4545" height="8.5"/>
   <object id="6" x="911.5" y="284.5" width="5" height="252.5"/>
   <object id="7" x="634.5" y="290" width="292" height="74.5"/>
   <object id="9" x="655.5" y="349.5" width="14.5" height="26.5"/>
@@ -381,6 +381,6 @@
   <object id="12" x="755" y="501" width="41" height="21.5"/>
  </objectgroup>
  <objectgroup id="7" name="sala_lore">
-  <object id="13" x="848" y="525.333" width="49.4167" height="23.3333"/>
+  <object id="13" x="844.455" y="525.333" width="54.5985" height="23.3333"/>
  </objectgroup>
 </map>
