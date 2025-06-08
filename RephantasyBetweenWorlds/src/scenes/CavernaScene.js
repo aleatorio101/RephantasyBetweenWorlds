@@ -12,9 +12,12 @@ export class CavernaScene extends Phaser.Scene {
             this.spawnX = data.playerX;
             this.spawnY = data.playerY;
         }
-    }
+        this.events.on('shutdown', this.shutdown, this);
+    } 
 
     create() {
+        this.map_dung_Music = this.sound.add('map_dung_music', { loop: true, volume: 0.5 });
+        this.map_dung_Music.play();
         const map = this.make.tilemap({ key: 'Caverna' });
 
         const tilesets = [
@@ -150,5 +153,10 @@ export class CavernaScene extends Phaser.Scene {
             }
         }
     }
-
+    shutdown() {
+        if (this.map_dung_Music && this.map_dung_Music.isPlaying) {
+            this.map_dung_Music.stop();
+            this.map_dung_Music.destroy();
+        }
+    }
 }

@@ -12,9 +12,12 @@ export class GameScene extends Phaser.Scene {
             this.spawnX = data.playerX;
             this.spawnY = data.playerY;
         }
+        this.events.on('shutdown', this.shutdown, this);
     }
 
     create() {
+        this.mapMusic = this.sound.add('map_music', { loop: true, volume: 0.5 });
+        this.mapMusic.play();
         const map = this.make.tilemap({ key: 'Lara' });
 
 
@@ -152,6 +155,12 @@ export class GameScene extends Phaser.Scene {
             if (lastDir) {
                 this.player.setTexture(lastDir.texture);
             }
+        }
+    }
+    shutdown() {
+        if (this.mapMusic && this.mapMusic.isPlaying) {
+            this.mapMusic.stop();
+            this.mapMusic.destroy();
         }
     }
 }

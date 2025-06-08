@@ -567,12 +567,7 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
                     char.unit.ganharXP(5);
                 }
             });
-            this.time.delayedCall(1500, () => {
-                this.scene.start(this.previousScene, {
-                    playerX: this.playerX,
-                    playerY: this.playerY
-                });
-            });
+            this.scene.start('PosFinalBossScene');
         } else {
             this.add.text(250, 300, 'Derrota...', { fontSize: '48px', fill: '#f00' });
             this.time.delayedCall(1500, () => {

@@ -6,6 +6,8 @@ export class QuartoScene extends Phaser.Scene {
     }
 
     create() {
+        this.mapMusic = this.sound.add('map_music', { loop: true, volume: 0.5 });
+        this.mapMusic.play();
         const map = this.make.tilemap({ key: 'Quarto' });
 
         const tilesets = [
@@ -23,6 +25,27 @@ export class QuartoScene extends Phaser.Scene {
         ];
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+        const salaZone = map.getObjectLayer('sala_lore')?.objects?.[0];
+
+        if (salaZone) {
+            this.salaZoneRect = new Phaser.Geom.Rectangle(
+                salaZone.x,
+                salaZone.y,
+                salaZone.width,
+                salaZone.height
+            );
+        }
+
+        this.events.on('update', () => {
+            if (this.salaZoneRect && Phaser.Geom.Rectangle.Contains(this.salaZoneRect, this.player.x, this.player.y)) {
+                this.scene.start('LoreSalaScene', {
+                    previousScene: 'QuartoScene',
+                    playerX: 50,
+                    playerY: 550
+                });
+            }
+        });
 
 
          //Configura colisão
@@ -43,19 +66,6 @@ export class QuartoScene extends Phaser.Scene {
         this.player = this.physics.add.sprite(770, 400, 'Siegel_down');
         this.player.setCollideWorldBounds(true);
 
-        const salaZone = map.getObjectLayer('sala').objects[0];
-
-        this.salaZone = this.physics.add.staticSprite(
-            salaZone.x + salaZone.width / 2,
-            salaZone.y + salaZone.height / 2,
-            null
-        ).setSize(salaZone.width, salaZone.height).setVisible(false);
-
-        this.physics.add.overlap(this.player, this.salaZone, () => {
-            this.scene.start('SalaScene');
-        });
-
-
         this.cursors = this.input.keyboard.createCursorKeys();
         this.physics.add.collider(this.player, this.walls);
 
@@ -69,6 +79,7 @@ export class QuartoScene extends Phaser.Scene {
     }
 
     update() {
+
         if (Phaser.Input.Keyboard.JustDown(this.keyESC)) {
             this.pauseOverlay.toggle();
         }
@@ -78,10 +89,10 @@ export class QuartoScene extends Phaser.Scene {
         this.player.setVelocity(0);
 
         const directions = [
-            { key: 'left',  isDown: this.cursors.left.isDown,  setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
-            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed),  anim: 'walk_right', texture: 'Siegel_direita' },
-            { key: 'up',    isDown: this.cursors.up.isDown,    setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up',    texture: 'Siegel_up' },
-            { key: 'down',  isDown: this.cursors.down.isDown,  setVelocity: () => this.player.setVelocityY(speed),  anim: 'walk_down',  texture: 'Siegel_down' }
+            { key: 'left', isDown: this.cursors.left.isDown, setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
+            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed), anim: 'walk_right', texture: 'Siegel_direita' },
+            { key: 'up', isDown: this.cursors.up.isDown, setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up', texture: 'Siegel_up' },
+            { key: 'down', isDown: this.cursors.down.isDown, setVelocity: () => this.player.setVelocityY(speed), anim: 'walk_down', texture: 'Siegel_down' }
         ];
 
         let moved = false;
@@ -104,5 +115,13 @@ export class QuartoScene extends Phaser.Scene {
             }
         }
     }
-
+    shutdown() {
+        if (this.mapMusic && this.mapMusic.isPlaying) {
+            this.mapMusic.stop();
+            this.mapMusic.destroy();
+        }
+    }
+    init() {
+        this.events.on('shutdown', this.shutdown, this);
+    }
 }

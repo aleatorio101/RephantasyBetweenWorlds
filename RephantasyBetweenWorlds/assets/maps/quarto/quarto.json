@@ -426,8 +426,8 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":6.5,
-                 "x":894.5,
+                 "width":3.25,
+                 "x":897.75,
                  "y":529.5
                 }, 
                 {
@@ -533,18 +533,18 @@
         {
          "draworder":"topdown",
          "id":7,
-         "name":"sala",
+         "name":"sala_lore",
          "objects":[
                 {
-                 "height":23.3333333333334,
+                 "height":23.3333,
                  "id":13,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":46.6666666666666,
+                 "width":49.4167,
                  "x":848,
-                 "y":525.333333333333
+                 "y":525.333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -552,8 +552,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":13,
+ "nextlayerid":8,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -562,7 +562,7 @@
         {
          "columns":16,
          "firstgid":1,
-         "image":"..\/interior_casa (2)\/interior_casa\/tileset_16x16_interior.png",
+         "image":"../interior_casa (2)/interior_casa/tileset_16x16_interior.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
@@ -575,7 +575,7 @@
         {
          "columns":18,
          "firstgid":257,
-         "image":"..\/interior_casa (2)\/interior_casa\/6_floors.png",
+         "image":"../interior_casa (2)/interior_casa/6_floors.png",
          "imageheight":224,
          "imagewidth":288,
          "margin":0,

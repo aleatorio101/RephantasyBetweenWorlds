@@ -12,9 +12,12 @@ export class FlorestaScene extends Phaser.Scene {
             this.spawnX = data.playerX;
             this.spawnY = data.playerY;
         }
+        this.events.on('shutdown', this.shutdown, this);
     }
 
     create() {
+        this.mapMusic = this.sound.add('map_music', { loop: true, volume: 0.5 });
+        this.mapMusic.play();
         const map = this.make.tilemap({ key: 'Floresta' });
 
         const tilesets = [
@@ -75,6 +78,26 @@ export class FlorestaScene extends Phaser.Scene {
             this.registry.set('spawnY', 650);
             this.scene.start('GameScene');
         });
+        const BossZone = map.getObjectLayer('cena_batalhaFinal')?.objects?.[0];
+
+        if (BossZone) {
+            this.BossZoneRect = new Phaser.Geom.Rectangle(
+                BossZone.x,
+                BossZone.y,
+                BossZone.width,
+                BossZone.height
+            );
+        }
+
+        this.events.on('update', () => {
+            if (this.BossZoneRect && Phaser.Geom.Rectangle.Contains(this.BossZoneRect, this.player.x, this.player.y)) {
+                this.scene.start('LoreBatalhaFinalScene', {
+                    previousScene: 'GameScene',
+                    playerX: 50,
+                    playerY: 550
+                });
+            }
+        });
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -131,6 +154,12 @@ export class FlorestaScene extends Phaser.Scene {
             if (lastDir) {
                 this.player.setTexture(lastDir.texture);
             }
+        }
+    }
+    shutdown() {
+        if (this.mapMusic && this.mapMusic.isPlaying) {
+            this.mapMusic.stop();
+            this.mapMusic.destroy();
         }
     }
 }

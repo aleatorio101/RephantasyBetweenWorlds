@@ -458,7 +458,7 @@
   <object id="23" x="511.5" y="607" width="64" height="17.5"/>
   <object id="24" x="495.5" y="604" width="15" height="13"/>
  </objectgroup>
- <objectgroup id="9" name="lara">
+ <objectgroup id="9" name="lore_lara">
   <object id="25" x="608" y="801.5" width="47" height="20"/>
  </objectgroup>
 </map>

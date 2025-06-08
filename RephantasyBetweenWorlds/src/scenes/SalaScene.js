@@ -6,6 +6,8 @@ export class SalaScene extends Phaser.Scene {
     }
 
     create() {
+        this.mapMusic = this.sound.add('map_music', { loop: true, volume: 0.5 });
+        this.mapMusic.play();
         const map = this.make.tilemap({ key: 'Sala' });
 
         const tilesets = [
@@ -44,16 +46,25 @@ export class SalaScene extends Phaser.Scene {
         this.player = this.physics.add.sprite(850, 620, 'Siegel_down');
         this.player.setCollideWorldBounds(true);
 
-        const LaraZone = map.getObjectLayer('lara').objects[0];
+        const laraZone = map.getObjectLayer('lore_lara')?.objects?.[0];
 
-        this.LaraZone = this.physics.add.staticSprite(
-        LaraZone.x + LaraZone.width / 2,
-        LaraZone.y + LaraZone.height / 2,
-        null
-        ).setSize(LaraZone.width, LaraZone.height).setVisible(false);
+        if (laraZone) {
+            this.laraZoneRect = new Phaser.Geom.Rectangle(
+                laraZone.x,
+                laraZone.y,
+                laraZone.width,
+                laraZone.height
+            );
+        }
 
-        this.physics.add.overlap(this.player, this.LaraZone, () => {
-        this.scene.start('GameScene');
+        this.events.on('update', () => {
+            if (this.laraZoneRect && Phaser.Geom.Rectangle.Contains(this.laraZoneRect, this.player.x, this.player.y)) {
+                this.scene.start('LoreLaraScene', {
+                    previousScene: 'SalaScene',
+                    playerX: 50,
+                    playerY: 550
+                });
+            }
         });
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -80,10 +91,10 @@ export class SalaScene extends Phaser.Scene {
         this.player.setVelocity(0);
 
         const directions = [
-            { key: 'left',  isDown: this.cursors.left.isDown,  setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
-            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed),  anim: 'walk_right', texture: 'Siegel_direita' },
-            { key: 'up',    isDown: this.cursors.up.isDown,    setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up',    texture: 'Siegel_up' },
-            { key: 'down',  isDown: this.cursors.down.isDown,  setVelocity: () => this.player.setVelocityY(speed),  anim: 'walk_down',  texture: 'Siegel_down' }
+            { key: 'left', isDown: this.cursors.left.isDown, setVelocity: () => this.player.setVelocityX(-speed), anim: 'walk_left', texture: 'Siegel_esquerda' },
+            { key: 'right', isDown: this.cursors.right.isDown, setVelocity: () => this.player.setVelocityX(speed), anim: 'walk_right', texture: 'Siegel_direita' },
+            { key: 'up', isDown: this.cursors.up.isDown, setVelocity: () => this.player.setVelocityY(-speed), anim: 'walk_up', texture: 'Siegel_up' },
+            { key: 'down', isDown: this.cursors.down.isDown, setVelocity: () => this.player.setVelocityY(speed), anim: 'walk_down', texture: 'Siegel_down' }
         ];
 
         let moved = false;
@@ -105,5 +116,14 @@ export class SalaScene extends Phaser.Scene {
                 this.player.setTexture(lastDir.texture);
             }
         }
+    }
+    shutdown() {
+        if (this.mapMusic && this.mapMusic.isPlaying) {
+            this.mapMusic.stop();
+            this.mapMusic.destroy();
+        }
+    }
+    init() {
+        this.events.on('shutdown', this.shutdown, this);
     }
 }

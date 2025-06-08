@@ -7,6 +7,15 @@ export class BootScene extends Phaser.Scene {
 
     preload() {
         this.load.image('menu_bg', 'assets/sprites/menu_bg.jpeg');
+        this.load.audio('menu_music', 'assets/sounds/bgm/Title Theme.mp3');
+        this.load.audio('map_music', 'assets/sounds/bgm/The Calm Before The Storm.mp3');
+        this.load.audio('map_dung_music', 'assets/sounds/bgm/GoldenSun Soundtrack 04 - The Sanctum of Sol.mp3');
+        this.load.audio('cenas_music', 'assets/sounds/bgm/Ys VIII -Lacrimosa of DANA- OST - One Dream, One Reality.mp3');
+        this.load.audio('cena_boss', 'assets/sounds/bgm/[High Quality] Shadow of the Colossus OST 02 - Prohibited Arts.mp3');
+        this.load.audio('credit', 'assets/sounds/bgm/The Final of The Fantasy.mp3');
+        this.load.audio('badending', 'assets/sounds/bgm/[High Quality] Shadow of the Colossus OST 09 - The End of the Battle.mp3');
+        this.load.audio('guudending', 'assets/sounds/bgm/Pokémon XY - BlackWhite Emotion Music (HQ).mp3');
+
         //carrega tilesets de lara
         this.load.image('tileset1', 'assets/maps/Lara/tileset_version1.1.png');
         this.load.image('terrain', 'assets/maps/Lara/terrain_tiles_v2.png');
