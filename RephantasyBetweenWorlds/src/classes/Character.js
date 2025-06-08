@@ -113,8 +113,20 @@ export default class Character {
 
                     targetCharacter.showFloatingText(`+${healed}`, '#00ff88');
                     targetCharacter.updateHpBar();
+
                 } else {
-                    let damage = ability.power - targetCharacter.unit.defense;
+
+                    const scalingAttr = ability.scalingAttribute || 'attack';
+                    const scalingValue = this.unit[scalingAttr] || 0;
+
+                    
+                    let scalingDivisor = 1.25;
+                    if (scalingAttr === 'mana' || scalingAttr === 'maxMana') scalingDivisor = 4.5;
+                    if (scalingAttr === 'defense') scalingDivisor = 1.25;
+
+                    let totalPower = Math.round((ability.power + scalingValue) / scalingDivisor);
+
+                    let damage = totalPower - targetCharacter.unit.defense;
                     if (damage < 0) damage = 0;
 
                     targetCharacter.unit.hp -= damage;

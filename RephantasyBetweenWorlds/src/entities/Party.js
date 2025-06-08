@@ -21,6 +21,7 @@ export const party = [
             power: 60,
             target: 'enemy',
             sfxKey: 'siegel_attack_sfx',
+            scalingAttribute: 'attack'
         }]
     }),
     new Unit({
@@ -44,6 +45,7 @@ export const party = [
             target: 'enemy',
             animationKey: 'aiko_attack',
             sfxKey: 'aiko_skill_sfx',
+            scalingAttribute: 'maxMana'
         }]
     }),
     new Unit({
@@ -67,7 +69,8 @@ export const party = [
             power: 15,
             duration: 3,
             target: 'enemy',
-            sfxKey: 'matthew_attack_sfx'
+            sfxKey: 'matthew_attack_sfx',
+            scalingAttribute: 'mana'
         }]
     }),
     new Unit({
@@ -89,7 +92,8 @@ export const party = [
             type: 'physical',
             power: 50,
             target: 'enemy',
-            sfxKey: 'archibald_skill_sfx'
+            sfxKey: 'archibald_skill_sfx',
+            scalingAttribute: 'defense'
         }]
     }),
 ];
