@@ -26,7 +26,8 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         this.load.audio('archibald_attack_sfx', 'assets/sounds/sfx/Sword Attack 2.wav');
         this.load.audio('archibald_skill_sfx', 'assets/sounds/sfx/Sword Parry 2.wav');
 
-        // this.load.audio('boss_attack_sfx', 'assets/sounds/sfx/08_Bite_04.wav');
+        this.load.audio('boss_entrada_sfx', 'assets/sounds/sfx/demon-2-102993.mp3');
+        this.load.audio('boss_attack_sfx', 'assets/sounds/sfx/boss_attack.mp3');
 
 
         //Texturas UI
@@ -168,7 +169,7 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
                 attack: 100,
                 defense: 50,
                 speed: 10,
-                sfxKey: '',
+                sfxKey: 'boss_attack_sfx',
                 isPlayer: false,
                 abilities: []
             },
@@ -194,13 +195,14 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
             this.enemyCharacters.push(boss);
 
             boss.sprite.setFrame(0);
-
             this.time.delayedCall(2500, () => {
+                this.sound.play('boss_entrada_sfx', { volume: 0.6 });
                 boss.sprite.play('boss_entrada');
             });
 
             boss.sprite.on('animationcomplete-boss_entrada', () => {
                 boss.sprite.play('boss_attack');
+                this.sound.play('boss_attack_sfx', { volume: 0.7 });
             });
         }
 
