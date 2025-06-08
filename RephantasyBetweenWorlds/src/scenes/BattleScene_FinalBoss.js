@@ -212,7 +212,9 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
 
         this.createMenu();
 
-        this.startTurn();
+        this.time.delayedCall(8000, () => {
+            this.startTurn();
+        });
     }
 
     createMenu() {
