@@ -26,8 +26,8 @@ export default class Final2Scene extends Phaser.Scene {
         this.indexDialogo = 0;
 
         this.dialogoBox = this.add.graphics();
-        this.dialogoBox.fillStyle(0x000000, 0.7); // Cor preta, 70% de opacidade
-        this.dialogoBox.fillRect(30, 430, 740, 150); // Posição (x, y) e tamanho (largura, altura)
+        this.dialogoBox.fillStyle(0x000000, 0.7);
+        this.dialogoBox.fillRect(30, 430, 740, 250);
 
         this.nomeTexto = this.add.text(50, 450, '', {
             fontSize: '18px',
@@ -81,7 +81,7 @@ export default class Final2Scene extends Phaser.Scene {
     }
 
     criarBotaoPular() {
-        const botao = this.add.text(650, 550, '[Pular >>]', {
+        const botao = this.add.text(650, 600, '[Pular >>]', {
             fontSize: '16px',
             fill: '#999999',
             fontFamily: 'serif',
