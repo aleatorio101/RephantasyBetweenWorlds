@@ -157,12 +157,12 @@ export default class BattleScene_dg_boss extends Phaser.Scene {
         const enemyTypes = [
             {
                 name: 'minotaur',
-                hp: 200,
-                maxHp: 200,
+                hp: 1250,
+                maxHp: 1250,
                 mana: 0,
                 maxMana: 0,
-                attack: 50,
-                defense: 10,
+                attack: 75,
+                defense: 35,
                 speed: 10,
                 sfxKey: 'minotaur_attack_sfx',
                 isPlayer: false,

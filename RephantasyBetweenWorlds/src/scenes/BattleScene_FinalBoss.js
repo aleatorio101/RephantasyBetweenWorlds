@@ -162,13 +162,13 @@ export default class BattleScene_FinalBoss extends Phaser.Scene {
         const enemyTypes = [
             {
                 name: 'boss',
-                hp: 350,
-                maxHp: 350,
+                hp: 2500,
+                maxHp: 2500,
                 mana: 0,
                 maxMana: 0,
-                attack: 100,
-                defense: 50,
-                speed: 10,
+                attack: 125,
+                defense: 100,
+                speed: 50,
                 sfxKey: 'boss_attack_sfx',
                 isPlayer: false,
                 abilities: []
