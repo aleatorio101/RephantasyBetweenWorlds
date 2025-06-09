@@ -15,28 +15,28 @@ Rephantasy: Between Worlds é um jogo de RPG 2D em pixel art, construído com o 
 
 RephantasyBetweenWorlds/
 ├── assets/
-│   ├── sprites/
-│   ├── tilesets/
-│   └── audio/
+│ ├── sprites/
+│ ├── tilesets/
+│ └── audio/
 ├── src/
-│   ├── entities/
-│   │   ├── Party.js
-│   │   └── Unit.js
-│   ├── mov/
-│   │   └── mov.js
-│   ├── scenes/
-│   │   ├── BattleScene_floresta.js
-│   │   ├── BootScene.js
-│   │   ├── MenuScene.js
-│   │   ├── QuartoScene.js
-│   │   ├── SalaScene.js
-│   │   └── ... (outras cenas)
-│   └── ui/
-│       └── PauseOverlay.js
+│ ├── entities/
+│ │ ├── Party.js
+│ │ └── Unit.js
+│ ├── mov/
+│ │ └── mov.js
+│ ├── scenes/
+│ │ ├── BattleScene_floresta.js
+│ │ ├── BootScene.js
+│ │ ├── MenuScene.js
+│ │ ├── QuartoScene.js
+│ │ ├── SalaScene.js
+│ │ └── ... (outras cenas)
+│ └── ui/
+│ └── PauseOverlay.js
 ├── index.html
 ├── main.js
 └── README.md
-```
+
 - **assets/**: Imagens, spritesheets, tilesets, áudios e outros recursos do jogo.
 - **src/entities/**: Definição dos personagens, party e lógica de atributos.
 - **src/mov/**: Utilitários de animação (ex: criação de animações do personagem).
