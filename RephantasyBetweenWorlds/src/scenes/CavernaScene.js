@@ -92,7 +92,7 @@ export class CavernaScene extends Phaser.Scene {
 
 
         this.bossZone = this.physics.add.staticSprite(100 + 220, 800 + 50, null)
-            .setSize(100, 100)
+            .setSize(100, 200)
             .setVisible(false);
 
         this.bossTriggered = false;
