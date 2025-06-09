@@ -12,7 +12,7 @@ Rephantasy: Between Worlds é um jogo de RPG 2D em pixel art, construído com o 
 - ✅ Telas responsivas e integração com câmera
 
 ## 🎮 Como jogar
-- Movimentação pelo mapa usando as setad do teclado
+- Movimentação pelo mapa usando as setas do teclado
 - No menu de combate, use as setas superior e inferior para movimentar pelo menu, espaço para selecionar, shift para voltar pelo menu de combate, setas laterais para mudar de alvo.
 - No menu principal, use as setas superior e inferior para movimentar pelo menu e espaço para selecionar.
 - Precione ESC no mapa para pausar.
